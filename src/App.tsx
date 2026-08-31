@@ -1,17 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
+import { StrictMode, useMemo } from 'react';
+import { createHashRouter, Outlet, RouterProvider } from 'react-router-dom';
+
+import MainLayout from './layouts/MainLayout';
+import Home from './pages/Home';
+import Portfolio from './pages/Portfolio';
+
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const RouterLoader = () => {
+  const router = useMemo(() => createHashRouter([
+    {
+      path: '/',
+      element: <AppContent />,
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+        {
+          path: '/portfolio',
+          element: <Portfolio />,
+        }
+      ]
+    }
+  ]), []);
+
+  return (<RouterProvider router={router} />);
+};
+
+const AppContent = () => {
+  return (
+    <MainLayout>
+      <Outlet />
+    </MainLayout>
+  )
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Dan's Placeholder React App.
-        </p>
-      </header>
-    </div>
+    <StrictMode>
+      <RouterLoader />
+    </StrictMode>
   );
 }
 
