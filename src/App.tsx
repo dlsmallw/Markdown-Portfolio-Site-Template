@@ -1,5 +1,5 @@
 import { StrictMode, useMemo } from 'react';
-import { createHashRouter, Outlet, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
@@ -9,9 +9,9 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const RouterLoader = () => {
-  const router = useMemo(() => createHashRouter([
+  const router = useMemo(() => createBrowserRouter([
     {
-      path: '/',
+      path: '',
       element: <AppContent />,
       children: [
         {
