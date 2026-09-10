@@ -38,12 +38,15 @@ const Navbar: React.FC = () => {
 const CustomStyles: Record<string, React.CSSProperties> = {
     navbar: {
         backgroundColor: '#21252C',
-        padding: '10px 20px',
+        // padding: '10px 20px',
         width: '100%',
         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+        // height: 'max(calc(100vh * 0.08), 50px)',
     },
+    
     navContainer: {
         justifyContent: 'space-between',
+        flexDirection: 'row',
     },
     navbarText: {
         color: '#E7E7E9',
