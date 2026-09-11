@@ -6,6 +6,29 @@
   height: 40vmin;
   pointer-events: none;
 }
+@media screen and (max-width: 940px) {
+  #home-container {
+    grid-template-columns: 1fr 2fr !important;
+  }
+}
+
+
+
+@media screen and (min-width: 940px) {
+  #home-container {
+    grid-template-columns: 0.5fr 1.5fr 0.5fr !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .navbar {
+    padding: 0 !important;
+  }
+
+  .nav-link {
+    margin: 0 10px !important;
+  }
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

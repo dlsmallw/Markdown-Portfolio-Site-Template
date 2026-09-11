@@ -12,7 +12,7 @@ const NavLink: React.FC<{ to: string, children: React.ReactNode }> = ({ to, chil
             color: location.pathname === to ? '#fff' : CustomStyles.navbarText.color,
             opacity: location.pathname !== to && isHovered ? 0.7 : 1,
             cursor: location.pathname !== to ? 'pointer' : 'default',
-            borderBottom: location.pathname === to ? '2px solid #61dafb' : 'none',
+            borderBottom: `2px solid ${location.pathname === to ? '#61dafb' : 'transparent'}`,
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -38,22 +38,24 @@ const Navbar: React.FC = () => {
 const CustomStyles: Record<string, React.CSSProperties> = {
     navbar: {
         backgroundColor: '#21252C',
-        // padding: '10px 20px',
         width: '100%',
         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-        // height: 'max(calc(100vh * 0.08), 50px)',
+        height: 'max(8vh, 50px)',
     },
-    
     navContainer: {
         justifyContent: 'space-between',
         flexDirection: 'row',
+        height: '100%',
+        alignItems: 'center',
     },
     navbarText: {
         color: '#E7E7E9',
     },
     navLinkContainer: {
         margin: '0 5px 0 5px',
-        transition: 'opacity 0.3s ease'
+        transition: 'opacity 0.3s ease',
+        height: '100%',
+        alignItems: 'center',
     },
 };
 

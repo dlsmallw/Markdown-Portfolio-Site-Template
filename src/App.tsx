@@ -5,8 +5,9 @@ import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
 import Portfolio from './pages/Portfolio';
 
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+
 
 const RouterLoader = () => {
   const router = useMemo(() => createBrowserRouter([

@@ -7,7 +7,7 @@ const NavBtn: React.FC<{ isActive: boolean, onClick: () => void, children: React
     return (
         <button onClick={onClick} style={{
             ...CustomStyles.navBtn, 
-            borderRight: isActive ? '1px solid #ccc' : 'none',
+            borderRight: isActive ? '1px solid #ccc' : '1px solid transparent',
             opacity: isHovered ? 0.7 : 1,
             backgroundImage: isHovered ? 'linear-gradient(to right, transparent, #cccccc36)' : 'none',
             transition: 'opacity 0.3s ease-in-out, background-image 0.3s ease-in-out',
@@ -93,7 +93,9 @@ const Home: React.FC = () => {
     };
 
     return (
-        <div style={CustomStyles.outerContainer}>
+        <div id="home-container" style={{
+            ...CustomStyles.outerContainer,
+        }}>
             <InpageNavbarContainer>
                 <NavBtn isActive={activeSection === 'introduction'} onClick={() => handleScroll(introRef)}>Introduction</NavBtn>
                 <NavBtn isActive={activeSection === 'about'} onClick={() => handleScroll(aboutRef)}>About</NavBtn>
@@ -146,6 +148,7 @@ const Home: React.FC = () => {
                     <p style={CustomStyles.contentText}>Here's how to contact me.</p>
                     <p style={CustomStyles.contentText}>lorem ipsum dolor sit amet consectetur adipiscing elit veniam in aute quo laboris in omnis cupiditate qui ut similique vel pariatur cum quod consequatur ut aliquip omnis voluptas esse velit veniam quas do mollitia temporibus cum cillum sint et omnis accusamus voluptas non ea est qui irure aute non cumque</p>
                 </PageSection>
+                <div id="bottom-spacer" style={{height: `calc(calc(${window.innerHeight}px - calc(max(8vh, 50px) + 20px)) - ${document.getElementById('contact')?.offsetHeight}px)`}}></div>
             </ContentContainer>
         </div>
     );
@@ -154,17 +157,12 @@ const Home: React.FC = () => {
 const CustomStyles: Record<string, React.CSSProperties> = {
     outerContainer: {
         display: 'grid',
-        gridTemplateColumns: '0.5fr 1.5fr 0.5fr',
         
-        // alignItems: 'start',
-        
-        // minHeight: '100vh',
-        // paddingTop: '8vh',
     },
     contentContainer: {
         // top: 'max(calc(8vh + 20px), 70px)',
-        margin: 'auto auto 60vh 20px',
-        // marginTop: '20px',
+        margin: '10px auto auto 20px',
+        // marginTop: '10px',
         textAlign: 'center',
         width: '50vw',
         // marginBottom: '35vh'
@@ -174,23 +172,30 @@ const CustomStyles: Record<string, React.CSSProperties> = {
     },
     inpageNavbarGrid: {
         position: 'sticky',
-        top: 'max(calc(8vh + 20px), 70px)',
+        top: 'calc(max(8vh, 50px) + 10px)',
+        height: 'calc(100vh - calc(max(8vh, 50px) + 20px))',
         overflowY: 'auto',
-        height: 'calc(100vh - max(calc(8vh + 20px), 70px) - 10px)',
+        margin: '10px 0 10px 0',
+        display: 'flex',
+        justifyContent: 'right',
         
         borderRight: '1px solid #cccccc2d',
-        width: 'fit-content',
-        minWidth: '150px',
+        width: '100%',
+        
+        // minWidth: 'fit-content',
         paddingLeft: '10px',
         scrollbarWidth: 'none',
     },
     inpageNavbar: {
+        marginTop: '10px',
         display: 'flex',
         flexDirection: 'column',
-        fontSize: 'calc(3px + 2vmin)',
-        width: '100%',
-        marginTop: '3vh',
-        marginRight: '20px',
+        
+        minWidth: 'fit-content',
+
+        
+        
+        // marginRight: '20px',
     },
     navBtn: {
         backgroundColor: 'transparent',
@@ -198,13 +203,14 @@ const CustomStyles: Record<string, React.CSSProperties> = {
         color: 'white',
         cursor: 'pointer',
         textAlign: 'left',
-        height: 'fit-content',
+        paddingRight: 'min(20px, 2vw)',
+        minWidth: '140px',
+        fontSize: 'clamp(0.5rem, 1rem + 2vmin, 1.25rem)',
     },
     pageSection: {
-        scrollMarginTop: 'max(calc(8vh + 20px), 70px)',
+        scrollMarginTop: 'calc(max(8vh, 50px) + 20px)',
         textAlign: 'left',
-        paddingTop: '10px',
-        paddingBottom: '20px',
+        paddingBottom: '10px',
     },
 };
 
