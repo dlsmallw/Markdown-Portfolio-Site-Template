@@ -2,11 +2,15 @@ import { StrictMode, useMemo } from 'react';
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 
 import MainLayout from './layouts/MainLayout';
-import Home from './pages/Home';
+import Home, { homepageClientLoader } from './pages/Home';
 import Portfolio from './pages/Portfolio';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+
+import * as config from './config';
+
+console.log(config);
 
 
 const RouterLoader = () => {
@@ -18,6 +22,7 @@ const RouterLoader = () => {
         {
           index: true,
           element: <Home />,
+          loader: homepageClientLoader,
         },
         {
           path: '/portfolio',

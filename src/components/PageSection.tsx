@@ -1,7 +1,20 @@
-const PageSection: React.FC<{ scrollRef: React.RefObject<HTMLDivElement | null>, id: string, children: React.ReactNode }> = ({ scrollRef, id, children }) => {
+import { VFile } from "vfile";
+import ComponentRegistry from "./sections/elements/ComponentRegistry";
+import ReactMarkdown, { Components } from "react-markdown";
+import rehypeRaw from "rehype-raw";
+
+const PageSection: React.FC<{ 
+    scrollRef: React.RefObject<HTMLDivElement | null>;
+    markdown: VFile;
+    id: string;
+}> = ({ scrollRef, markdown, id, ...props }) => {
     return (
-        <div className="page-section" key={id} id={id} ref={scrollRef} style={CustomStyles.pageSection}>
-            {children}
+        <div className="page-section" ref={scrollRef} style={CustomStyles.pageSection} {...props}>
+            {markdown ? (
+                <ReactMarkdown components={ComponentRegistry as Components} rehypePlugins={[rehypeRaw]} >{`${markdown}`}</ReactMarkdown>
+            ) : (
+                <div className='container'>Loading...</div>
+            )}
         </div>
     )
 }
