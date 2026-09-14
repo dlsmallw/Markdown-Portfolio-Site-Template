@@ -7,9 +7,9 @@ const PageSection: React.FC<{
     scrollRef: React.RefObject<HTMLDivElement | null>;
     markdown: VFile;
     id: string;
-}> = ({ scrollRef, markdown, id, ...props }) => {
+}> = ({ scrollRef, markdown, id }) => {
     return (
-        <div className="page-section" ref={scrollRef} style={CustomStyles.pageSection} {...props}>
+        <div className="page-section" id={id} ref={scrollRef} style={CustomStyles.pageSection} >
             {markdown ? (
                 <ReactMarkdown components={ComponentRegistry as Components} rehypePlugins={[rehypeRaw]} >{`${markdown}`}</ReactMarkdown>
             ) : (

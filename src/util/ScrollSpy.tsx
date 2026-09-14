@@ -23,6 +23,9 @@ export function useScrollSpy(sectionIDs: string[], options?: IntersectionObserve
             }
         });
 
+        return () => {
+            observer.disconnect();
+        }
     }, [sectionIDs, options]);
 
     return activeSection;

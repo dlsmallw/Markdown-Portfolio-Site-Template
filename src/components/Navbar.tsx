@@ -1,13 +1,23 @@
 import React from 'react';
 import { Navbar as BSNavbar, Container, Nav } from 'react-bootstrap';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const NavLink: React.FC<{ to: string, children: React.ReactNode }> = ({ to, children }) => {
     const location = useLocation();
+    const navigate = useNavigate();
     const [isHovered, setIsHovered] = React.useState(false);
 
+    const handleNavigation = (e: React.MouseEvent<HTMLElement, MouseEvent>, targetPath: string) => {
+        e.preventDefault();
+        // Block navigation if already on this page
+        if (location.pathname === targetPath) {
+        return; 
+        }
+        navigate(targetPath);
+    };
+
     return (
-        <Nav.Link as={Link} to={to} style={{
+        <Nav.Link style={{
             ...CustomStyles.navLinkContainer,
             color: location.pathname === to ? '#fff' : CustomStyles.navbarText.color,
             opacity: location.pathname !== to && isHovered ? 0.7 : 1,
@@ -16,6 +26,7 @@ const NavLink: React.FC<{ to: string, children: React.ReactNode }> = ({ to, chil
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        onClick={(e) => handleNavigation(e, to)}
         >
             {children}
         </Nav.Link>
@@ -24,7 +35,7 @@ const NavLink: React.FC<{ to: string, children: React.ReactNode }> = ({ to, chil
 
 const Navbar: React.FC = () => {
     return (
-        <BSNavbar expand="sm" sticky="top" style={CustomStyles.navbar}>
+        <BSNavbar className='Navbar-Container' expand="sm" sticky="top" style={CustomStyles.navbar}>
             <Container className="justify-content-center">
                 <Nav style={CustomStyles.navContainer}>
                     <NavLink to="/">Home</NavLink>

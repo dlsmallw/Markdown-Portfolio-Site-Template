@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom/client';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Buffer } from 'buffer';
 
 import './index.css';
 // import './config';
+
+globalThis.Buffer = Buffer;
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
