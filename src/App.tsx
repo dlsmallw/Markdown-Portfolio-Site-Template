@@ -1,24 +1,19 @@
 import { createRef, StrictMode, useEffect, useMemo, useState } from 'react';
 import { createBrowserRouter, LoaderFunctionArgs, Outlet, RouterProvider, useLoaderData, useLocation } from 'react-router-dom';
 
+import { VFile } from 'vfile';
+import matter from 'gray-matter';
+
+import { processMarkdown } from './util/Markdown';
+
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
 import Portfolio from './pages/Portfolio';
+
 import layoutJSON from './data/home/layout.json';
-
-
-
-import { VFile } from 'vfile';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { processMarkdown } from './util/Markdown';
-import matter from 'gray-matter';
-
-type SectionData = {
-    id: string,
-    markdown: VFile
-};
 
 const RouterLoader = () => {
   const router = useMemo(() => createBrowserRouter([

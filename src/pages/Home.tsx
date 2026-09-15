@@ -1,4 +1,4 @@
-import { createRef, RefObject, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useScrollSpy } from '../util/ScrollSpy';
 import { InpageNavBtn, InpageNavbarContainer } from '../components/InpageNavigation';
 
@@ -9,9 +9,6 @@ import { VFile } from 'vfile';
 import { useOutletContext } from 'react-router-dom';
 
 import layoutJSON from '../data/home/layout.json';
-
-const loremipsum = "lorem ipsum dolor sit amet consectetur adipiscing elit veniam in aute quo laboris in omnis cupiditate qui ut similique vel pariatur cum quod consequatur ut aliquip omnis voluptas esse velit veniam quas do mollitia temporibus cum cillum sint et omnis accusamus voluptas non ea est qui irure aute non cumque";
-
 interface AppDataContextType {
     homeSectionData: { id: string, ref: React.RefObject<HTMLDivElement | null>, navLabel: string, markdown: VFile }[] | null,
     portfolioData: {} | null,
@@ -63,14 +60,8 @@ const Home: React.FC = () => {
     })
 
     return (
-        <div className='Home-Page' id="outer-container" style={{
-            ...CustomStyles.outerContainer,
-        }}>
+        <div className='Home-Page' id="outer-container">
             <InpageNavbarContainer>
-                {/* {sectionData.length > 0 && (
-                    // <InpageNavBtn isActive={activeSection === `${sectionData[0].id}-section`} onClick={() => handleScroll(sectionData[0].ref)}>{sectionData[0].id}</InpageNavBtn>
-                    <div>Populated</div>
-                )} */}
                 {homeSectionData ? homeSectionData.map((section) => {
                     return (
                         <InpageNavBtn isActive={activeSection === `${section.id}-section`} key={`${section.id}-nav-btn`} onClick={() => {
@@ -81,10 +72,7 @@ const Home: React.FC = () => {
                 }) : null}
             </InpageNavbarContainer>
 
-            <div id='content-container' style={CustomStyles.contentContainer}>
-                {/* {sectionData.length > 0 && (
-                    <PageSection scrollRef={sectionData[0].ref} id={sectionData[0].id} markdown={sectionData[0].markdown} />
-                )} */}
+            <div id='content-container'>
                 {homeSectionData ? homeSectionData.map((section) => {
                     return (
                         <PageSection scrollRef={section.ref} id={`${section.id}-section`} key={section.id} markdown={section.markdown} />
@@ -93,20 +81,10 @@ const Home: React.FC = () => {
 
                 <BottomSpacer />
             </div>
+
+            <div id='dummy-right-grid' />
         </div>
     );
 }
-
-const CustomStyles: Record<string, React.CSSProperties> = {
-    outerContainer: {
-        display: 'grid',
-        
-    },
-    contentContainer: {
-        margin: '10px auto auto 20px',
-        textAlign: 'center',
-        width: '50vw',
-    },
-};
 
 export default Home;

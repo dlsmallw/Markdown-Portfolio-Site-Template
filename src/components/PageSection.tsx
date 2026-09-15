@@ -9,22 +9,15 @@ const PageSection: React.FC<{
     id: string;
 }> = ({ scrollRef, markdown, id }) => {
     return (
-        <div className="page-section" id={id} ref={scrollRef} style={CustomStyles.pageSection} >
+        <div className={'section'} id={id} ref={scrollRef} >
             {markdown ? (
                 <ReactMarkdown components={ComponentRegistry as Components} rehypePlugins={[rehypeRaw]} >{`${markdown}`}</ReactMarkdown>
             ) : (
                 <div className='container'>Loading...</div>
             )}
+            <div id='section-border' />
         </div>
     )
 }
-
-const CustomStyles: Record<string, React.CSSProperties> = {
-    pageSection: {
-        scrollMarginTop: 'calc(max(8vh, 50px) + 20px)',
-        textAlign: 'left',
-        paddingBottom: '10px',
-    },
-};
 
 export default PageSection;

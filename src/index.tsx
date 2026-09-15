@@ -6,7 +6,6 @@ import reportWebVitals from './reportWebVitals';
 import { Buffer } from 'buffer';
 
 import './index.css';
-// import './config';
 
 globalThis.Buffer = Buffer;
 

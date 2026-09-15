@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar as BSNavbar, Container, Nav } from 'react-bootstrap';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const NavLink: React.FC<{ to: string, children: React.ReactNode }> = ({ to, children }) => {
     const location = useLocation();
