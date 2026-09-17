@@ -1,5 +1,5 @@
 import { VFile } from "vfile";
-import ComponentRegistry from "./sections/elements/ComponentRegistry";
+import ComponentRegistry from "./ComponentRegistry";
 import ReactMarkdown, { Components } from "react-markdown";
 import rehypeRaw from "rehype-raw";
 

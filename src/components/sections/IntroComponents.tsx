@@ -8,10 +8,10 @@ const HeadshotContainer: React.FC<{ children: React.ReactNode }> = ({ children }
     )
 }
 
-const ComponentRegistry = {
+const IntroComponentRegistry = {
     headshotcontainer: (props: HTMLAttributes<HTMLElement>) => { 
         return <HeadshotContainer {...props} children={props.children}></HeadshotContainer>;
     },
 }
 
-export default ComponentRegistry;
+export default IntroComponentRegistry;
