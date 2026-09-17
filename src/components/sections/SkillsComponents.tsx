@@ -3,9 +3,9 @@ import { HTMLAttributes } from "react";
 
 const SkillsCategoryContainer: React.FC<{ title: string, children: React.ReactNode }> = ({ title, children }) => {
     return (
-        <div id='skills-category'>
+        <div className='skills-category'>
             <h3>{title}</h3>
-            <div id='skills-grid'>
+            <div className='skills-grid'>
                 {children}
             </div>
         </div>

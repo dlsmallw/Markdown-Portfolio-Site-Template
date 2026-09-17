@@ -2,12 +2,15 @@ import { VFile } from "vfile";
 import ComponentRegistry from "./ComponentRegistry";
 import ReactMarkdown, { Components } from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import { useEffect } from "react";
 
 const PageSection: React.FC<{ 
     scrollRef: React.RefObject<HTMLDivElement | null>;
     markdown: VFile;
     id: string;
 }> = ({ scrollRef, markdown, id }) => {
+    
+
     return (
         <div className={'section'} id={id} ref={scrollRef} >
             {markdown ? (

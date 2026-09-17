@@ -70,7 +70,6 @@ const AppContent = () => {
 
   useEffect(() => {
     const navbar = document.querySelector(".Navbar-Container");
-
     if (!navbar) return;
 
     const observer = new ResizeObserver(() => {
@@ -78,7 +77,6 @@ const AppContent = () => {
     });
 
     observer.observe(navbar);
-
     setNavbarHeight(navbar.getBoundingClientRect().height);
 
     return () => observer.disconnect();

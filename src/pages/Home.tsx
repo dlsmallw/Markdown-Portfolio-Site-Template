@@ -49,6 +49,7 @@ const Home: React.FC = () => {
 
     useEffect(() => {
         window.addEventListener('resize', handleMaintainSection);
+        handleInitTargetRef();
 
         return () => {
             window.removeEventListener('resize', handleMaintainSection)
@@ -56,8 +57,8 @@ const Home: React.FC = () => {
     })
 
     useEffect(() => {
-        handleInitTargetRef();
-    })
+        
+    }, []);
 
     return (
         <div className='Home-Page' id="outer-container">
