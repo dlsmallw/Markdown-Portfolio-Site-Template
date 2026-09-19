@@ -5,7 +5,7 @@ const SkillsCategoryContainer: React.FC<{ title: string, children: React.ReactNo
     return (
         <div className='skills-category'>
             <h3>{title}</h3>
-            <div className='skills-grid'>
+            <div className='skills-grid sunken-block'>
                 {children}
             </div>
         </div>
