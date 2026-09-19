@@ -2,6 +2,8 @@ import { HTMLAttributes, ImgHTMLAttributes, useEffect, useRef, useState } from "
 import IntroComponentRegistry from "./sections/IntroComponents";
 import SkillsComponentRegistry from "./sections/SkillsComponents";
 import React from "react";
+import ExperienceComponentRegistry from "./sections/ExperienceComponents";
+import EducationComponentRegistry from "./sections/EducationComponents";
 
 const ImgContainer: React.FC<{ props: ImgHTMLAttributes<HTMLImageElement> }> = ({ props }) => {
     const containerRef = useRef<HTMLImageElement | null>(null);
@@ -63,6 +65,8 @@ const ImgContainer: React.FC<{ props: ImgHTMLAttributes<HTMLImageElement> }> = (
 const ComponentRegistry = {
     ...IntroComponentRegistry,
     ...SkillsComponentRegistry,
+    ...ExperienceComponentRegistry,
+    ...EducationComponentRegistry,
     ...{
         p: (props: HTMLAttributes<HTMLElement>) => {
             const children = React.Children.toArray(props.children);

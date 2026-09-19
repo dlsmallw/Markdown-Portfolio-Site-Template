@@ -228,7 +228,12 @@ small {
   line-height: 1.2;
   flex-wrap: wrap;
   font-size: var(--text-xl);
-  width: 100%;
+  width: fit-content;
+  column-gap: 10px;
+
+  span {
+    width: max-content;
+  }
 }
 
 .side-panel {
@@ -400,6 +405,35 @@ ul {
   }
 
   li {
+    font-size: var(--text-base);
+  }
+}
+
+.edu-block {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+
+  #school-details-container {
+    #school-name {
+      font-weight: bold;
+    }
+
+    #school-location {
+      font-style: italic;
+    }
+  }
+
+  #program-details-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #degree-details-container {
+    font-size: var(--text-base);
+  }
+
+  #program-performance-container {
     font-size: var(--text-base);
   }
 }
