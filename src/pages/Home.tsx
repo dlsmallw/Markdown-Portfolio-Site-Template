@@ -83,7 +83,7 @@ const Home: React.FC = () => {
                 <BottomSpacer />
             </div>
 
-            <div id='dummy-right-grid' />
+            <div className='side-panel' id='dummy-right-grid' />
         </div>
     );
 }
