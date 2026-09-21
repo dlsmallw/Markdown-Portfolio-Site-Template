@@ -17,9 +17,11 @@ const InpageNavBtn: React.FC<{ isActive: boolean, onClick: () => void, children:
 
 const InpageNavbarContainer: React.FC<{ children: React.ReactNode }> = ({children}) => {
     return ( 
-        <div className='side-panel' id='inpage-nav-container' >
-            <div id='inpage-navbar' >
-                {children}
+        <div className='side-panel' id='left-grid' >
+            <div id='inpage-nav-container' >
+                <div id='inpage-navbar'>
+                    {children}
+                </div>
             </div>
         </div>
     )
