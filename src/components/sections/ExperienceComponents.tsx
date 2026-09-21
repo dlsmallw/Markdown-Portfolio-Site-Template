@@ -1,4 +1,6 @@
 import { HTMLAttributes } from "react";
+import WrappingContainer from "../WrappingContainer";
+import { useIsWrapped } from "../../util/WrappingUtil";
 
 type ExperienceProps = {
     children: React.ReactNode;
@@ -9,6 +11,7 @@ type ExperienceProps = {
 };
 
 const ExperienceBlock: React.FC<ExperienceProps> = ({ children, title, company, startdate, enddate }) => {
+    const { containerRef, isWrapped } = useIsWrapped();
     return (
         <div className='experience-block'>
             <h3>{title}</h3>
@@ -19,8 +22,10 @@ const ExperienceBlock: React.FC<ExperienceProps> = ({ children, title, company, 
                     flexDirection: 'column',
                 }}
             >
-                <h5>{company}</h5>
-                {startdate && <span id='date-span' >{`${startdate} - ${enddate ? enddate : 'Present'}`}</span>}
+                <WrappingContainer ref={containerRef} isWrapped={isWrapped} separator="|">
+                    <span id='company-name-span'>{company}</span>
+                    {startdate && <span id='date-span' >{`${startdate} - ${enddate ? enddate : 'Present'}`}</span>}
+                </WrappingContainer>
             </div>
             {children}
  

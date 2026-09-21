@@ -1,6 +1,7 @@
 import { HTMLAttributes, useEffect, useRef, useState } from "react";
 import { useIsWrapped } from "../../util/WrappingUtil";
 import WrappingContainer from "../WrappingContainer";
+import { Bold } from "../MiscComponents";
 
 const EducationBlock: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return (
@@ -39,11 +40,7 @@ interface ProgramDetailsProps {
     honors?: string
 }
 
-const Bold: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    return (
-        <span style={{ fontWeight: 'bold'}}>{children}</span>
-    )
-}
+
 
 interface DegreeDetailsProps {
     type: string;

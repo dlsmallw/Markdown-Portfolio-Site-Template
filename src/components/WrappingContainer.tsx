@@ -15,7 +15,9 @@ const WrappingContainer = forwardRef<HTMLDivElement, WrappingContainerProps>(({ 
                 acc.push(child);
 
                 if (separator && index < childArr.length - 1) {
-                    acc.push(<span style={{ visibility: isWrapped ? 'hidden' : 'visible' }}>{separator}</span>);
+                    acc.push(<span style={{ 
+                        visibility: isWrapped ? 'hidden' : 'visible',
+                     }}>{separator}</span>);
                 }
 
                 return acc;

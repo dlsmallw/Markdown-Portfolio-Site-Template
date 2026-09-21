@@ -247,8 +247,7 @@ small {
   display: flex;
   line-height: 1.2;
   flex-wrap: wrap;
-  font-size: var(--text-xl);
-  width: fit-content;
+  /* width: fit-content; */
   column-gap: 10px;
 
   span {
@@ -430,9 +429,13 @@ ul {
     display: flex;
     justify-content: space-between;
     padding-bottom: 10px;
-    
-    span {
-      font-size: var(--text-sm);
+    font-size: var(--text-base);
+
+    #company-name-span {
+      font-weight: 600;
+    }
+
+    #date-span {
       font-style: italic;
     }
   }
