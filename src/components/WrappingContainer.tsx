@@ -10,14 +10,17 @@ interface WrappingContainerProps extends HTMLAttributes<HTMLDivElement> {
 const WrappingContainer = forwardRef<HTMLDivElement, WrappingContainerProps>(({ children, isWrapped, separator, ...props }, ref) => {
     const childArr = React.Children.toArray(children);
     return (
-        <div ref={ref} className='wrapping-container' {...props}>
+        <div ref={ref} className='wrapping-container' style={{
+            display: 'flex',
+            flexDirection: isWrapped ? 'column' : 'unset',
+        }} {...props}>
             {childArr.reduce<React.ReactNode[]>((acc, child, index) => {
                 acc.push(child);
 
                 if (separator && index < childArr.length - 1) {
-                    acc.push(<span style={{ 
-                        visibility: isWrapped ? 'hidden' : 'visible',
-                     }}>{separator}</span>);
+                    acc.push(<span id='wrapping-separator' style={{ 
+                        display: isWrapped ? 'none' : 'block',
+                    }}>{separator}</span>);
                 }
 
                 return acc;

@@ -10,14 +10,47 @@ export function useIsWrapped() {
         if (!container) return;
 
         const checkIsWrapped = () => {
-            const children = Array.from(container.children);
+            const children = Array.from(container.children) as HTMLElement[];
 
             if (children.length < 2) return;
 
-            const ch1Top = children[0].getBoundingClientRect().top;
-            const ch2Top = children[children.length - 1].getBoundingClientRect().top;
+            const containerStyle = window.getComputedStyle(container);
+            const gapVal = parseFloat(containerStyle.columnGap);
 
-            setIsWrapped(ch2Top > ch1Top);
+            const containerWidth = container.offsetWidth;
+            let totalChildrenWidth = 0;
+
+            children.forEach((child) => {
+                console.log(`Child Node: ${child.id}`)
+                if (child.id === 'wrapping-separator') {
+                    const sepVisibility = child.style.visibility;
+                    const sepPosition = child.style.position;
+                    const sepDisplay = child.style.display;
+
+                    if (sepDisplay === 'none') {
+                        child.style.visibility = 'hidden';
+                        child.style.position = 'absolute';
+                        child.style.display = 'block';
+                    }
+                    
+
+                    const width = child.getBoundingClientRect().width;
+                    const gapCorrectedWidth = !Number.isNaN(gapVal) ? width + (gapVal * 2) : width;
+
+                    if (sepDisplay === 'none') {
+                        child.style.display = sepDisplay;
+                        child.style.visibility = sepVisibility;
+                        child.style.position = sepPosition;
+                    }
+
+                    totalChildrenWidth += gapCorrectedWidth;
+                    
+                } else {
+                    totalChildrenWidth += child.scrollWidth;
+                }
+            })
+
+            setIsWrapped(totalChildrenWidth > containerWidth);
         }
 
         const resizeObserver = new ResizeObserver(checkIsWrapped);

@@ -21,16 +21,22 @@ const Home: React.FC = () => {
     const { homeSectionData, navbarHeight } = useOutletContext<AppDataContextType>();
 
     const sectionOrder: string[] = layoutJSON.sectionOrder;
-    const activeSection = useScrollSpy(sectionOrder.map((section, index) => {
+    let activeSection = useScrollSpy(sectionOrder.map((section, index) => {
         return `${section}-section`;
     }), { root: null, rootMargin: `-${navbarHeight + 45}px 0px 0px 0px`, threshold: 0 });
 
     const handleScroll = (elementRef: React.RefObject<HTMLDivElement | null>) => {
-        elementRef.current?.scrollIntoView({ 
+        const current = elementRef.current;
+
+        if (!current) return;
+
+        current.scrollIntoView({ 
             behavior: 'smooth', 
             block: 'start',
             inline: 'nearest'
         }); 
+
+        activeSection = current.id;
     };
 
     const handleMaintainSection = () => {
