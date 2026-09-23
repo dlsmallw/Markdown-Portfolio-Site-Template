@@ -21,7 +21,6 @@ export function useIsWrapped() {
             let totalChildrenWidth = 0;
 
             children.forEach((child) => {
-                console.log(`Child Node: ${child.id}`)
                 if (child.id === 'wrapping-separator') {
                     const sepVisibility = child.style.visibility;
                     const sepPosition = child.style.position;

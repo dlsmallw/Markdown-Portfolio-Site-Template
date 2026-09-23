@@ -1,17 +1,17 @@
 import { HTMLAttributes } from "react";
-import WrappingContainer from "../WrappingContainer";
-import { useIsWrapped } from "../../util/WrappingUtil";
+import WrappingContainer from "../../WrappingContainer";
+import { useIsWrapped } from "../../../util/WrappingUtil";
 
-type ExperienceProps = {
-    children: React.ReactNode;
+interface ExperienceBlockProps extends HTMLAttributes<HTMLDivElement> {
     title: string;
     company: string;
     startdate: string;
     enddate?: string;
 };
 
-const ExperienceBlock: React.FC<ExperienceProps> = ({ children, title, company, startdate, enddate }) => {
+const ExperienceBlock: React.FC<ExperienceBlockProps> = ({ children, title, company, startdate, enddate }) => {
     const { containerRef, isWrapped } = useIsWrapped();
+
     return (
         <div className='experience-block'>
             <h3>{title}</h3>
@@ -35,8 +35,8 @@ const ExperienceBlock: React.FC<ExperienceProps> = ({ children, title, company, 
 }
 
 const ExperienceComponentRegistry = {
-    experienceblock: (props: HTMLAttributes<HTMLDivElement> & Partial<ExperienceProps>) => {
-        return <ExperienceBlock title={props.title ?? ""} company={props.company ?? ""} startdate={props.startdate ?? ""} enddate={props.enddate}>{props.children}</ExperienceBlock>
+    experienceblock: (props: ExperienceBlockProps) => {
+        return <ExperienceBlock {...props} />
     }
 };
 

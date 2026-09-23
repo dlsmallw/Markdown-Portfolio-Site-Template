@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import styles from './InpageNavigation.module.css'
+
 const InpageNavBtn: React.FC<{ isActive: boolean, onClick: () => void, children: React.ReactNode }> = ({ isActive, onClick, children }) => {
     const [isHovered, setIsHovered] = useState(false);
 

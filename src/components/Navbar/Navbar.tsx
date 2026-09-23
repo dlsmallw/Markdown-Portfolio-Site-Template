@@ -2,6 +2,8 @@ import React from 'react';
 import { Navbar as BSNavbar, Container, Nav } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import styles from './Navbar.module.css';
+
 const NavLink: React.FC<{ to: string, children: React.ReactNode }> = ({ to, children }) => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -17,7 +19,7 @@ const NavLink: React.FC<{ to: string, children: React.ReactNode }> = ({ to, chil
     };
 
     return (
-        <Nav.Link className='nav-link-container'style={{
+        <Nav.Link className='nav-link-container' style={{
             color: location.pathname === to ? '#fff' : '#E7E7E9',
             opacity: location.pathname !== to && isHovered ? 0.7 : 1,
             cursor: location.pathname !== to ? 'pointer' : 'default',

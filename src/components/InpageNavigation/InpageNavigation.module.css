@@ -1,0 +1,42 @@
+.sidePanel {
+  position: sticky;
+  top: calc(var(--page-top-position));
+  display: flex;
+  width: 100%;
+  height: calc(var(--view-height) - var(--space-md));
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.leftGrid {
+  justify-content: right;
+  padding-left: 10px;
+  border-right: 1px solid #cccccc0a;
+  transition: opacity 0.3s ease-in-out, background-image 0.3s ease-in-out;
+}
+
+.inpageNavContainer {
+  margin-top: var(--space-sm);
+  min-width: fit-content;
+}
+
+.inpageNavbar {
+  display: flex;
+  flex-direction: column;
+  min-width: fit-content;
+  background-color: color-mix(in srgb, var(--bg-primary) 30%, transparent);
+  border-radius: 10px;
+  padding: 5px 0 5px 10px;
+
+  
+}
+
+.inpageNavButton {
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    text-align: left;
+    padding-right: var(--space-lg);
+    font-size: var(--text-lg);
+  }

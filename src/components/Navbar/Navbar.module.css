@@ -1,0 +1,33 @@
+
+@media screen and (max-width: 576px) {
+  .navbar {
+    padding: 0 !important;
+  }
+
+  .nav-link {
+    margin: 0 10px !important;
+  }
+}
+
+.navbarContainer {
+    width: 100%;
+    height: var(--page-top-position);
+    background-color: var(--bg-navbar);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.navbarInnerContainer {
+    justify-content: space-between;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+}
+
+.navLinkContainer {
+    margin: 0 5px 0 5px;
+    transition: opacity 0.3s ease;
+    height: 100%;
+    align-items: center;
+    font-size: var(--text-xl);
+}
+

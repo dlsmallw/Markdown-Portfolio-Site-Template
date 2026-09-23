@@ -1,0 +1,14 @@
+.section {
+    scroll-margin-top: var(--page-top-position);
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    gap: var(--space-sm);
+    text-align: left;
+    margin: auto;
+    width: 50vw;
+}
+
+.container {
+    /* WIP */
+}

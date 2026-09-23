@@ -1,9 +1,31 @@
-import { HTMLAttributes, useEffect, useRef, useState } from "react";
-import { useIsWrapped } from "../../util/WrappingUtil";
-import WrappingContainer from "../WrappingContainer";
-import { Bold } from "../MiscComponents";
+import { HTMLAttributes } from "react";
+import { useIsWrapped } from "../../../util/WrappingUtil";
+import { Bold } from "../../MiscComponents";
 
-const EducationBlock: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+import WrappingContainer from "../../WrappingContainer";
+
+interface DegreeDetailsProps extends HTMLAttributes<HTMLDivElement> {
+    type: string;
+    major: string;
+    minor?: string;
+}
+
+interface ProgramDetailsProps extends HTMLAttributes<HTMLDivElement> {
+    type: string;
+    major: string;
+    gpa?: string;
+    gpascale?: string;
+    minor?: string;
+    honors?: string
+}
+
+interface ProgramPerformanceProps extends HTMLAttributes<HTMLDivElement> {
+    gpa?: string;
+    gpaScale?: string;
+    honors?: string;
+}
+
+const EducationBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => {
     return (
         <div className='edu-block'>
             {children}
@@ -11,8 +33,7 @@ const EducationBlock: React.FC<{ children: React.ReactNode }> = ({ children }) =
     )
 }
 
-interface SchoolDetailsProps {
-    children: React.ReactNode;
+interface SchoolDetailsProps extends HTMLAttributes<HTMLDivElement> {
     location: string;
 }
 
@@ -29,23 +50,6 @@ const SchoolDetails: React.FC<SchoolDetailsProps> = ({ children, location }) => 
             )}
         </WrappingContainer>
     )
-}
-
-interface ProgramDetailsProps {
-    type: string;
-    major: string;
-    gpa?: string;
-    gpascale?: string;
-    minor?: string;
-    honors?: string
-}
-
-
-
-interface DegreeDetailsProps {
-    type: string;
-    major: string;
-    minor?: string;
 }
 
 const DegreeDetails: React.FC<DegreeDetailsProps> = ({ type, major, minor }) => {
@@ -73,12 +77,6 @@ const DegreeDetails: React.FC<DegreeDetailsProps> = ({ type, major, minor }) => 
             </ WrappingContainer>
         </WrappingContainer>
     )
-}
-
-interface ProgramPerformanceProps {
-    gpa?: string;
-    gpaScale?: string;
-    honors?: string;
 }
 
 const ProgramPerformance: React.FC<ProgramPerformanceProps> = ({ gpa, gpaScale, honors }) => {
@@ -117,16 +115,16 @@ const RelevantCourses: React.FC<HTMLAttributes<HTMLDivElement>> = ({ title, chil
 
 const EducationComponentRegistry = {
     educationblock: (props: HTMLAttributes<HTMLDivElement>) => {
-        return <EducationBlock {...props}>{props.children}</EducationBlock>
+        return <EducationBlock {...props} />
     },
-    schooldetails: (props: HTMLAttributes<HTMLDivElement> & Partial<SchoolDetailsProps>) => {
-        return <SchoolDetails location={props.location ?? ""} {...props}>{props.children}</SchoolDetails> 
+    schooldetails: (props: SchoolDetailsProps) => {
+        return <SchoolDetails {...props} />
     },
-    programdetails: (props: HTMLAttributes<HTMLDivElement> & Partial<DegreeDetailsProps>) => {
-        return <ProgramDetails type={props.type ?? ""} major={props.major ?? ""} {...props}/>
+    programdetails: (props: ProgramDetailsProps) => {
+        return <ProgramDetails {...props}/>
     },
     relevantcourses: (props: HTMLAttributes<HTMLDivElement>) => {
-        return <RelevantCourses {...props}>{props.children}</RelevantCourses>
+        return <RelevantCourses {...props} />
     }
 };
 

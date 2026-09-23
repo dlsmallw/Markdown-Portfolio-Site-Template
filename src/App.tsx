@@ -7,7 +7,7 @@ import matter from 'gray-matter';
 import { processMarkdown } from './util/Markdown';
 
 import MainLayout from './layouts/MainLayout';
-import Home from './pages/Home';
+import Home from './pages/Home/Home';
 import Portfolio from './pages/Portfolio';
 
 import layoutJSON from './data/home/layout.json';

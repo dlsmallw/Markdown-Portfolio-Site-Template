@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useScrollSpy } from '../util/ScrollSpy';
-import { InpageNavBtn, InpageNavbarContainer } from '../components/InpageNavigation';
+import { useScrollSpy } from '../../util/ScrollSpy';
+import { InpageNavBtn, InpageNavbarContainer } from '../../components/InpageNavigation/InpageNavigation';
 
-import BottomSpacer from '../components/BottomSpacer';
+import BottomSpacer from '../../components/BottomSpacer/BottomSpacer';
 
-import PageSection from '../components/PageSection';
+import PageSection from '../../components/home/Section';
 import { VFile } from 'vfile';
 import { useOutletContext } from 'react-router-dom';
 
-import layoutJSON from '../data/home/layout.json';
+import layoutJSON from '../../data/home/layout.json';
+import styles from './Home.module.css';
+
 interface AppDataContextType {
     homeSectionData: { id: string, ref: React.RefObject<HTMLDivElement | null>, navLabel: string, markdown: VFile }[] | null,
     portfolioData: {} | null,
@@ -43,8 +45,6 @@ const Home: React.FC = () => {
         if (targetRef?.current) {
             targetRef.current.scrollIntoView({behavior: 'instant' as unknown as ScrollBehavior, block: 'start'});
         }
-
-        console.log(navbarHeight);
     }
 
     const handleInitTargetRef = () => {
@@ -80,16 +80,21 @@ const Home: React.FC = () => {
             </InpageNavbarContainer>
 
             <div id='content-container'>
-                {homeSectionData ? homeSectionData.map((section) => {
+                {homeSectionData ? homeSectionData.map((section, index) => {
                     return (
-                        <PageSection scrollRef={section.ref} id={`${section.id}-section`} key={section.id} markdown={section.markdown} />
+                        <div key={`s-${index}`}>
+                            <PageSection scrollRef={section.ref} id={`${section.id}-section`} key={section.id} markdown={section.markdown} />
+                            {index < homeSectionData.length -1 && (
+                                <div id='section-border'  key={`section-spacer-${index}`} />
+                            )}
+                        </div>
                     )
                 }) : <p>Loading...</p>}
 
                 <BottomSpacer />
             </div>
 
-            <div className='side-panel' id='dummy-right-grid' />
+            <div className='section-panel' id='dummy-right-grid' />
         </div>
     );
 }

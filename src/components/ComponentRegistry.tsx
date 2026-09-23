@@ -1,12 +1,15 @@
 import React, { HTMLAttributes, ImgHTMLAttributes, useEffect, useRef, useState } from "react";
 
-import IntroComponentRegistry from "./sections/IntroComponents";
-import SkillsComponentRegistry from "./sections/SkillsComponents";
-import ExperienceComponentRegistry from "./sections/ExperienceComponents";
-import EducationComponentRegistry from "./sections/EducationComponents";
-import ProjectsComponentRegistry from "./sections/ProjectsComponents";
+import IntroComponentRegistry from "./markdown/Intro/Intro";
+import SkillsComponentRegistry from "./markdown/Skills/Skills";
+import ExperienceComponentRegistry from "./markdown/Experience/Experience";
+import EducationComponentRegistry from "./markdown/Education/Education";
+import ProjectsComponentRegistry from "./markdown/Projects/Projects";
+import LinkButtonsComponentRegistry from "./markdown/Buttons/Buttons";
+import ContactComponentRegistry from "./markdown/Contact/Contact";
+import StrengthComponentRegistry from "./markdown/Strengths/Strengths";
 
-const ImgContainer: React.FC<{ props: ImgHTMLAttributes<HTMLImageElement> }> = ({ props }) => {
+const ImgContainer: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ alt, ...props }) => {
     const containerRef = useRef<HTMLImageElement | null>(null);
     const imgRef = useRef<HTMLImageElement | null>(null);
 
@@ -46,7 +49,7 @@ const ImgContainer: React.FC<{ props: ImgHTMLAttributes<HTMLImageElement> }> = (
     return (
         <div className='img-outer-container'>
             <div ref={containerRef} className='img-cell'>
-                <img ref={imgRef} alt={props.alt} {...props} 
+                <img ref={imgRef} alt={alt} {...props} 
                     onMouseEnter={() => setIsHovered(true)} 
                     onMouseLeave={() => setIsHovered(false)}
                     onMouseMove={handleMouseMove}
@@ -57,7 +60,7 @@ const ImgContainer: React.FC<{ props: ImgHTMLAttributes<HTMLImageElement> }> = (
                         top: isHovered ? `${ttCoords.top}px` : '0px',
                         opacity: isHovered ? 1 : 0,
                         visibility: isHovered ? 'visible' : 'hidden'
-                    }}>{props.alt}</span>
+                    }}>{alt}</span>
             </div>
         </div>
     )
@@ -69,19 +72,22 @@ const ComponentRegistry = {
     ...ExperienceComponentRegistry,
     ...EducationComponentRegistry,
     ...ProjectsComponentRegistry,
+    ...StrengthComponentRegistry,
+    ...LinkButtonsComponentRegistry,
+    ...ContactComponentRegistry,
     ...{
-        p: (props: HTMLAttributes<HTMLElement>) => {
+        p: (props: HTMLAttributes<HTMLParagraphElement>) => {
             const children = React.Children.toArray(props.children);
             if (children.some((child) => React.isValidElement(child) && (child.type !== 'string' && child.type !== 'number'))) {
                 const filteredChildren = children.filter(child => React.isValidElement(child));
                 return <>{filteredChildren}</>
             } else {
-                return <p>{props.children}</p>
+                return <p {...props} />
             }
         },
         img: (props: ImgHTMLAttributes<HTMLImageElement>) => {
             return (
-                <ImgContainer props={props} />
+                <ImgContainer {...props} />
             )
         }
     }

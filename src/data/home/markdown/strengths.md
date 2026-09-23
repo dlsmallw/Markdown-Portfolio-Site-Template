@@ -4,4 +4,23 @@ navLabel: Strengths
 
 ## Strengths
 
-lorem ipsum dolor sit amet consectetur adipiscing elit veniam in aute quo laboris in omnis cupiditate qui ut similique vel pariatur cum quod consequatur ut aliquip omnis voluptas esse velit veniam quas do mollitia temporibus cum cillum sint et omnis accusamus voluptas non ea est qui irure aute non cumque
+
+:::strengthBlock
+#### 🧩 Technical Problem Solving
+I enjoy breaking complex problems into manageable components and developing practical solutions that are easy to maintain and extend.
+:::
+
+:::strengthBlock
+#### ⚙️ Systems Thinking
+I approach software as part of a larger system, considering how applications, databases, APIs, users, and infrastructure interact with one another.
+:::
+
+:::strengthBlock
+#### 🎯 Project Ownership
+I'm comfortable taking responsibility for a project from initial planning through implementation, testing, and deployment.
+:::
+
+:::strengthBlock
+#### 💬 Communication
+I can communicate technical concepts clearly to both technical and non-technical audiences and work effectively with stakeholders to understand requirements.
+:::

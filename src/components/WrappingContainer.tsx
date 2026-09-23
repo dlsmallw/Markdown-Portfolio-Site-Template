@@ -18,7 +18,7 @@ const WrappingContainer = forwardRef<HTMLDivElement, WrappingContainerProps>(({ 
                 acc.push(child);
 
                 if (separator && index < childArr.length - 1) {
-                    acc.push(<span id='wrapping-separator' style={{ 
+                    acc.push(<span id='wrapping-separator' key={`sep-${index}`} style={{ 
                         display: isWrapped ? 'none' : 'block',
                     }}>{separator}</span>);
                 }
