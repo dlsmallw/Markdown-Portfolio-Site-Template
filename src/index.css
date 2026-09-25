@@ -1,4 +1,6 @@
 :root {
+  color-scheme: light dark;
+
   /* Font Sizes */
   --text-xs: clamp(0.75rem, 0.7rem + 0.15vw, 0.875rem);
   --text-sm: clamp(0.875rem, 0.82rem + 0.2vw, 1rem);
@@ -27,10 +29,42 @@
   --scroll-top-position: calc(var(--page-top-position) + var(--space-md));
 
   /* Background Color */
-  --bg-tooltip: #2D2D2D;
+  /* --bg-tooltip: #2D2D2D;
   --bg-navbar: #21252C;
-  --bg-primary: #282c34;
+  --bg-primary: #282c34; */
+  /* --bg-secondary: #3A3E46; */
+
+  --bg-main: #f9fafb;       /* Slightly tinted gray */
+  --bg-surface: #ffffff;    /* Pure white for lifted components */
+  --bg-secondary: #ececec;
+  --bg-tertiary: #eaedf1;
+
+  --shadow-lifted: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --text-shadow-lifted: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  --icon-shadow: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.3));
+  --icon-shadow-lifted: drop-shadow(3px 5px 2px rgba(0, 0, 0, 0.3));
+  --border-color: #e5e7eb;
+
+  --text-main: #212529;
+  --text-muted: #6c757d;
+  --primary: #0d6efd;
+}
+
+[data-theme='dark'] {
+  --bg-main: #282c34;       /* Base background */
+  --bg-surface: #21252C;    /* Lifted navbar/cards (lighter) */
   --bg-secondary: #3A3E46;
+  --bg-tertiary: #1f1f1f;
+
+  --shadow-lifted: none;     /* Shadows don't show well in dark mode */
+  --text-shadow-lifted: none;
+  --icon-shadow: drop-shadow(0px 0px 1px #e0f7fa75) drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.3));
+  --icon-shadow-lifted: drop-shadow(0px 0px 1px #e0f7fa75) drop-shadow(3px 5px 2px rgba(0, 0, 0, 0.3));
+  --border-color: #2e2e2e;  /* Use borders for separation instead */
+
+  --text-main: #f8f9fa;     /* Off-white to prevent eye strain */
+  --text-muted: #a0aec0;
+  --primary: #3b82f6; 
 }
 
 body {
@@ -49,3 +83,47 @@ code {
     monospace;
 }
 
+h1 { 
+  font-size: var(--text-4xl); 
+  line-height: 1.05;
+  font-weight: bold;
+  padding-top: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+h2 { 
+  font-size: var(--text-3xl); 
+  line-height: 1.15;
+  font-weight: 600;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+h3 { 
+  font-size: var(--text-2xl); 
+  font-weight: 600;
+  line-height: 1.2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+h4 { 
+  font-size: var(--text-xl); 
+  font-weight: 600;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+h5 { 
+  font-size: var(--text-lg); 
+  font-weight: 600;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+h6 { 
+  font-size: var(--text-base); 
+}
+
+p {
+  font-size: var(--text-base);
+}
+
+small {
+  font-size: var(--text-sm);
+}
