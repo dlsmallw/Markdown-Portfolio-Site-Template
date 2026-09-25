@@ -1,29 +1,20 @@
 import { useEffect, useState } from 'react';
-import { useScrollSpy } from '../../util/ScrollSpy';
-import { InpageNavBtn, InpageNavbarContainer } from '../../components/InpageNavigation/InpageNavigation';
-
-import BottomSpacer from '../../components/BottomSpacer/BottomSpacer';
-
-import PageSection from '../../components/home/Section';
-import { VFile } from 'vfile';
 import { useOutletContext } from 'react-router-dom';
 
-import layoutJSON from '../../data/home/layout.json';
-import styles from './Home.module.css';
+import { useScrollSpy } from '../../util/ScrollSpy';
+import { InpageNavBtn, InpageNavbarContainer } from '../../components/InpageNavigation/InpageNavigation';
+import { AppDataContextType } from '../../types/DataLoading';
 
-interface AppDataContextType {
-    homeSectionData: { id: string, ref: React.RefObject<HTMLDivElement | null>, navLabel: string, markdown: VFile }[] | null,
-    portfolioData: {} | null,
-    navbarHeight: number
-}
+import BottomSpacer from '../../components/BottomSpacer/BottomSpacer';
+import PageSection from '../../components/Section/Section';
+
+import styles from './Home.module.css';
 
 const Home: React.FC = () => {
     const [targetRef, setTargetRef] = useState<React.RefObject<HTMLDivElement | null>>();
+    const { homeData, navbarHeight } = useOutletContext<AppDataContextType>();
 
-    const { homeSectionData, navbarHeight } = useOutletContext<AppDataContextType>();
-
-    const sectionOrder: string[] = layoutJSON.sectionOrder;
-    let activeSection = useScrollSpy(sectionOrder.map((section, index) => {
+    let activeSection = useScrollSpy(homeData.sectionOrder.map((section, index) => {
         return `${section}-section`;
     }), { root: null, rootMargin: `-${navbarHeight + 45}px 0px 0px 0px`, threshold: 0 });
 
@@ -48,8 +39,8 @@ const Home: React.FC = () => {
     }
 
     const handleInitTargetRef = () => {
-        if (homeSectionData && !targetRef?.current) {
-            setTargetRef(homeSectionData[0].ref);
+        if (homeData.sectionData && !targetRef?.current) {
+            setTargetRef(homeData.sectionData[0].ref);
         }
     }
 
@@ -69,7 +60,7 @@ const Home: React.FC = () => {
     return (
         <div className='Home-Page' id="outer-container">
             <InpageNavbarContainer>
-                {homeSectionData ? homeSectionData.map((section) => {
+                {homeData.sectionData ? homeData.sectionData.map((section) => {
                     return (
                         <InpageNavBtn isActive={activeSection === `${section.id}-section`} key={`${section.id}-nav-btn`} onClick={() => {
                             handleScroll(section.ref);
@@ -80,11 +71,11 @@ const Home: React.FC = () => {
             </InpageNavbarContainer>
 
             <div id='content-container'>
-                {homeSectionData ? homeSectionData.map((section, index) => {
+                {homeData.sectionData ? homeData.sectionData.map((section, index) => {
                     return (
                         <div key={`s-${index}`}>
                             <PageSection scrollRef={section.ref} id={`${section.id}-section`} key={section.id} markdown={section.markdown} />
-                            {index < homeSectionData.length -1 && (
+                            {index < homeData.sectionData.length -1 && (
                                 <div id='section-border'  key={`section-spacer-${index}`} />
                             )}
                         </div>

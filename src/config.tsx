@@ -1,3 +1,9 @@
+export const MD_PATH = './data/markdown';
+export const ASSET_PATH = './assets';
+
+export const DEFAULT_MD_PATH = './static/markdown';
+export const DEFAULT_ASSETS_PATH = './static/assets';
+
 export const INTRO_MD_PATH = process.env.REACT_APP_INTRO_MD_PATH || 'intro.md';
 export const ABOUT_MD_PATH = process.env.REACT_APP_ABOUT_MD_PATH || './data/home/about.md';
 export const SKILLS_MD_PATH = process.env.REACT_APP_SKILLS_MD_PATH || './data/home/skills.md';

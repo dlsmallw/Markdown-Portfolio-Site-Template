@@ -20,10 +20,10 @@ const NavLink: React.FC<{ to: string, children: React.ReactNode }> = ({ to, chil
 
     return (
         <Nav.Link className='nav-link-container' style={{
-            color: location.pathname === to ? '#fff' : '#E7E7E9',
+            color: location.pathname === to ? 'var(--text-muted)' : 'var(--text-main)',
             opacity: location.pathname !== to && isHovered ? 0.7 : 1,
             cursor: location.pathname !== to ? 'pointer' : 'default',
-            borderBottom: `2px solid ${location.pathname === to ? '#61dafb' : 'transparent'}`,
+            borderBottom: `2px solid ${location.pathname === to ? 'var(--border-color)' : 'transparent'}`,
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}

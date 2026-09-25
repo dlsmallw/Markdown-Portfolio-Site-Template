@@ -3,9 +3,7 @@ import { HTMLAttributes } from "react";
 
 const LinksBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => {
     return (
-        <div className='links-block' style={{
-            padding: '0 0 0 10px'
-        }}>
+        <div className='links-block' >
             {children}
         </div>
     )

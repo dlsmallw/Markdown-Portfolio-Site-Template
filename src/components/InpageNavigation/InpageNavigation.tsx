@@ -7,7 +7,7 @@ const InpageNavBtn: React.FC<{ isActive: boolean, onClick: () => void, children:
 
     return (
         <button id='inpage-nav-btn' onClick={onClick} style={{
-            borderRight: isActive ? '1px solid #ccc' : '1px solid transparent',
+            borderRight: `2px solid ${isActive ? '#ccc' : 'transparent'}`,
             opacity: isHovered ? 0.7 : 1,
             backgroundImage: isHovered ? 'linear-gradient(to right, transparent, #cccccc36)' : 'none',
             

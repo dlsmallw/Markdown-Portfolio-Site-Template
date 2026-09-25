@@ -19,24 +19,31 @@ interface ProjectLinkProps extends HTMLAttributes<HTMLAnchorElement> {
 const EmailLinkButton: React.FC<EmailLinkButtonProps> = ({ children, title, src }) => {
     const [isHovered, setIsHovered] = useState(false);
 
+    useEffect(() => {
+        const elements = document.querySelectorAll(".link-button .cursor-tooltip");
+        elements.forEach((elem) => {
+            elem.remove();
+        });
+    }, []);
+
     return (
-        <div className='link-button-container' >
+        <a 
+            href={src} 
+            className='link-button'
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            style={{
+                // backgroundColor: isHovered ? '#0056b3' : '#007bff',
+                cursor: isHovered ? 'pointer' : 'default'
+            }}
+            onClick={(event) => {
+                event.preventDefault();
+                window.open(src, 'mail');
+            }}
+        >
             {children}
-            <a 
-                href={src} 
-                className='link-button'
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-                style={{
-                    // backgroundColor: isHovered ? '#0056b3' : '#007bff',
-                    cursor: isHovered ? 'pointer' : 'default'
-                }}
-                onClick={(event) => {
-                    event.preventDefault();
-                    window.open(src, 'mail');
-                }}
-            >{title || src || "Missing title/src attributes"}</a>
-        </div>
+            <span className='link-button-text'>{title || src || "Missing title/src attributes"}</span>
+        </a>
     )
 }
 
@@ -44,7 +51,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({ children, title, src, target, r
     const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
-        const elements = document.querySelectorAll(".link-button-container .cursor-tooltip");
+        const elements = document.querySelectorAll(".link-button .cursor-tooltip");
         elements.forEach((elem) => {
             elem.remove();
         });
@@ -52,21 +59,21 @@ const LinkButton: React.FC<LinkButtonProps> = ({ children, title, src, target, r
 
 
     return (
-        <div className='link-button-container' >
+        <a 
+            href={src} 
+            target={target}
+            rel={rel}
+            className='link-button'
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            style={{
+                // backgroundColor: isHovered ? '#0056b3' : '#007bff',
+                cursor: isHovered ? 'pointer' : 'default'
+            }}
+        >
             {children}
-            <a 
-                href={src} 
-                target={target}
-                rel={rel}
-                className='link-button'
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-                style={{
-                    // backgroundColor: isHovered ? '#0056b3' : '#007bff',
-                    cursor: isHovered ? 'pointer' : 'default'
-                }}
-            >{title || src || "Missing title/src attributes"}</a>
-        </div>
+            <span className='link-button-text'>{title || src || "Missing title/src attributes"}</span>
+        </a>
     )
 }
 
