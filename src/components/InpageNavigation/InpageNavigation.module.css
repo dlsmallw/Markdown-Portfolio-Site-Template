@@ -1,17 +1,28 @@
-.sidePanel {
-  position: sticky;
-  top: calc(var(--page-top-position));
-  display: flex;
-  width: 100%;
-  height: calc(var(--view-height) - var(--space-md));
-  overflow-y: auto;
-  scrollbar-width: none;
+@media screen and (min-width: 1500px) {
+  /* WIP */
+}
+
+@media screen and (max-width: 1500px) {
+  .dummyRightGrid {
+    display: flex;
+    background-color: var(--bg-main);
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .dummyRightGrid {
+    display: none;
+  }
+}
+
+.dummyRightGrid {
+  width: auto;
 }
 
 .leftGrid {
   justify-content: right;
   padding-left: 10px;
-  border-right: 1px solid #cccccc0a;
+  /* border-right: 1px solid #cccccc0a; */
   transition: opacity 0.3s ease-in-out, background-image 0.3s ease-in-out;
 }
 
@@ -23,20 +34,33 @@
 .inpageNavbar {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   min-width: fit-content;
-  background-color: color-mix(in srgb, var(--bg-primary) 30%, transparent);
+  background-color: color-mix(in srgb, var(--bg-surface) 30%, transparent);
+  box-shadow: var(--shadow-lifted);
+  border: 1px solid color-mix(in srgb, var(--border-color) 50%, transparent);
   border-radius: 10px;
-  padding: 5px 0 5px 10px;
+  padding: 5px 0
+}
 
-  
+.inpageNavbar *:not(:last-child) {
+  .inpageNavButton {
+    border-bottom: 1px solid color-mix(in srgb, var(--text-main) 5%, transparent);
+  }
+}
+
+.inpageNavButtonContainer {
+  padding: 0 var(--space-sm);
+  width: auto;
 }
 
 .inpageNavButton {
-    background-color: transparent;
-    border: none;
-    color: white;
-    cursor: pointer;
-    text-align: left;
-    padding-right: var(--space-lg);
-    font-size: var(--text-lg);
-  }
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+  text-align: left;
+  font-size: var(--text-lg);
+  padding: 0 5px;
+}

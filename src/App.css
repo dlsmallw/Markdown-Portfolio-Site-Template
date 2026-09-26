@@ -43,6 +43,15 @@
   }
 } */
 
+/* @keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
+
 
 @media screen and (max-width: 576px) {
   .navbar {
@@ -75,17 +84,6 @@
   height: 100%;
   align-items: center;
   font-size: var(--text-xl);
-}
-
-
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .Home-Page {
@@ -168,7 +166,7 @@
   }
 }
 
-.side-panel {
+/* .side-panel {
   position: sticky;
   top: calc(var(--page-top-position));
   display: flex;
@@ -185,11 +183,10 @@
 #left-grid {
   justify-content: right;
   padding-left: 10px;
-  /* border-right: 1px solid #cccccc0a; */
   transition: opacity 0.3s ease-in-out, background-image 0.3s ease-in-out;
-}
+} */
 
-#inpage-nav-container {
+/* #inpage-nav-container {
   margin-top: var(--space-sm);
   min-width: fit-content;
 }
@@ -211,7 +208,7 @@
     padding-right: var(--space-lg);
     font-size: var(--text-lg);
   }
-}
+} */
 
 #headshot-container {
   display: flex;
