@@ -1,0 +1,45 @@
+.linkButton, .projectLinkButton {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.1rem;
+
+  background-color: var(--bg-surface);
+  box-shadow: var(--shadow-lifted);
+  border: 1px solid color-mix(in srgb, var(--border-color) 50%, transparent);
+  border-radius: 0.6rem;
+
+  color: var(--text-main);
+  font-size: var(--text-sm);
+  text-decoration: none;
+
+  transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      transform 150ms ease;
+}
+
+.linkButton:hover, .projectLinkButton:hover {
+    border: 1px solid color-mix(in srgb, var(--border-color) 90%, transparent);
+    cursor: pointer;
+}
+
+.linkButton:hover {
+    background-color: var(--bg-secondary);
+    transform: translateX(4px);
+}
+
+.projectLinkButton:hover {
+    background-color: color-mix(in srgb, var(--bg-surface) 50%, transparent);
+}
+
+.linkButton:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+}
+
+.projectLinkContainer {
+    display: flex;
+    justify-content: right;
+    margin: 0 1rem 1rem 1rem;
+}

@@ -11,7 +11,7 @@ I'm always interested in opportunities to build useful software, solve interesti
 :::linksBlock
 
 ::emailLink[![Email](email-svgrepo-com.svg)]{ title="Email Me" src="mailto:john.doe@example.com"}
-::siteLink[![GitHub](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg)]{ title="Link to My GitHub" src="github.com/johndoe" }
-::siteLink[![LinkedIn](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg)]{ title="Link to my LinkedIn" src="linkedin.com/in/johndoe"}
+::siteLink[![GitHub](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg)]{ title="Link to My GitHub" src="https://github.com/johndoe" }
+::siteLink[![LinkedIn](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg)]{ title="Link to my LinkedIn" src="https://linkedin.com/in/johndoe"}
 
 :::
