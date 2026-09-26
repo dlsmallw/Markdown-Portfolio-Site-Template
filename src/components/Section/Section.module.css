@@ -15,9 +15,5 @@
 }
 
 .dummyBottomSection {
-    
-}
-
-.container {
-    /* WIP */
+    display: block;
 }

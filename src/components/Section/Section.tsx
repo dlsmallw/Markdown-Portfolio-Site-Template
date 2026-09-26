@@ -9,13 +9,16 @@ import styles from './Section.module.css';
 interface PageSectionProps extends HTMLAttributes<HTMLDivElement> {
     scrollRef: React.RefObject<HTMLDivElement | null>;
     markdown: VFile;
-    id: string;
 }
 
-const PageSection: React.FC<PageSectionProps> = ({ scrollRef, markdown, id }) => {
+interface SectionBorderProps extends HTMLAttributes<HTMLDivElement> {
+    key: string;
+}
+
+const PageSection: React.FC<PageSectionProps> = ({ scrollRef, markdown, ...props }) => {
     
     return (
-        <div className='section' id={id} ref={scrollRef} >
+        <div className='section' ref={scrollRef} {...props}>
             {markdown ? (
                 <ReactMarkdown components={ComponentRegistry as Components} rehypePlugins={[rehypeRaw]} >{`${markdown}`}</ReactMarkdown>
             ) : (
@@ -23,6 +26,16 @@ const PageSection: React.FC<PageSectionProps> = ({ scrollRef, markdown, id }) =>
             )}
             {/* <div id='section-border' /> */}
         </div>
+    )
+}
+
+const SectionBorder: React.FC<SectionBorderProps> = ({ key, ...props }) => {
+    return (
+        <div 
+            className={`${styles.sectionBorder} ${props.className}`} 
+            key={key} 
+            {...props}
+        />
     )
 }
 
@@ -55,20 +68,9 @@ const BottomSpacer: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) =>
     return (
         <div 
             className={`${styles.bottomSpacer} ${props.className}`} 
-            id="bottom-spacer" 
             style={{ height: spacerHeight }} 
             {...props} 
         />
-    )
-}
-
-interface SectionBorderProps extends HTMLAttributes<HTMLDivElement> {
-    key: string;
-}
-
-const SectionBorder: React.FC<SectionBorderProps> = ({ key, ...props }) => {
-    return (
-        <div className={`${styles.sectionBorder} ${props.className}`} id='section-border' key={key} {...props}/>
     )
 }
 
