@@ -30,7 +30,7 @@
 }
 
 .projectLinkButton:hover {
-    background-color: color-mix(in srgb, var(--bg-surface) 50%, transparent);
+    background-color: color-mix(in srgb, var(--bg-secondary) 50%, transparent);
 }
 
 .linkButton:focus-visible {

@@ -272,19 +272,9 @@ ul {
   }
 }
 
+
+
 .projects-block {
-  display: flex;
-  flex-direction: column;
-  margin: 2%;
-  width: auto;
-  overflow: hidden;
-  border-radius: 8px;
-  /* border: 1px solid #e1e4e8; */
-  background-color: var(--bg-secondary);
-
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-
   .img-cell {
     margin: 1rem 1rem 0 1rem;
   }
@@ -295,16 +285,12 @@ ul {
     object-fit: cover;
     object-position: center;
     border-radius: 8px;
+    border: 1px solid var(--border-color);
   }
 
   p {
     margin: 1rem;
   }
-}
-
-.links-block {
-  width: 50%;
-  min-width: fit-content;
 }
 
 .link-button {

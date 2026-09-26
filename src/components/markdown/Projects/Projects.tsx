@@ -1,9 +1,10 @@
 import { HTMLAttributes, useEffect } from "react";
 
-const ProjectBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => {
-    // const [isHovered, setIsHovered] = useState(false);
+import styles from './Projects.module.css';
 
+const ProjectBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     useEffect(() => {
+        // Removes the tooltip element (remove if the tooltip effect is desired)
         const elements = document.querySelectorAll("#projects-section .cursor-tooltip");
         elements.forEach((elem) => {
             elem.remove();
@@ -11,13 +12,7 @@ const ProjectBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ children }) =>
     }, []);
 
     return (
-        <div 
-            className='projects-block' 
-            // onMouseEnter={() => setIsHovered(true)}
-            // onMouseLeave={() => setIsHovered(false)}
-            >
-            {children}
-        </div>
+        <div className={`${styles.projectsBlock} projects-block ${props.className}`} {...props} />
     )
 }
 

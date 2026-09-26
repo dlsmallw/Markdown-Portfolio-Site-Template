@@ -1,4 +1,4 @@
-import { HTMLAttributes, useEffect, useState } from "react";
+import { HTMLAttributes, useEffect } from "react";
 
 import styles from './Button.module.css'
 
@@ -26,7 +26,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({ title, src, target, rel, onClic
             href={src ?? ''} 
             target={target ?? ''}
             rel={rel}
-            className={`${styles.linkButton} link-button`}
+            className={`${styles.linkButton} link-button ${props.className}`}
             onClick={onClick}
             {...props}
         >
@@ -36,20 +36,14 @@ const LinkButton: React.FC<LinkButtonProps> = ({ title, src, target, rel, onClic
     )
 }
 
-const ProjectLinkBtn: React.FC<ProjectLinkProps> = ({ src, children }) => {
+const ProjectLinkBtn: React.FC<ProjectLinkProps> = ({ src, children, ...props }) => {
     return (
-        <div className={`${styles.projectLinkContainer}`}>
+        <div className={`${styles.projectLinkContainer} ${props.className}`}>
             <a 
                 href={src} 
                 target='_blank' 
                 rel='noopener noreferrer' 
                 className={`${styles.projectLinkButton}`}
-                // onMouseEnter={() => setIsHovered(true)}
-                // onMouseLeave={() => setIsHovered(false)}
-                // style={{
-                //     backgroundColor: isHovered ? '#0056b3' : '#007bff',
-                //     cursor: isHovered ? 'pointer' : 'default'
-                // }}
             >
                 {children}
             </a>

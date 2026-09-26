@@ -1,0 +1,13 @@
+.projectsBlock {
+  display: flex;
+  flex-direction: column;
+  margin: 2%;
+  width: auto;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+
+  box-shadow: var(--shadow-lifted);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}

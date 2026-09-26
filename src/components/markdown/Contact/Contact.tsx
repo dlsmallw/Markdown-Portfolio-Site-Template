@@ -1,17 +1,16 @@
 import { HTMLAttributes } from "react";
 
+import styles from './Contacts.module.css'
 
-const LinksBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => {
+const ContactLinksBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     return (
-        <div className='links-block' >
-            {children}
-        </div>
+        <div className={`${styles.contactLinksBlock} ${props.className}`} {...props} />
     )
 }
 
 const ContactComponentRegistry = {
-    linksblock: (props: HTMLAttributes<HTMLDivElement>) => {
-        return <LinksBlock {...props} />
+    contactlinksblock: (props: HTMLAttributes<HTMLDivElement>) => {
+        return <ContactLinksBlock {...props} />
     }
 }
 
