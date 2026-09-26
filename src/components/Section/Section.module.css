@@ -9,6 +9,15 @@
     width: 50vw;
 }
 
+.sectionBorder {
+    width: 52vw;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dummyBottomSection {
+    
+}
+
 .container {
     /* WIP */
 }

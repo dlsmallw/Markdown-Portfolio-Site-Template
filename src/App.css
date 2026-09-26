@@ -17,75 +17,6 @@
   }
 }
 
-/* .App-header {
-  background-color: #282C34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-} */
-
-/* .App-link {
-  color: #61dafb;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-} */
-
-/* @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-} */
-
-/* @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
-
-
-@media screen and (max-width: 576px) {
-  .navbar {
-    padding: 0 !important;
-  }
-
-  .nav-link {
-    margin: 0 10px !important;
-  }
-}
-
-.Navbar-Container {
-  width: 100%;
-  height: var(--page-top-position);
-  background-color: var(--bg-surface);
-  box-shadow: var(--shadow-lifted);
-  color: var(--text-main);
-}
-
-.navbar-inner-container {
-  justify-content: space-between;
-  flex-direction: row;
-  height: 100%;
-  align-items: center;
-}
-
-.nav-link-container {
-  margin: 0 5px 0 5px;
-  transition: opacity 0.3s ease;
-  height: 100%;
-  align-items: center;
-  font-size: var(--text-xl);
-}
-
 .Home-Page {
   display: grid;
 
@@ -165,50 +96,6 @@
     width: max-content;
   }
 }
-
-/* .side-panel {
-  position: sticky;
-  top: calc(var(--page-top-position));
-  display: flex;
-  width: 100%;
-  height: calc(var(--view-height) - var(--space-md));
-  overflow-y: auto;
-  scrollbar-width: none;
-}
-
-#dummy-right-grid {
-   width: auto;
-}
-
-#left-grid {
-  justify-content: right;
-  padding-left: 10px;
-  transition: opacity 0.3s ease-in-out, background-image 0.3s ease-in-out;
-} */
-
-/* #inpage-nav-container {
-  margin-top: var(--space-sm);
-  min-width: fit-content;
-}
-
-#inpage-navbar {
-  display: flex;
-  flex-direction: column;
-  min-width: fit-content;
-  background-color: color-mix(in srgb, var(--bg-main) 30%, transparent);
-  border-radius: 10px;
-  padding: 5px 0 5px 10px;
-
-  button {
-    background-color: transparent;
-    border: none;
-    color: var(--text-main);
-    cursor: pointer;
-    text-align: left;
-    padding-right: var(--space-lg);
-    font-size: var(--text-lg);
-  }
-} */
 
 #headshot-container {
   display: flex;

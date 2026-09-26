@@ -57,4 +57,4 @@ const InpageNavbarContainer: React.FC<{ children: React.ReactNode }> = ({childre
     )
 }
 
-export { InpageNavButton as InpageNavBtn, InpageNavbarContainer, DummyRightPanel };
+export { InpageNavButton, InpageNavbarContainer, DummyRightPanel };
