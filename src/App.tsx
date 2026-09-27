@@ -17,8 +17,7 @@ import {
   DEFAULT_MD_PATH 
 } from './config';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+
 import { 
   HomeSectionData,
   HomeLoaderData,
@@ -26,6 +25,9 @@ import {
   PortfolioLoaderData,
   AppDataContextType
 } from './types/DataLoading';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 const RouterLoader = () => {
   const router = useMemo(() => createBrowserRouter([

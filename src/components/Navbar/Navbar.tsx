@@ -3,6 +3,7 @@ import { Navbar as BSNavbar, Container, Nav, NavLinkProps } from 'react-bootstra
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import styles from './Navbar.module.css';
+import { ThemeToggle } from '../ThemeToggle/ThemeToggle';
 
 interface NavigationLinkProps extends NavLinkProps {
     to: string;
@@ -23,10 +24,10 @@ const NavLink: React.FC<NavigationLinkProps> = ({ to, ...props }) => {
     return (
         <Nav.Link className={`${styles.navLinkContainer} ${props.className}`} 
             style={{
-                color: location.pathname === to ? 'var(--text-muted)' : 'var(--text-main)',
+                color: location.pathname === to ? 'var(--text-main)' : 'color-mix(in srgb, var(--text-main) 70%, transparent)',
                 opacity: location.pathname !== to && isHovered ? 0.7 : 1,
                 cursor: location.pathname !== to ? 'pointer' : 'default',
-                borderBottom: `2px solid ${location.pathname === to ? 'var(--border-color)' : 'transparent'}`,
+                borderBottom: `2px solid ${location.pathname === to ? 'color-mix(in srgb, var(--text-main) 70%, transparent)' : 'transparent'}`,
             }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
@@ -40,10 +41,17 @@ const Navbar: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     return (
         <BSNavbar className={`${styles.navbarContainer} ${props.className}`} sticky="top">
             <Container className='justify-content-center'>
-                <Nav className={styles.navbarInnerContainer} >
-                    <NavLink to="/">Home</NavLink>
-                    <NavLink to="/portfolio">Portfolio</NavLink>
-                </Nav>
+                <BSNavbar.Collapse id="basic-navbar-nav">
+
+                
+                    <Nav className={`${styles.navbarInnerContainer} mx-auto `} >
+                        <NavLink to="/">Home</NavLink>
+                        <NavLink to="/portfolio">Portfolio</NavLink>
+                    </Nav>
+                    <Nav className={`${styles.navbarInnerContainer} `}>
+                        <ThemeToggle />
+                    </Nav>
+                </BSNavbar.Collapse>
             </Container>
         </BSNavbar>
     )

@@ -4,6 +4,7 @@
   background-color: var(--bg-surface);
   box-shadow: var(--shadow-lifted);
   color: var(--text-main);
+  padding: 0 20px !important;
 }
 
 .navbarInnerContainer {

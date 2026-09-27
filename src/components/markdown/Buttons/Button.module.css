@@ -3,10 +3,7 @@
   align-items: center;
   gap: 1rem;
   padding: 0.9rem 1.1rem;
-
-  background-color: var(--bg-surface);
   box-shadow: var(--shadow-lifted);
-  border: 1px solid color-mix(in srgb, var(--border-color) 50%, transparent);
   border-radius: 0.6rem;
 
   color: var(--text-main);
@@ -21,14 +18,30 @@
     transform 150ms ease;
 }
 
-.linkButton:hover, .projectLinkButton:hover {
+.linkButton {
+    background-color: var(--bg-surface);
+    border: 1px solid color-mix(in srgb, var(--bg-secondary) 50%, transparent);
+}
+
+.projectLinkButton{
+    background-color: color-mix(in srgb, var(--bg-secondary) 30%, transparent);
     border: 1px solid color-mix(in srgb, var(--border-color) 90%, transparent);
+}
+
+.linkButton:hover, .projectLinkButton:hover {
     cursor: pointer;
 }
 
 .linkButton:hover {
+    border: 1px solid color-mix(in srgb, var(--bg-secondary) 90%, transparent);
     background-color: var(--bg-secondary);
-    transform: translateX(4px);
+    transform: translate(8px, 0px);
+}
+
+.projectLinkButton:hover {
+    border: 1px solid color-mix(in srgb, var(--border-color) 90%, transparent);
+    background-color: color-mix(in srgb, var(--bg-secondary) 50%, transparent);
+    color: color-mix(in srgb, var(--text-main) 70%, transparent);
 }
 
 .linkButton :global(.img-outer-container .img-cell) {
@@ -49,10 +62,7 @@
     }
 }
 
-.projectLinkButton:hover {
-    background-color: color-mix(in srgb, var(--bg-secondary) 50%, transparent);
-    color: color-mix(in srgb, var(--text-main) 70%, transparent);
-}
+
 
 .linkButton:focus-visible {
     outline: 2px solid currentColor;

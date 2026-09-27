@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
 import { useScrollSpy } from '../../util/ScrollSpy';
-import { DummyRightPanel, InpageNavButton, InpageNavbarContainer } from '../../components/InpageNavigation/InpageNavigation';
+
 import { AppDataContextType } from '../../types/DataLoading';
 
 import { 
@@ -11,11 +11,16 @@ import {
     BottomSpacer
 } from '../../components/Section/Section';
 
+import { 
+    DummyRightPanel, 
+    InpageNavButton, 
+    InpageNavbarContainer 
+} from '../../components/InpageNavigation/InpageNavigation';
+
 import styles from './Home.module.css';
-import { SidePanel } from '../../components/SidePanel/SidePanel';
 
 const Home: React.FC = () => {
-    const [targetRef, setTargetRef] = useState<React.RefObject<HTMLDivElement | null>>();
+    const [ targetRef, setTargetRef ] = useState<React.RefObject<HTMLDivElement | null>>();
     const { homeData, navbarHeight } = useOutletContext<AppDataContextType>();
 
     let activeSection = useScrollSpy(homeData.sectionOrder.map((section, index) => {
@@ -55,11 +60,7 @@ const Home: React.FC = () => {
         return () => {
             window.removeEventListener('resize', handleMaintainSection)
         }
-    })
-
-    useEffect(() => {
-        
-    }, []);
+    });
 
     return (
         <div className={styles.homePage} id="outer-container">

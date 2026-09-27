@@ -3,11 +3,8 @@ import { SidePanel } from "../SidePanel/SidePanel";
 
 import styles from './InpageNavigation.module.css';
 
-const DummyRightPanel: React.FC<HTMLAttributes<HTMLDivElement>> = () => {
-    return (
-        // <div className='section-panel' id='dummy-right-grid' />
-        <SidePanel className={styles.dummyRightGrid} />
-    )
+const DummyRightPanel: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
+    return <SidePanel className={styles.dummyRightGrid} {...props} />;
 }
 
 interface InpageNavButtonProps extends HTMLAttributes<HTMLButtonElement> {
@@ -20,16 +17,20 @@ const InpageNavButton: React.FC<InpageNavButtonProps> = ({ isActive, ...props })
     return (
         <div className={styles.inpageNavButtonContainer} 
             style={{
-                // borderRight: `2px solid ${isActive ? '#ccc' : 'transparent'}`,
                 borderRight: `2px solid ${isActive ? 'color-mix(in srgb, var(--text-main) 30%, transparent)' : 'transparent'}`,
                 opacity: isHovered ? 0.7 : 1,
-                // backgroundImage: isHovered ? 'linear-gradient(to right, transparent, #cccccc36)' : 'none',
-                backgroundImage: isHovered ? 'linear-gradient(to right, transparent, var(--bg-tertiary))' : 'none',
-                }} >
-            <button className={`${styles.inpageNavButton} ${props.className}`} 
-                
+                backgroundImage: isActive ? 'linear-gradient(to right, transparent, var(--bg-tertiary))' : 'none',
+                // backgroundColor: isActive ? 'linear-gradient(to right, transparent, color-mix(in srgb, var(--bg-secondary) 30%, transparent))' : 'var(--bg-surface)',
+            }} 
+        >
+            <button 
+                className={styles.inpageNavButton}
                 onMouseEnter={() => setIsHovered(true)} 
                 onMouseLeave={() => setIsHovered(false)} 
+                style={{
+                    transform: isActive ? 'translateX(-4px)' : 'none',
+                    
+                }}
                 {...props} 
             />
         </div>
