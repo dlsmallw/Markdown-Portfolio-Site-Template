@@ -1,0 +1,4 @@
+.strengthBlock {
+    display: flex;
+    flex-direction: column;
+}

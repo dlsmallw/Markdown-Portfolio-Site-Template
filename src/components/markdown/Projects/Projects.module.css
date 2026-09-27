@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   margin: 2%;
+  padding: 1rem;
   width: auto;
   overflow: hidden;
   border-radius: 8px;
@@ -14,10 +15,6 @@
   p {
     margin: 1rem;
   }
-}
-
-.projectsBlock :global(.img-cell) {
-  margin: 1rem 1rem 0 1rem;
 }
 
 .projectsBlock :global(.image-icon) {

@@ -1,0 +1,16 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bg-main);
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-base);
+    color: var(--text-main);
+}
+
+.main {
+    flex: 1;
+    width: 100%;
+    background-color: color-mix(in srgb, var(--bg-main) 90%, transparent);
+}

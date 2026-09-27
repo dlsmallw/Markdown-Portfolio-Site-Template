@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
 import { useScrollSpy } from '../../util/ScrollSpy';
-import { InpageNavButton, InpageNavbarContainer } from '../../components/InpageNavigation/InpageNavigation';
+import { DummyRightPanel, InpageNavButton, InpageNavbarContainer } from '../../components/InpageNavigation/InpageNavigation';
 import { AppDataContextType } from '../../types/DataLoading';
 
 import { 
@@ -12,6 +12,7 @@ import {
 } from '../../components/Section/Section';
 
 import styles from './Home.module.css';
+import { SidePanel } from '../../components/SidePanel/SidePanel';
 
 const Home: React.FC = () => {
     const [targetRef, setTargetRef] = useState<React.RefObject<HTMLDivElement | null>>();
@@ -61,7 +62,7 @@ const Home: React.FC = () => {
     }, []);
 
     return (
-        <div className='Home-Page' id="outer-container">
+        <div className={styles.homePage} id="outer-container">
             <InpageNavbarContainer>
                 {homeData.sectionData ? homeData.sectionData.map((section) => {
                     return (
@@ -77,7 +78,7 @@ const Home: React.FC = () => {
                 }) : null}
             </InpageNavbarContainer>
 
-            <div id='content-container'>
+            <div className={styles.contentContainer} id='content-container'>
                 {homeData.sectionData ? homeData.sectionData.map((section, index) => {
                     return (
                         <div key={`s-${index}`}>
@@ -92,12 +93,13 @@ const Home: React.FC = () => {
                             )}
                         </div>
                     )
-                }) : <p>Loading...</p>}
+                }) : <div className={styles.loadingContainer}>Loading...</div>}
 
                 <BottomSpacer />
             </div>
 
-            <div className='section-panel' id='dummy-right-grid' />
+            {/* <div className='section-panel' id='dummy-right-grid' /> */}
+            <DummyRightPanel id='dummy-right-grid' />
         </div>
     );
 }

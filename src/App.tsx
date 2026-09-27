@@ -8,7 +8,7 @@ import { processMarkdown } from './util/Markdown';
 
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home/Home';
-import Portfolio from './pages/Portfolio';
+import Portfolio from './pages/Portfolio/Portfolio';
 
 import homeLayoutJSON from './static/markdown/home/layout.json';
 

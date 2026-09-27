@@ -2,7 +2,7 @@ import { HTMLAttributes } from "react";
 import { useIsWrapped } from "../../../util/WrappingUtil";
 import { Bold } from "../../MiscComponents";
 
-import WrappingContainer from "../../WrappingContainer";
+import WrappingContainer from "../../WrappingContainer/WrappingContainer";
 
 import styles from './Education.module.css'
 

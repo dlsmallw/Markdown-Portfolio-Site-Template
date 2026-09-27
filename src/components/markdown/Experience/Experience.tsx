@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import WrappingContainer from "../../WrappingContainer";
+import WrappingContainer from "../../WrappingContainer/WrappingContainer";
 import { useIsWrapped } from "../../../util/WrappingUtil";
 
 import styles from './Experience.module.css';

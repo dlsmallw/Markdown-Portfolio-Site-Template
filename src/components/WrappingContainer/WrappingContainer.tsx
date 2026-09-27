@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { forwardRef } from "react";
 import type { HTMLAttributes } from "react";
 
+import styles from './WrappingContainer.module.css';
+
 interface WrappingContainerProps extends HTMLAttributes<HTMLDivElement> {
     isWrapped: boolean;
     separator?: string;
@@ -16,7 +18,7 @@ const WrappingContainer = forwardRef<HTMLDivElement, WrappingContainerProps>(({ 
     // }, [isWrapped, props.id]);
 
     return (
-        <div ref={ref} className='wrapping-container' style={{
+        <div ref={ref} className={`${styles.wrappingContainer} wrapping-container`} style={{
             display: 'flex',
             flexDirection: isWrapped ? 'column' : 'unset',
         }} {...props}>

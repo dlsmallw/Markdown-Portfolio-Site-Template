@@ -1,10 +1,10 @@
 import { HTMLAttributes } from "react";
 
-const StrengthBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => {
+import styles from './Strengths.module.css';
+
+const StrengthBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     return (
-        <div className='strength-block' style={{}}>
-            {children}
-        </div>
+        <div className={styles.strengthBlock} {...props} />
     )
 }
 

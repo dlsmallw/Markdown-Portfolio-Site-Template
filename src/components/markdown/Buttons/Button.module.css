@@ -12,11 +12,13 @@
   color: var(--text-main);
   font-size: var(--text-sm);
   text-decoration: none;
+  font-weight: 550;
 
   transition:
-      background-color 150ms ease,
-      border-color 150ms ease,
-      transform 150ms ease;
+    color 150ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
 }
 
 .linkButton:hover, .projectLinkButton:hover {
@@ -49,6 +51,7 @@
 
 .projectLinkButton:hover {
     background-color: color-mix(in srgb, var(--bg-secondary) 50%, transparent);
+    color: color-mix(in srgb, var(--text-main) 70%, transparent);
 }
 
 .linkButton:focus-visible {

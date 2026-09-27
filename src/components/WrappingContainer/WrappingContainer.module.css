@@ -1,0 +1,10 @@
+.wrappingContainer {
+    display: flex;
+    line-height: 1.2;
+    flex-wrap: wrap;
+    column-gap: 10px;
+
+    > * {
+        width: max-content;
+    }
+}
