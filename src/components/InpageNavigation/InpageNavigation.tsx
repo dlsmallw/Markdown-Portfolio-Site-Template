@@ -39,13 +39,7 @@ const InpageNavButton: React.FC<InpageNavButtonProps> = ({ isActive, ...props })
 
 const InpageNavbarContainer: React.FC<{ children: React.ReactNode }> = ({children}) => {
     return ( 
-        // <div className='side-panel' id='left-grid' >
-        //     <div id='inpage-nav-container' >
-        //         <div id='inpage-navbar'>
-        //             {children}
-        //         </div>
-        //     </div>
-        // </div>
+        // <div cla
 
         <SidePanel className={styles.leftGrid} >
             <div className={styles.inpageNavContainer} >

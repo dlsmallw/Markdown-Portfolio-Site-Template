@@ -4,6 +4,8 @@ import { Bold } from "../../MiscComponents";
 
 import WrappingContainer from "../../WrappingContainer";
 
+import styles from './Education.module.css'
+
 interface DegreeDetailsProps extends HTMLAttributes<HTMLDivElement> {
     type: string;
     major: string;
@@ -25,29 +27,23 @@ interface ProgramPerformanceProps extends HTMLAttributes<HTMLDivElement> {
     honors?: string;
 }
 
-const EducationBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => {
-    return (
-        <div className='edu-block'>
-            {children}
-        </div>
-    )
-}
-
 interface SchoolDetailsProps extends HTMLAttributes<HTMLDivElement> {
     location: string;
 }
 
-const SchoolDetails: React.FC<SchoolDetailsProps> = ({ children, location }) => {
+const EducationBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
+    return (
+        <div className={styles.educationBlock} {...props}/>
+    )
+}
+
+const SchoolDetails: React.FC<SchoolDetailsProps> = ({ location, children, ...props }) => {
     const { containerRef, isWrapped } = useIsWrapped();
 
     return (
-        <WrappingContainer ref={containerRef} isWrapped={isWrapped} separator="|" id='school-details-container'>
-            <span id='school-name' >{children}</span>
-            {location && (
-                <>
-                    <span id='school-location'>{location}</span>
-                </>
-            )}
+        <WrappingContainer ref={containerRef} isWrapped={isWrapped} separator="|" id='school-details-container' >
+            <span className={styles.schoolNameText} id='school-name' >{children}</span>
+            {location && <span className={styles.schoolLocationText} id='school-location'>{location}</span>}
         </WrappingContainer>
     )
 }
@@ -57,55 +53,77 @@ const DegreeDetails: React.FC<DegreeDetailsProps> = ({ type, major, minor }) => 
     const wrapperTwo = useIsWrapped();
 
     return (
-        <WrappingContainer ref={wrapperOne.containerRef} separator="•" isWrapped={wrapperOne.isWrapped} id='degree-details-container' style={{
-            fontSize: 'var(--text-base)'
-        }}>
+        // <WrappingContainer 
+        //     ref={wrapperOne.containerRef} 
+        //     separator="•" 
+        //     isWrapped={wrapperOne.isWrapped} 
+        //     id='degree-outer-container'
+        // >
+        //     <span id='degree-type'>
+        //         <Bold>{type}</Bold>
+        //     </span>
+        //     <div>
+        //         <WrappingContainer ref={wrapperTwo.containerRef} separator="•" isWrapped={wrapperTwo.isWrapped} id='major-minor-inner-container'>
+        //             <span id='major-span' >
+        //                 <Bold>{'Major: '}</Bold>{major}
+        //             </span>
+        //             {minor && (
+        //                 <span id='minor-span' >
+        //                     <Bold>{'Minor: '}</Bold>{minor}
+        //                 </span>
+        //             )}
+        //         </ WrappingContainer>
+        //     </div>
+        // </WrappingContainer>
+        <WrappingContainer 
+            ref={wrapperOne.containerRef} 
+            separator="•" 
+            isWrapped={wrapperOne.isWrapped} 
+            id='degree-outer-container'
+        >
             <span id='degree-type'>
                 <Bold>{type}</Bold>
             </span>
-            <WrappingContainer ref={wrapperTwo.containerRef} separator="•" isWrapped={wrapperTwo.isWrapped} id='major-minor-block' style={{
-                fontSize: 'var(--text-base)'
-            }}>
-                <span id='major-span'>
-                    <Bold>{'Major: '}</Bold>{major}
+            <span id='major-span' >
+                <Bold>{'Major: '}</Bold>{major}
+            </span>
+            {minor && (
+                <span id='minor-span' >
+                    <Bold>{'Minor: '}</Bold>{minor}
                 </span>
-                {minor && (
-                    <span id='minor-span'>
-                        <Bold>{'Minor: '}</Bold>{minor}
-                    </span>
-                )}
-            </ WrappingContainer>
+            )}
+            
         </WrappingContainer>
     )
 }
 
-const ProgramPerformance: React.FC<ProgramPerformanceProps> = ({ gpa, gpaScale, honors }) => {
+const ProgramPerformance: React.FC<ProgramPerformanceProps> = ({ gpa, gpaScale, honors, ...props }) => {
     const { containerRef, isWrapped } = useIsWrapped();
 
     return (
-        <WrappingContainer ref={containerRef} isWrapped={isWrapped} separator="•" id='program-performance-container'>
+        <WrappingContainer 
+            ref={containerRef} 
+            isWrapped={isWrapped} 
+            separator="•" 
+        >
             {gpa && <span id='gpa-span'><Bold>{'GPA: '}</Bold>{gpaScale ? `${gpa}/${gpaScale}` : gpa}</span>}
             {honors && <span id='honors-span'><Bold>{'Honors: '}</Bold>{honors}</span>}
         </WrappingContainer>
     )
 }
 
-const ProgramDetails: React.FC<ProgramDetailsProps> = ({ type, gpa, major, gpascale, minor, honors}) => {
+const ProgramDetails: React.FC<ProgramDetailsProps> = ({ type, gpa, major, gpascale, minor, honors, ...props}) => {
     return (
-        <div id='program-details-container' >
+        <div className={styles.programDetails} id='program-details-container' {...props} >
             <DegreeDetails type={type} major={major} minor={minor}/>
             {(gpa || honors) && <ProgramPerformance gpa={gpa} gpaScale={gpascale} honors={honors}/>}
         </div>
     )
 }
 
-const RelevantCourses: React.FC<HTMLAttributes<HTMLDivElement>> = ({ title, children }) => {
+const RelevantCourses: React.FC<HTMLAttributes<HTMLDivElement>> = ({ title, children, ...props }) => {
     return (
-        <div id='relevant-courses-container' style={{
-            display: 'flex',
-            flexDirection: 'column',
-            fontSize: 'var(--text-base)'
-        }}>
+        <div className={styles.relevantCoursesContainer} id='relevant-courses-container' {...props} >
             <Bold>{title ? `${title}: ` : 'Relevant Course: '}</Bold>
             {children}
         </div>

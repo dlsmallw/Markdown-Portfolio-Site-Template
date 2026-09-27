@@ -1,0 +1,44 @@
+.skillsCategory {
+  display: flex;
+  flex-direction: column;
+}
+
+.skillsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(0.8rem, 1.5vw, 1.5rem);
+    font-size: var(--text-xl);
+    background-color: var(--bg-secondary);
+    padding: 10px;
+
+    /* li::marker {
+        text-shadow: var(--text-shadow-lifted);  
+    }
+
+    li {
+        text-shadow: var(--text-shadow-lifted);
+    } */
+}
+
+.skillsGrid :global(.image-outer-container) {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex: 0 1 120px;
+    padding: 10px;
+}
+
+.skillsGrid :global(.image-icon) {
+    width: clamp(70px, 8vw, 84px);
+    height: clamp(70px, 8vw, 84px);
+    aspect-ratio: 1;
+    object-fit: fill;
+    filter: var(--icon-shadow);
+    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
+}
+
+.skillsGrid :global(.image-icon):hover {
+    transform: translateY(-2px);
+    filter: var(--icon-shadow-lifted);
+}

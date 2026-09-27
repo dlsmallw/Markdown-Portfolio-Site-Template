@@ -29,6 +29,24 @@
     transform: translateX(4px);
 }
 
+.linkButton :global(.img-outer-container .img-cell) {
+    align-content: center;
+    height: 1.8rem;
+    width: 1.8rem;
+}
+
+.linkButton :global(.image-icon) {
+    height: 1.8em;
+    width: var(--text-lg);
+    vertical-align: middle;
+
+    svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        fill: currentColor;
+    }
+}
+
 .projectLinkButton:hover {
     background-color: color-mix(in srgb, var(--bg-secondary) 50%, transparent);
 }

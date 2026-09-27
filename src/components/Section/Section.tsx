@@ -18,7 +18,7 @@ interface SectionBorderProps extends HTMLAttributes<HTMLDivElement> {
 const PageSection: React.FC<PageSectionProps> = ({ scrollRef, markdown, ...props }) => {
     
     return (
-        <div className='section' ref={scrollRef} {...props}>
+        <div className={styles.section} ref={scrollRef} {...props}>
             {markdown ? (
                 <ReactMarkdown components={ComponentRegistry as Components} rehypePlugins={[rehypeRaw]} >{`${markdown}`}</ReactMarkdown>
             ) : (

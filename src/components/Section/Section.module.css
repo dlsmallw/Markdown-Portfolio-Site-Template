@@ -2,7 +2,7 @@
     scroll-margin-top: var(--page-top-position);
     display: flex;
     flex-direction: column;
-    padding-top: 10px;
+    padding: 1rem 0 2rem 0;
     gap: var(--space-sm);
     text-align: left;
     margin: auto;

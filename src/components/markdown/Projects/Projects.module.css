@@ -10,4 +10,21 @@
 
   box-shadow: var(--shadow-lifted);
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  p {
+    margin: 1rem;
+  }
+}
+
+.projectsBlock :global(.img-cell) {
+  margin: 1rem 1rem 0 1rem;
+}
+
+.projectsBlock :global(.image-icon) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
 }

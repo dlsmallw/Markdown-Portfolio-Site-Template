@@ -1,15 +1,17 @@
 import React from "react";
 import { HTMLAttributes } from "react";
 
+import styles from './Skills.module.css';
+
 interface SkillsCategoryBlock extends HTMLAttributes<HTMLDivElement> {
     title: string;
 }
 
 const SkillsCategoryContainer: React.FC<SkillsCategoryBlock> = ({ title, children }) => {
     return (
-        <div className='skills-category'>
+        <div className={`${styles.skillsCategory} skills-category`} >
             <h3>{title}</h3>
-            <div className='skills-grid sunken-block'>
+            <div className={`${styles.skillsGrid} skills-grid sunken-block`} >
                 {children}
             </div>
         </div>

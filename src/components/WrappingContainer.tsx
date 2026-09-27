@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { forwardRef } from "react";
 import type { HTMLAttributes } from "react";
 
@@ -9,6 +9,12 @@ interface WrappingContainerProps extends HTMLAttributes<HTMLDivElement> {
 
 const WrappingContainer = forwardRef<HTMLDivElement, WrappingContainerProps>(({ children, isWrapped, separator, ...props }, ref) => {
     const childArr = React.Children.toArray(children);
+
+    // useEffect(() => {
+    //     if (props.id === 'major-minor-block')
+    //         console.log(`Is Wrapped: ${isWrapped}`);
+    // }, [isWrapped, props.id]);
+
     return (
         <div ref={ref} className='wrapping-container' style={{
             display: 'flex',
@@ -27,7 +33,6 @@ const WrappingContainer = forwardRef<HTMLDivElement, WrappingContainerProps>(({ 
             }, [])}
         </div>
         )
-    }
-)
+})
 
 export default WrappingContainer;

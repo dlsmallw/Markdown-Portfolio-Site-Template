@@ -1,0 +1,33 @@
+.educationBlock {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+    font-size: var(--text-base);
+}
+
+.schoolNameText {
+    font-weight: bold;
+}
+
+.schoolLocationText {
+    font-style: italic;
+}
+
+.programDetails {
+    display: flex;
+    flex-direction: column;
+}
+
+.degreeDetails {
+    font-size: var(--text-base);
+}
+
+.programPerformance {
+    font-size: var(--text-base);
+}
+
+.relevantCoursesContainer {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--text-base);
+}

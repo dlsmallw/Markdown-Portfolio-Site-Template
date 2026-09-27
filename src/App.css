@@ -66,22 +66,12 @@
 @media screen and (max-width: 1500px) {
   .Home-Page {
     grid-template-columns: 0.65fr 1.65fr 0.20fr !important;
-
-    #dummy-right-grid {
-      display: flex;
-      /* border-left: none; */
-      background-color: var(--bg-main);
-    }
   }
 }
 
 @media screen and (max-width: 960px) {
   .Home-Page {
     grid-template-columns: 1fr 2fr !important;
-    
-    #dummy-right-grid {
-      display: none;
-    }
   }
 }
 
@@ -89,15 +79,14 @@
   display: flex;
   line-height: 1.2;
   flex-wrap: wrap;
-  /* width: fit-content; */
   column-gap: 10px;
 
-  span {
+  > * {
     width: max-content;
   }
 }
 
-#headshot-container {
+/* #headshot-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -108,55 +97,7 @@
   h5 {
     text-align: center;
   }
-
-  .image-icon {
-    width: clamp(140px, 20vw, 280px);
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: 3%;
-  }
-}
-
-#skills-section {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(0.5rem, 1vw, 1.2rem);
-}
-
-.skills-category {
-  display: flex;
-  flex-direction: column;
-  /* gap: clamp(0.5rem, 1.5vw, 1.5rem); */
-}
-
-.img-cell {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-md);
-  position: relative;
-}
-
-.cursor-tooltip {
-  position: absolute;
-  visibility: hidden;
-  opacity: 0;
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  font-size: var(--text-sm);
-  font-weight: bold;
-  color: var(--text-main);
-  /* filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.5)); */
-  box-shadow: var(--shadow-lifted);
-  padding: 4px 6px;
-  border-radius: 4px;
-  pointer-events: none; /* Prevents the tooltip from blocking the hover state */
-  white-space: nowrap;
-  transition: opacity 0.15s ease;
-  z-index: 999;
-  
-}
+} */
 
 ul {
   cursor: default;
@@ -166,151 +107,9 @@ ul {
   li::marker {
     content: '‣ ';
   }
-
 }
 
 .sunken-block {
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3) inset;
+  box-shadow: var(--shadow-inset);
   border-radius: 10px;
-  background-color: var(--bg-secondary);
-  padding: 10px;
-}
-
-.skills-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: clamp(0.8rem, 1.5vw, 1.5rem);
-  font-size: var(--text-xl);
-  
-  .img-outer-container {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    flex: 0 1 120px;
-    padding: 10px;
-  }
-
-  .img-cell {
-
-    .image-icon {
-      width: clamp(70px, 8vw, 84px);
-      height: clamp(70px, 8vw, 84px);
-      aspect-ratio: 1;
-      object-fit: fill;
-      /* filter: drop-shadow(0px 0px 1px #e0f7fa75) drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.3)); */
-      filter: var(--icon-shadow);
-
-      transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
-    }
-
-    .image-icon:hover {
-      transform: translateY(-2px);
-      /* filter: drop-shadow(0px 0px 0.9px #e0f7fa75) drop-shadow(3px 5px 2px rgba(0, 0, 0, 0.3)); */
-      filter: var(--icon-shadow-lifted);
-    }
-  }
-
-  ul {
-    li::marker {
-      text-shadow: var(--text-shadow-lifted);  
-    }
-
-    li {
-      text-shadow: var(--text-shadow-lifted);
-    }
-  }
-}
-
-.experience-block {
-  .company-dates-container {
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 10px;
-    font-size: var(--text-base);
-
-    #company-name-span {
-      font-weight: 600;
-    }
-
-    #date-span {
-      font-style: italic;
-    }
-  }
-
-  li {
-    font-size: var(--text-base);
-  }
-}
-
-.edu-block {
-  display: flex;
-  flex-direction: column;
-  row-gap: 0.5rem;
-
-  #school-details-container {
-    #school-name {
-      font-weight: bold;
-    }
-
-    #school-location {
-      font-style: italic;
-    }
-  }
-
-  #program-details-container {
-    display: flex;
-    flex-direction: column;
-  }
-
-  #degree-details-container {
-    font-size: var(--text-base);
-  }
-
-  #program-performance-container {
-    font-size: var(--text-base);
-  }
-}
-
-
-
-.projects-block {
-  .img-cell {
-    margin: 1rem 1rem 0 1rem;
-  }
-
-  .image-icon {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-  }
-
-  p {
-    margin: 1rem;
-  }
-}
-
-.link-button {
-  .img-outer-container, .img-cell {
-    align-content: center;
-    height: 1.8rem;
-    width: 1.8rem;
-  }
-
-  .image-icon {
-    height: 1.8em;
-    width: var(--text-lg);
-    vertical-align: middle;
-
-    svg {
-      width: 1.5rem;
-      height: 1.5rem;
-      flex-shrink: 0;
-
-      fill: currentColor;
-    }
-  }
 }

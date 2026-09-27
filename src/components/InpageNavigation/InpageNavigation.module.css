@@ -1,22 +1,18 @@
-@media screen and (min-width: 1500px) {
-  /* WIP */
-}
+.dummyRightGrid {
+  width: auto;
 
-@media screen and (max-width: 1500px) {
-  .dummyRightGrid {
+  @media screen and (min-width: 1500px) {
+    /* WIP */
+  }
+
+  @media screen and (max-width: 1500px) {
     display: flex;
     background-color: var(--bg-main);
   }
-}
 
-@media screen and (max-width: 960px) {
-  .dummyRightGrid {
+  @media screen and (max-width: 960px) {
     display: none;
   }
-}
-
-.dummyRightGrid {
-  width: auto;
 }
 
 .leftGrid {

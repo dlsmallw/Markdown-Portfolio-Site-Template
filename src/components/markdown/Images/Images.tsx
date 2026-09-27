@@ -1,5 +1,7 @@
 import { ImgHTMLAttributes, useEffect, useRef, useState } from "react";
 
+import styles from './Images.module.css';
+
 const ImgContainer: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ alt, ...props }) => {
     const isSVG = (url: string) => {
         if (!url) return false;
@@ -92,25 +94,30 @@ const ImgContainer: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ alt, ...p
     }, [props.src]);
 
     return (
-        <div className='img-outer-container'>
-            <div ref={containerRef} className='img-cell'>
+        <div className={`${styles.imageOuterContainer} image-outer-container`}>
+            <div ref={containerRef} className={`${styles.imageCell} image-cell`}>
                 {props.src && !isSVG(props.src) ? (
-                    <img className='image-icon' ref={(element) => { imgRef.current = element; }} alt={alt} {...props} 
+                    <img 
+                        className={`${styles.imageIcon} image-icon`} 
+                        ref={(element) => { imgRef.current = element; }} 
+                        alt={alt} 
                         onMouseEnter={() => setIsHovered(true)} 
                         onMouseLeave={() => setIsHovered(false)}
                         onMouseMove={handleElemMouseMove}
+                        {...props} 
                     />
                 ) : (
                     <div
-                        className="image-icon"
+                        className={`${styles.imageIcon} image-icon`}
                         ref={imgRef}
                         dangerouslySetInnerHTML={{ __html: svg }}
                         onMouseEnter={() => setIsHovered(true)} 
                         onMouseLeave={() => setIsHovered(false)}
                         onMouseMove={handleElemMouseMove}
+                        {...props} 
                     />
                 )}
-                <span className='cursor-tooltip'
+                <span className={`${styles.cursorToolTip} cursor-tooltip`}
                     style={{
                         left: isHovered ? `${ttCoords.left}px` : '0px',
                         top: isHovered ? `${ttCoords.top}px` : '0px',

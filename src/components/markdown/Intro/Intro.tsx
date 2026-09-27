@@ -1,6 +1,8 @@
 import { HTMLAttributes, useEffect } from "react";
 
-const HeadshotContainer: React.FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => {
+import styles from './Intro.module.css';
+
+const HeadshotContainer: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     useEffect(() => {
         const elements = document.querySelectorAll("#intro-section .cursor-tooltip");
         elements.forEach((elem) => {
@@ -9,9 +11,7 @@ const HeadshotContainer: React.FC<HTMLAttributes<HTMLDivElement>> = ({ children 
     }, []);
     
     return (
-        <div id='headshot-container'>
-            {children}
-        </div>
+        <div className={styles.headshotContainer} id='headshot-container' {...props} />
     )
 }
 

@@ -1,0 +1,34 @@
+.imageOuterContainer {
+    display: block;
+}
+
+.imageCell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    position: relative;
+}
+
+.imageIcon {
+    display: block;
+}
+
+.cursorToolTip {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    font-size: var(--text-sm);
+    font-weight: bold;
+    color: var(--text-main);
+    box-shadow: var(--shadow-lifted);
+    padding: 4px 6px;
+    border-radius: 4px;
+    pointer-events: none; /* Prevents the tooltip from blocking the hover state */
+    white-space: nowrap;
+    transition: opacity 0.15s ease;
+    z-index: 999;
+}

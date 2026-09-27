@@ -20,7 +20,13 @@ export function useIsWrapped() {
             const containerWidth = container.offsetWidth;
             let totalChildrenWidth = 0;
 
+            // if (container.id === 'major-minor-block') {
+            //     console.log(`start containerWidth: ${containerWidth}`);
+            // }
+
             children.forEach((child) => {
+                let childWidth = 0
+
                 if (child.id === 'wrapping-separator') {
                     const sepVisibility = child.style.visibility;
                     const sepPosition = child.style.position;
@@ -33,8 +39,8 @@ export function useIsWrapped() {
                     }
                     
 
-                    const width = child.getBoundingClientRect().width;
-                    const gapCorrectedWidth = !Number.isNaN(gapVal) ? width + (gapVal * 2) : width;
+                    childWidth = child.getBoundingClientRect().width;
+                    const gapCorrectedWidth = !Number.isNaN(gapVal) ? childWidth + (gapVal * 2) : childWidth;
 
                     if (sepDisplay === 'none') {
                         child.style.display = sepDisplay;
@@ -45,9 +51,22 @@ export function useIsWrapped() {
                     totalChildrenWidth += gapCorrectedWidth;
                     
                 } else {
-                    totalChildrenWidth += child.scrollWidth;
+                    childWidth = child.scrollWidth
+                    totalChildrenWidth += childWidth;
                 }
+
+                // if (container.id === 'major-minor-block') {
+                //     console.log(`Child: ${child.tagName} ${child.id} ${child.className}`);
+                //     console.log(`Child width: ${childWidth}`);
+                //     console.log(`sum totalWidths ${totalChildrenWidth}`);
+                // }
+
             })
+
+            // if (container.id === 'major-minor-block') {
+            //     console.log(`end totalChildrenWidth: ${totalChildrenWidth}`);
+            //     console.log(`end containerWidth: ${containerWidth}`);
+            // }
 
             setIsWrapped(totalChildrenWidth > containerWidth);
         }
