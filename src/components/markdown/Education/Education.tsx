@@ -7,9 +7,38 @@ interface TextSpanProps extends HTMLAttributes<HTMLSpanElement> {
     pretext?: string;
 }
 
+interface DegreeDatesProps extends HTMLAttributes<HTMLSpanElement> {
+    projectedcompletion?: string;
+    completiondate?: string;
+}
+
 const EducationBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     return (
         <div className={styles.educationBlock} {...props}/>
+    )
+}
+
+const DegreeDates: React.FC<DegreeDatesProps> = ({ projectedcompletion, completiondate, ...props }) => {
+    const dateFormat: { locales?: Intl.LocalesArgument, options?: Intl.DateTimeFormatOptions } = {
+        locales: 'en-US',
+        options: {
+            month: 'long',
+            year: 'numeric'
+        }
+    }
+
+    const pretext = completiondate ? 'Graduated:' : (projectedcompletion ? 'Projected Graduation:' : null);
+    const date = completiondate ? new Date(completiondate) : (projectedcompletion ? new Date(projectedcompletion) : null);
+
+    return (
+        <>
+            {date ? (
+                <TextSpan className={styles.degreeDatesText} pretext={pretext ?? ''} {...props}>
+                    {date.toLocaleDateString(dateFormat.locales, dateFormat.options)}
+                </ TextSpan>) 
+                : null
+            }
+        </>
     )
 }
 
@@ -66,6 +95,9 @@ const EducationComponentRegistry = {
     relevantcourses: (props: HTMLAttributes<HTMLDivElement>) => {
         return <RelevantCourses {...props} />
     },
+    degreedates: (props: DegreeDatesProps) => {
+        return <DegreeDates className={styles.degreeDatesText} {...props} />
+    }
 };
 
 export default EducationComponentRegistry;

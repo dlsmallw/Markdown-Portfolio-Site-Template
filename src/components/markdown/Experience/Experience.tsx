@@ -31,6 +31,14 @@ const PositionTitle: React.FC<HTMLAttributes<HTMLSpanElement>> = ({ ...props }) 
 };
 
 const PositionPeriod: React.FC<PositionPeriodProps> = ({ start, end, ...props }) => {
+    const dateFormat: {locales?: Intl.LocalesArgument, options?: Intl.DateTimeFormatOptions} = {
+        locales: 'en-US',
+        options: {
+            month: 'long',
+            year: 'numeric'
+        }
+    }
+
     const startDate = start ? new Date(start) : null;
     const endDate = end ? new Date(end) : null;
 
@@ -40,7 +48,7 @@ const PositionPeriod: React.FC<PositionPeriodProps> = ({ start, end, ...props })
 
     return (
         <span className={styles.dateText} {...props}>
-            {`${startDate.toLocaleDateString()} - ${endDate ? endDate.toLocaleDateString() : 'Present'}`}
+            {`${startDate.toLocaleDateString(dateFormat.locales, dateFormat.options)} - ${endDate ? endDate.toLocaleDateString(dateFormat.locales, dateFormat.options) : 'Present'}`}
         </span>
     );
 };

@@ -25,6 +25,7 @@ navLabel: Education
 
 ::degreeGPA[4.0/4.0]
 ::degreeHonors[Summa Cum Laude]
+::degreeDates{ completiondate="01/01/2024" }
 
 :::
 
