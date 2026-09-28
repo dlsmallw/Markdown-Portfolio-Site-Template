@@ -9,6 +9,7 @@ import LinkButtonsComponentRegistry from "./markdown/Buttons/Buttons";
 import ContactComponentRegistry from "./markdown/Contact/Contact";
 import StrengthComponentRegistry from "./markdown/Strengths/Strengths";
 import ImageComponentRegistry from "./markdown/Images/Images";
+import WrappingContainerComponentRegistry from "./WrappingContainer/WrappingContainer";
 
 const ComponentRegistry = {
     ...IntroComponentRegistry,
@@ -20,6 +21,7 @@ const ComponentRegistry = {
     ...LinkButtonsComponentRegistry,
     ...ContactComponentRegistry,
     ...ImageComponentRegistry,
+    ...WrappingContainerComponentRegistry,
     ...{
         p: (props: HTMLAttributes<HTMLParagraphElement>) => {
             const children = React.Children.toArray(props.children);

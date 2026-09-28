@@ -1,40 +1,63 @@
-import React, { useEffect } from "react";
-import { forwardRef } from "react";
+import React, { useEffect, useState } from "react";
 import type { HTMLAttributes } from "react";
 
 import styles from './WrappingContainer.module.css';
+import { useIsWrapped } from "../../util/WrappingUtil";
 
-interface WrappingContainerProps extends HTMLAttributes<HTMLDivElement> {
-    isWrapped: boolean;
+export interface WrappingContainerProps extends HTMLAttributes<HTMLDivElement> {
     separator?: string;
 }
 
-const WrappingContainer = forwardRef<HTMLDivElement, WrappingContainerProps>(({ children, isWrapped, separator, ...props }, ref) => {
-    const childArr = React.Children.toArray(children);
+export const WrappingContainer: React.FC<WrappingContainerProps> = ({ separator, ...props }) => {
+    const [className, setClassName] = useState<string | undefined>(undefined);
 
-    // useEffect(() => {
-    //     if (props.id === 'major-minor-block')
-    //         console.log(`Is Wrapped: ${isWrapped}`);
-    // }, [isWrapped, props.id]);
+    const { containerRef, isWrapped } = useIsWrapped();
+    
+    const childArr = React.Children.toArray(props.children).filter(
+        (item) => !(typeof item === 'string' && /^\s*$/.test(item))
+    );
+
+    useEffect(() => {
+        const container = containerRef.current;
+
+        if (!container) return;
+        
+        const children = Array.from(container.children);
+
+        if (!children || children.length < 2) return;
+        setClassName(children[children.length - 1].className);
+    }, [containerRef]);
 
     return (
-        <div ref={ref} className={`${styles.wrappingContainer} wrapping-container`} style={{
-            display: 'flex',
-            flexDirection: isWrapped ? 'column' : 'unset',
-        }} {...props}>
+        <div 
+            ref={containerRef} 
+            className={styles.wrappingContainer}
+            style={{
+                flexDirection: isWrapped ? 'column' : 'unset',
+            }}
+        >
             {childArr.reduce<React.ReactNode[]>((acc, child, index) => {
-                acc.push(child);
+                if (React.isValidElement(child)) {
+                    console.log(child);
+                    acc.push(child);
 
-                if (separator && index < childArr.length - 1) {
-                    acc.push(<span id='wrapping-separator' key={`sep-${index}`} style={{ 
-                        display: isWrapped ? 'none' : 'block',
-                    }}>{separator}</span>);
+                    if (separator && index < childArr.length - 1) {
+                        acc.push(<span className={className} id='wrapping-separator' key={`sep-${index}`} style={{ 
+                            display: isWrapped ? 'none' : 'block',
+                        }}>{separator}</span>);
+                    }
                 }
 
                 return acc;
             }, [])}
         </div>
         )
-})
+};
 
-export default WrappingContainer;
+const WrappingContainerComponentRegistry = {
+    wrappingcontainer: ( props: WrappingContainerProps ) => {
+        return <WrappingContainer {...props} />
+    }
+}
+
+export default WrappingContainerComponentRegistry;

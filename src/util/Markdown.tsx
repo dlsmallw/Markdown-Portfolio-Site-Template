@@ -28,9 +28,6 @@ function sectionDirectivePlugin() {
         return (tree: Root) => {
             visit(tree, (node) => {
                 if (node.type === 'textDirective' || node.type === 'leafDirective' || node.type === 'containerDirective') {
-                    if (node.type === 'textDirective') {
-                        // console.log(node)
-                    }
                     const data = node.data || (node.data = {});
                     const attr = node.attributes || {};
 

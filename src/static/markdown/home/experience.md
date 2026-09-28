@@ -4,7 +4,18 @@ navLabel: Experience
 
 ## Work Experience
 
-:::experienceBlock{title="Software Engineer" company="Example Technology Company" startDate="January 2024" endDate=""}
+:::::experienceBlock
+
+### Example Technology Company
+
+::::positionBlock
+
+:::wrappingContainer{ separator="|" }
+
+::positionTitle[Software Engineer]
+::positionPeriod{ start="01/01/2024" end=""}
+
+:::
 
  - Develop and maintain software applications using modern programming languages and frameworks.
  - Design and implement new application features based on user and business requirements.
@@ -12,15 +23,24 @@ navLabel: Experience
  - Identify and troubleshoot software defects through testing, debugging, and code analysis.
  - Collaborate with developers, designers, and stakeholders throughout the software development lifecycle.
 
+::::
+
+::::positionBlock
+
+:::wrappingContainer{ separator="|" }
+
+::positionTitle[Software Engineer Intern]
+::positionPeriod{ start="08/01/2023" end="01/01/2024"}
+
 :::
 
-:::experienceBlock{title="Software Engineering Intern" company="Example Software Company" startDate="August 2023" endDate="January 2024"}
+ - Assisted in the development and maintainenance of software applications using modern programming languages and frameworks.
+ - Assisted in the design and implementation of new application features based on user and business requirements.
+ - Assisted in the development of REST APIs and integrate third-party services into existing applications.
+ - Helped identify and troubleshoot software defects through testing, debugging, and code analysis.
+ - Collaborated with developers, designers, and stakeholders throughout the software development lifecycle.
 
- - Assisted with development and maintenance of production software applications.
- - Implemented application features using JavaScript and React.
- - Created automated tests to improve software reliability and reduce regressions.
- - Worked with Git-based development workflows and participated in code reviews.
- - Documented technical solutions and assisted in troubleshooting application issues.
+::::
 
-:::
+:::::
 

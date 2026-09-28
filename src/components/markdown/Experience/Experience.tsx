@@ -1,37 +1,64 @@
 import { HTMLAttributes } from "react";
-import WrappingContainer from "../../WrappingContainer/WrappingContainer";
-import { useIsWrapped } from "../../../util/WrappingUtil";
 
 import styles from './Experience.module.css';
-interface ExperienceBlockProps extends HTMLAttributes<HTMLDivElement> {
+
+interface PositionBlockProps extends HTMLAttributes<HTMLDivElement> {
     title: string;
-    company: string;
     startdate: string;
     enddate?: string;
 };
 
-const ExperienceBlock: React.FC<ExperienceBlockProps> = ({ children, title, company, startdate, enddate }) => {
-    const { containerRef, isWrapped } = useIsWrapped();
+interface PositionPeriodProps extends HTMLAttributes<HTMLSpanElement> {
+    start: string;
+    end?: string;
+};
 
+const ExperienceBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
+    return <div className={styles.experienceBlock} {...props} />
+};
+
+
+const PositionBlock: React.FC<PositionBlockProps> = ({ title, startdate, enddate, children, ...props }) => {
     return (
-        <div className={`${styles.experienceBlock} experience-block`}>
-            <h3>{title}</h3>
-            <div className={`${styles.companyDatesContainer} company-dates-container`} >
-                <WrappingContainer ref={containerRef} isWrapped={isWrapped} separator="|">
-                    <span className={`${styles.companyNameText}`} >{company}</span>
-                    {startdate && <span className={`${styles.dateText}`} >{`${startdate} - ${enddate ? enddate : 'Present'}`}</span>}
-                </WrappingContainer>
-            </div>
+        <div className={`${styles.positionBlock}`} {...props} >
             {children}
         </div>
-        
     )
-}
+};
+
+const PositionTitle: React.FC<HTMLAttributes<HTMLSpanElement>> = ({ ...props }) => {
+    return <span className={styles.positionText} {...props} />;
+};
+
+const PositionPeriod: React.FC<PositionPeriodProps> = ({ start, end, ...props }) => {
+    const startDate = start ? new Date(start) : null;
+    const endDate = end ? new Date(end) : null;
+
+    if (!startDate) {
+        return null;
+    }
+
+    return (
+        <span className={styles.dateText} {...props}>
+            {`${startDate.toLocaleDateString()} - ${endDate ? endDate.toLocaleDateString() : 'Present'}`}
+        </span>
+    );
+};
 
 const ExperienceComponentRegistry = {
-    experienceblock: (props: ExperienceBlockProps) => {
-        return <ExperienceBlock {...props} />
+    experienceblock: (props: HTMLAttributes<HTMLDivElement>) => {
+        return <ExperienceBlock {...props} />;
+    },
+    positionblock: (props: PositionBlockProps) => {
+        return <PositionBlock {...props} />;
+    },
+    positiontitle: (props: HTMLAttributes<HTMLDivElement>) => {
+        return <PositionTitle {...props} />;
+    },
+    positionperiod: (props: PositionPeriodProps) => {
+        return <PositionPeriod {...props} />;
     }
+
 };
 
 export default ExperienceComponentRegistry;

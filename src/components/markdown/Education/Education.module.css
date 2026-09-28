@@ -3,6 +3,11 @@
     flex-direction: column;
     row-gap: 0.5rem;
     font-size: var(--text-base);
+    padding: 0.5rem 1rem;
+}
+
+.schoolHeader {
+    font-size: var(--text-xl);
 }
 
 .schoolNameText {
@@ -11,6 +16,23 @@
 
 .schoolLocationText {
     font-style: italic;
+}
+
+.degreeLevelText {
+    font-weight: bold;
+}
+
+.degreeMajorText, 
+.degreeMinorText,
+.degreeGPAText,
+.degreeHonorsText {
+    display: flex;
+    gap: 0.5rem;
+    font-size: var(--text-base);
+
+    .preText {
+        font-weight: bold;
+    }
 }
 
 .programDetails {

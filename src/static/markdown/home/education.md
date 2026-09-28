@@ -4,10 +4,29 @@ navLabel: Education
 
 ## Education
 
+:::wrappingContainer{ separator="|"}
+
+::schoolName[Example University]
+::schoolLocation[Somewhere, USA]
+
+:::
+
 ::::educationBlock
 
-:schoolDetails[Example University]{location="Somewhere, USA"}
-::programDetails{type="Bachelors of Science" gpa="4.0" major="Software Engineering" minor="Cyber Security" gpascale="4.0" honors="Summa Cum Laude"}
+:::wrappingContainer{ separator="•" }
+
+::degreeLevel[Bachelors of Science]
+::degreeMajor[Software Engineering]
+::degreeMinor[Cyber Security]
+
+:::
+
+:::wrappingContainer{ separator="•" }
+
+::degreeGPA[4.0/4.0]
+::degreeHonors[Summa Cum Laude]
+
+:::
 
 :::relevantCourses{title="Relevant Coursework"}
 

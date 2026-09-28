@@ -1,7 +1,7 @@
 .linkButton, .projectLinkButton {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
   padding: 0.9rem 1.1rem;
   box-shadow: var(--shadow-lifted);
   border-radius: 0.6rem;
@@ -56,13 +56,11 @@
     vertical-align: middle;
 
     svg {
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 2rem;
+        height: 2rem;
         fill: currentColor;
     }
 }
-
-
 
 .linkButton:focus-visible {
     outline: 2px solid currentColor;
