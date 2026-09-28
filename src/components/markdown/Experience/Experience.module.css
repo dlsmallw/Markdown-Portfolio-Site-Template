@@ -1,26 +1,25 @@
-.experienceBlock {
+:global(#company-block) {
   display: flex;
   flex-direction: column;
 }
 
-.positionBlock {
+:global(#position-block) {
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
   width: 100%;
-  font-size: var(--text-lg);
 
   li {
     font-size: var(--text-base);
   }
 }
 
-.positionText {
-  font-weight: 600;
-}
+:global(#position-details) {
+  font-size: var(--text-lg);
 
-.dateText {
-  font-style: italic;
+  strong {
+    font-weight: 600;
+  }
 }

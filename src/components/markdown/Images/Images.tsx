@@ -94,11 +94,12 @@ const ImgContainer: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ alt, ...p
     }, [props.src]);
 
     return (
-        <div className={`${styles.imageOuterContainer} image-outer-container`}>
-            <div ref={containerRef} className={`${styles.imageCell} image-cell`}>
+        <div className={`${styles.imageOuterContainer} image-outer-container`} id='image-outer-container'>
+            <div ref={containerRef} className={`${styles.imageCell} image-cell`} id='image-cell'>
                 {props.src && !isSVG(props.src) ? (
                     <img 
                         className={`${styles.imageIcon} image-icon`} 
+                        id='image-icon'
                         ref={(element) => { imgRef.current = element; }} 
                         alt={alt} 
                         onMouseEnter={() => setIsHovered(true)} 
@@ -109,6 +110,7 @@ const ImgContainer: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ alt, ...p
                 ) : (
                     <div
                         className={`${styles.imageIcon} image-icon`}
+                        id='image-icon'
                         ref={imgRef}
                         dangerouslySetInnerHTML={{ __html: svg }}
                         onMouseEnter={() => setIsHovered(true)} 
@@ -131,6 +133,7 @@ const ImgContainer: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ alt, ...p
 
 const ImageComponentRegistry = {
     img: (props: ImgHTMLAttributes<HTMLImageElement>) => {
+
         return (
             <ImgContainer {...props} />
         )

@@ -1,4 +1,4 @@
-.educationBlock {
+:global(#education-block) {
     display: flex;
     flex-direction: column;
     row-gap: 0.5rem;
@@ -6,50 +6,11 @@
     padding: 0.5rem 1rem;
 }
 
-.schoolHeader {
+:global(#school-details) {
     font-size: var(--text-xl);
 }
 
-.schoolNameText {
-    font-weight: bold;
-}
-
-.schoolLocationText {
-    font-style: italic;
-}
-
-.degreeLevelText {
-    font-weight: bold;
-}
-
-.degreeMajorText, 
-.degreeMinorText,
-.degreeGPAText,
-.degreeHonorsText,
-.degreeDatesText {
-    display: flex;
-    gap: 0.5rem;
-    font-size: var(--text-base);
-
-    .preText {
-        font-weight: bold;
-    }
-}
-
-.programDetails {
-    display: flex;
-    flex-direction: column;
-}
-
-.degreeDetails {
-    font-size: var(--text-base);
-}
-
-.programPerformance {
-    font-size: var(--text-base);
-}
-
-.relevantCoursesContainer {
+:global(#relevant-courses-block) {
     display: flex;
     flex-direction: column;
     font-size: var(--text-base);

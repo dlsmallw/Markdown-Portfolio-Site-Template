@@ -4,16 +4,16 @@ navLabel: Experience
 
 ## Work Experience
 
-:::::experienceBlock
+:::::container{ id='company-block' }
 
 ### Example Technology Company
 
-::::positionBlock
+::::container{ id="position-block" }
 
-:::wrappingContainer{ separator="|" }
+:::wrappingContainer{ separator="|" id="position-details" }
 
-::positionTitle[Software Engineer]
-::positionPeriod{ start="01/01/2024" end=""}
+::grouped[**Software Engineer**]
+::grouped[*:date[01/01/2024] - Present*]
 
 :::
 
@@ -25,12 +25,12 @@ navLabel: Experience
 
 ::::
 
-::::positionBlock
+::::container{ id="position-block" }
 
-:::wrappingContainer{ separator="|" }
+:::wrappingContainer{ separator="|" id="position-details" }
 
-::positionTitle[Software Engineer Intern]
-::positionPeriod{ start="08/01/2023" end="01/01/2024"}
+::grouped[**Software Engineer Intern**]
+::grouped[*:date[08/01/2023] - :date[01/01/2024]*]
 
 :::
 

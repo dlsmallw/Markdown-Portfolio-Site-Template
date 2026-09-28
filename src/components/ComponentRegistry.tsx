@@ -11,6 +11,43 @@ import StrengthComponentRegistry from "./markdown/Strengths/Strengths";
 import ImageComponentRegistry from "./markdown/Images/Images";
 import WrappingContainerComponentRegistry from "./WrappingContainer/WrappingContainer";
 
+interface DateProps extends HTMLAttributes<HTMLSpanElement> {
+    locales?: string,
+    month?: string;
+    day?: string;
+    year?: string;
+}
+
+function inlineTryCatch<T, R>(fn: () => T, fallback: R): T | R {
+    try {
+        return fn();
+    } catch (error) {
+        return fallback;
+    }
+}
+
+const DefaultContainer: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
+    return <div {...props} />
+}
+
+const DateElement: React.FC<DateProps> = ({ locales, month, day, year, ...props }) => {
+    const date = inlineTryCatch(() => props.children ? new Date(String(props.children)) : undefined, undefined);
+    const dateFormat: { locales: Intl.LocalesArgument, options: Intl.DateTimeFormatOptions } = {
+        locales: inlineTryCatch(() => locales as Intl.LocalesArgument, 'en-US'),
+        options: {
+            month: inlineTryCatch(() => month as Intl.DateTimeFormatOptions['month'], 'short'),
+            day: inlineTryCatch(() => day as Intl.DateTimeFormatOptions['day'], undefined),
+            year: inlineTryCatch(() => year as Intl.DateTimeFormatOptions['year'], 'numeric'),
+        }
+    }
+
+    return (
+        <>
+            {date && <span {...props} >{date.toLocaleDateString(dateFormat.locales, dateFormat.options)}</span>}
+        </>
+    )
+}
+
 const ComponentRegistry = {
     ...IntroComponentRegistry,
     ...SkillsComponentRegistry,
@@ -32,6 +69,15 @@ const ComponentRegistry = {
                 return <p {...props} />
             }
         },
+        grouped: (props: HTMLAttributes<HTMLSpanElement>) => {
+            return <span {...props} />
+        },
+        date: (props: HTMLAttributes<HTMLSpanElement>) => {
+            return <DateElement {...props} />
+        },
+        container: (props: HTMLAttributes<HTMLDivElement>) => {
+            return <DefaultContainer {...props} />
+        }
     }
 }
 

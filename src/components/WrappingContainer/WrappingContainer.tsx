@@ -35,6 +35,7 @@ export const WrappingContainer: React.FC<WrappingContainerProps> = ({ separator,
             style={{
                 flexDirection: isWrapped ? 'column' : 'unset',
             }}
+            {...props}
         >
             {childArr.reduce<React.ReactNode[]>((acc, child, index) => {
                 if (React.isValidElement(child)) {
