@@ -9,13 +9,13 @@ import {
     PageSection,
     SectionBorder,
     BottomSpacer
-} from '../../components/Section/Section';
+} from '../../components/Section';
 
 import { 
     DummyRightPanel, 
     InpageNavButton, 
     InpageNavbarContainer 
-} from '../../components/InpageNavigation/InpageNavigation';
+} from '../../components/InpageNavigation';
 
 import styles from './Home.module.css';
 

@@ -4,7 +4,7 @@ import ReactMarkdown, { Components } from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { HTMLAttributes, useEffect, useState } from "react";
 
-import styles from './Section.module.css';
+import styles from './component.module.css';
 
 interface PageSectionProps extends HTMLAttributes<HTMLDivElement> {
     scrollRef: React.RefObject<HTMLDivElement | null>;

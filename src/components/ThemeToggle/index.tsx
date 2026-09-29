@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { ReactComponent as LightModeIcon } from '../../assets/theme/light-mode.svg';
 import { ReactComponent as DarkModeIcon } from "../../assets/theme/dark-mode.svg";
 
-import styles from './ThemeToggle.module.css';
+import styles from './component.module.css';
 
 const ThemeToggle: React.FC = () => {
     const [theme, setThemeState] = useState<'light' | 'dark'>('dark');

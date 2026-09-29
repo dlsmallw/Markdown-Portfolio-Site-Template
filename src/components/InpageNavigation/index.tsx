@@ -1,7 +1,7 @@
 import { HTMLAttributes, useState } from "react";
-import { SidePanel } from "../SidePanel/SidePanel";
+import { SidePanel } from "../SidePanel";
 
-import styles from './InpageNavigation.module.css';
+import styles from './component.module.css';
 
 const DummyRightPanel: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     return <SidePanel className={styles.dummyRightGrid} {...props} />;
