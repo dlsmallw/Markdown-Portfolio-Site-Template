@@ -4,45 +4,66 @@ navLabel: Skills
 
 ## Technical Skills
 
-:::skillsCategoryContainer{title="Programming Languages"}
+::::container{ id="skill-category" }
 
-![Python](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original-wordmark.svg)
-![JavaScript](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg)
-![TypeScript](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg)
-![Java](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original-wordmark.svg)
-![C++](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg)
-![SQL](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg)
+#### Programming Languages
 
-:::
+:::container{ id="skill-grid" classname="sunken-block" }
 
-:::skillsCategoryContainer{title="Frameworks & Libraries"}
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original-wordmark.svg" alt="Python" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="TypeScript" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original-wordmark.svg" alt="Java" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" alt="C++" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg" alt="SQL" id="skill-image" }
 
-![React](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg)
-![React Bootstrap](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/reactbootstrap/reactbootstrap-original.svg)
-![React Router](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/reactrouter/reactrouter-original-wordmark.svg)
-![Node.js](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg)
-![Express](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg)
-![Electron](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/electron/electron-original.svg)
-![Pandas](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original-wordmark.svg)
-![scikit-learn](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg)
 
 :::
+::::
 
-:::skillsCategoryContainer{title="Tools & Technologies"}
+::::container{ id="skill-category" }
 
-![Git](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original-wordmark.svg)
-![GitHub](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original-wordmark.svg)
-![GitLab](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original-wordmark.svg)
-![SQLite](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original-wordmark.svg)
-![PostgreSQL](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg)
-![FastAPI](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original-wordmark.svg)
-![Linux](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg)
-![Docker](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original-wordmark.svg)
-![AWS](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg)
+#### Frameworks & Libraries
+
+:::container{ id="skill-grid" classname="sunken-block" }
+
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/reactbootstrap/reactbootstrap-original.svg" alt="React Bootstrap" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/reactrouter/reactrouter-original-wordmark.svg" alt="React Router" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg" alt="Node.js" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg" alt="Express" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/electron/electron-original.svg" alt="Electron" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original-wordmark.svg" alt="Pandas" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg" alt="scikit-learn" id="skill" }
 
 :::
+::::
 
-:::skillsCategoryContainer{title="Development"}
+::::container{ id="skill-category" }
+
+#### Tools & Technologies
+
+:::container{ id="skill-grid" classname="sunken-block" }
+
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original-wordmark.svg" alt="Git" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original-wordmark.svg" alt="GitHub" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original-wordmark.svg" alt="GitLab" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original-wordmark.svg" alt="SQLite" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original-wordmark.svg" alt="FastAPI" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="Linux" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original-wordmark.svg" alt="Docker" id="skill" }
+::img{ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS" id="skill" }
+
+:::
+::::
+
+
+::::container{ id="skill-category" }
+
+#### Development
+
+:::container{ id="skill-grid" classname="sunken-block" }
 
  - Full-Stack Development
  - Object-Oriented Programming
@@ -53,4 +74,5 @@ navLabel: Skills
  - Machine Learning
  - Application Deployment
 
- :::
+:::
+::::

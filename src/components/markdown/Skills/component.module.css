@@ -1,9 +1,9 @@
-.skillsCategory {
+:global(#skill-category) {
   display: flex;
   flex-direction: column;
 }
 
-.skillsGrid {
+:global(#skill-grid) {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -11,17 +11,9 @@
     font-size: var(--text-xl);
     background-color: var(--bg-secondary);
     padding: 10px;
-
-    /* li::marker {
-        text-shadow: var(--text-shadow-lifted);  
-    }
-
-    li {
-        text-shadow: var(--text-shadow-lifted);
-    } */
 }
 
-.skillsGrid :global(.image-outer-container) {
+:global(#skill-image-outer-container) {
     display: flex;
     align-content: center;
     justify-content: center;
@@ -29,7 +21,7 @@
     padding: 10px;
 }
 
-.skillsGrid :global(.image-icon) {
+:global(#skill-image-icon) {
     width: clamp(70px, 8vw, 84px);
     height: clamp(70px, 8vw, 84px);
     aspect-ratio: 1;
@@ -38,7 +30,7 @@
     transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
 }
 
-.skillsGrid :global(.image-icon):hover {
+:global(#skill-image-icon):hover {
     transform: translateY(-2px);
     filter: var(--icon-glow) var(--icon-shadow-lifted);
 }

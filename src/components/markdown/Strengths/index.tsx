@@ -1,6 +1,6 @@
 import { HTMLAttributes } from "react";
 
-import styles from './Strengths.module.css';
+import styles from './component.module.css';
 
 const StrengthBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     return (
@@ -8,10 +8,10 @@ const StrengthBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) =
     )
 }
 
-const StrengthComponentRegistry = {
+const ComponentRegistry = {
     strengthblock: (props: HTMLAttributes<HTMLDivElement>) => {
         return <StrengthBlock {...props} />
     }
 }
 
-export default StrengthComponentRegistry;
+export default ComponentRegistry;

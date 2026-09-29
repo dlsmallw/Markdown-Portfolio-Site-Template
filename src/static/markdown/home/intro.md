@@ -2,9 +2,9 @@
 navLabel: Introduction
 ---
 
-:::headshotContainer
+:::container{ id="headshot-container" }
 
-![headshot](/default_headshot.jpg)
+::img{src="/default_headshot.jpg" alt="headshot" id="headshot" tooltip="false" }
 
 ## John Doe
 

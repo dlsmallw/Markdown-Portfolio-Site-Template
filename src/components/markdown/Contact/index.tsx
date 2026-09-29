@@ -1,6 +1,7 @@
 import { HTMLAttributes } from "react";
 
-import styles from './Contacts.module.css'
+import './component.module.css';
+import styles from './component.module.css';
 
 const ContactLinksBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     return (
@@ -8,10 +9,10 @@ const ContactLinksBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props 
     )
 }
 
-const ContactComponentRegistry = {
+const ComponentRegistry = {
     contactlinksblock: (props: HTMLAttributes<HTMLDivElement>) => {
         return <ContactLinksBlock {...props} />
     }
 }
 
-export default ContactComponentRegistry;
+export default ComponentRegistry;

@@ -1,6 +1,6 @@
 import { HTMLAttributes, useEffect } from "react";
 
-import styles from './Projects.module.css';
+import styles from './component.module.css';
 
 const ProjectBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     useEffect(() => {
@@ -16,10 +16,10 @@ const ProjectBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) =>
     )
 }
 
-const ProjectsComponentRegistry = {
+const ComponentRegistry = {
     projectblock: (props: HTMLAttributes<HTMLDivElement>) => {
         return <ProjectBlock {...props} />
     },
 }
 
-export default ProjectsComponentRegistry;
+export default ComponentRegistry;

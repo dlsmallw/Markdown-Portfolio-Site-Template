@@ -45,7 +45,7 @@
 
   --text-shadow-lifted: 2px 2px 4px rgba(0, 0, 0, 0.4);
   --icon-shadow: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.3));
-  --icon-glow: none;
+  --icon-glow: drop-shadow(0px 0px 0.8px #c7f9ff00);
   --icon-shadow-lifted: drop-shadow(3px 5px 2px rgba(0, 0, 0, 0.3));
   --border-color: #e5e7eb;
 

@@ -1,8 +1,12 @@
 import { ImgHTMLAttributes, useEffect, useRef, useState } from "react";
 
-import styles from './Images.module.css';
+import styles from './component.module.css';
 
-const ImgContainer: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ alt, ...props }) => {
+interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
+    tooltip?: string;
+}
+
+const ImgContainer: React.FC<ImageProps> = ({ alt, tooltip = 'true', ...props }) => {
     const isSVG = (url: string) => {
         if (!url) return false;
 
@@ -94,50 +98,51 @@ const ImgContainer: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ alt, ...p
     }, [props.src]);
 
     return (
-        <div className={`${styles.imageOuterContainer} image-outer-container`} id='image-outer-container'>
-            <div ref={containerRef} className={`${styles.imageCell} image-cell`} id='image-cell'>
+        <div className={styles.imageOuterContainer} id={`${props.id ? `${props.id}-` : ''}image-outer-container`}>
+            <div ref={containerRef} className={styles.imageCell} id={`${props.id ? `${props.id}-` : ''}image-cell`}>
                 {props.src && !isSVG(props.src) ? (
                     <img 
-                        className={`${styles.imageIcon} image-icon`} 
-                        id='image-icon'
-                        ref={(element) => { imgRef.current = element; }} 
+                        className={styles.imageIcon}
+                        id={`${props.id ? `${props.id}-` : ''}image-icon`}
+                        src={props.src}
                         alt={alt} 
+                        ref={(element) => { imgRef.current = element; }} 
+                        
                         onMouseEnter={() => setIsHovered(true)} 
                         onMouseLeave={() => setIsHovered(false)}
                         onMouseMove={handleElemMouseMove}
-                        {...props} 
                     />
                 ) : (
                     <div
-                        className={`${styles.imageIcon} image-icon`}
-                        id='image-icon'
+                        className={styles.imageIcon}
+                        id={`${props.id ? `${props.id}-` : ''}image-icon`}
                         ref={imgRef}
                         dangerouslySetInnerHTML={{ __html: svg }}
                         onMouseEnter={() => setIsHovered(true)} 
                         onMouseLeave={() => setIsHovered(false)}
                         onMouseMove={handleElemMouseMove}
-                        {...props} 
                     />
                 )}
-                <span className={`${styles.cursorToolTip} cursor-tooltip`}
+                {tooltip === 'true' && <span className={`${styles.cursorToolTip} cursor-tooltip`}
+                    id={`${props.id ? `${props.id}-` : ''}cursor-tooltip`}
                     style={{
                         left: isHovered ? `${ttCoords.left}px` : '0px',
                         top: isHovered ? `${ttCoords.top}px` : '0px',
                         opacity: isHovered ? 1 : 0,
                         visibility: isHovered ? 'visible' : 'hidden'
                     }}>{alt}</span>
+                }
             </div>
         </div>
     )
 }
 
-const ImageComponentRegistry = {
-    img: (props: ImgHTMLAttributes<HTMLImageElement>) => {
-
+const ComponentRegistry = {
+    img: (props: ImageProps) => {
         return (
             <ImgContainer {...props} />
         )
     }
 }
 
-export default ImageComponentRegistry;
+export default ComponentRegistry;

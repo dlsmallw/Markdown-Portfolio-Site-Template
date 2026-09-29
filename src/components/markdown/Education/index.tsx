@@ -1,7 +1,7 @@
 import { HTMLAttributes } from "react";
 import { Bold } from "../../MiscComponents";
 
-import styles from './Education.module.css'
+import styles from './component.module.css';
 
 interface TextSpanProps extends HTMLAttributes<HTMLSpanElement> {
     pretext?: string;
@@ -67,7 +67,7 @@ const RelevantCourses: React.FC<HTMLAttributes<HTMLDivElement>> = ({ title, chil
 }
 
 
-const EducationComponentRegistry = {
+const ComponentRegistry = {
     educationblock: (props: HTMLAttributes<HTMLDivElement>) => {
         return <EducationBlock {...props} />
     },
@@ -100,4 +100,4 @@ const EducationComponentRegistry = {
     }
 };
 
-export default EducationComponentRegistry;
+export default ComponentRegistry;

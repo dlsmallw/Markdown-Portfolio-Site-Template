@@ -2,7 +2,7 @@ import React, { HTMLAttributes } from 'react';
 import { Navbar as BSNavbar, Container, Nav, NavLinkProps } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import styles from './Navbar.module.css';
+import styles from './component.module.css';
 import { ThemeToggle } from '../ThemeToggle/ThemeToggle';
 
 interface NavigationLinkProps extends NavLinkProps {

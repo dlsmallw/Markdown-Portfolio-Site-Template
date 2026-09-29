@@ -1,10 +1,10 @@
 import { HTMLAttributes, useEffect } from "react";
 
-import styles from './Button.module.css'
+import styles from './component.module.css';
 
 interface LinkButtonProps extends HTMLAttributes<HTMLAnchorElement> {
-    title: string;
-    src: string;
+    title?: string;
+    src?: string;
     target?: string;
     rel?: string;
 }
@@ -22,17 +22,21 @@ const LinkButton: React.FC<LinkButtonProps> = ({ title, src, target, rel, onClic
     }, []);
 
     return (
-        <a 
-            href={src ?? ''} 
-            target={target ?? ''}
-            rel={rel}
-            className={`${styles.linkButton} link-button ${props.className}`}
-            onClick={onClick}
-            {...props}
-        >
-            {children}
-            <span className='link-button-text'>{title || src || "Missing title/src attributes"}</span>
-        </a>
+        <>
+            {src && (
+                <a 
+                    href={src ?? ''} 
+                    target={target ?? ''}
+                    rel={rel}
+                    onClick={onClick}
+                    {...props}
+                >
+                    {children}
+                </a>
+            )}
+            
+        </>
+        
     )
 }
 
@@ -51,13 +55,19 @@ const ProjectLinkBtn: React.FC<ProjectLinkProps> = ({ src, children, ...props })
     )
 }
 
-const LinkButtonsComponentRegistry = {
+const ComponentRegistry = {
     sitelink: (props: LinkButtonProps) => {
-        return <LinkButton target="_blank" rel="noopener noreferrer" {...props} />
+        return <LinkButton 
+                    className={styles.linkButton}
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    {...props} 
+                />
     },
     emaillink: (props: LinkButtonProps) => {
         return (
             <LinkButton 
+                className={styles.linkButton}
                 onClick={(event) => {
                     event.preventDefault();
                     window.open(props.src, 'mail');
@@ -67,8 +77,19 @@ const LinkButtonsComponentRegistry = {
         );
     },
     projectlink: (props: ProjectLinkProps) => {
-        return <ProjectLinkBtn {...props} />
+        return (
+            <div className={styles.projectLinkContainer}>
+                <LinkButton 
+                    className={styles.projectLinkButton} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    {...props} 
+                />
+            </div>
+        )
+        
+        
     }
 }
 
-export default LinkButtonsComponentRegistry;
+export default ComponentRegistry;

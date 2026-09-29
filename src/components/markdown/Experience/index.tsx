@@ -1,6 +1,6 @@
 import { HTMLAttributes } from "react";
 
-import styles from './Experience.module.css';
+import styles from './component.module.css';
 
 interface PositionBlockProps extends HTMLAttributes<HTMLDivElement> {
     title: string;
@@ -53,7 +53,7 @@ const PositionPeriod: React.FC<PositionPeriodProps> = ({ start, end, ...props })
     );
 };
 
-const ExperienceComponentRegistry = {
+const ComponentRegistry = {
     experienceblock: (props: HTMLAttributes<HTMLDivElement>) => {
         return <ExperienceBlock {...props} />;
     },
@@ -69,4 +69,4 @@ const ExperienceComponentRegistry = {
 
 };
 
-export default ExperienceComponentRegistry;
+export default ComponentRegistry;

@@ -1,6 +1,7 @@
 import { HTMLAttributes, useEffect } from "react";
 
-import styles from './Intro.module.css';
+import './component.module.css';
+import styles from './component.module.css';
 
 const HeadshotContainer: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     useEffect(() => {
@@ -15,10 +16,10 @@ const HeadshotContainer: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props 
     )
 }
 
-const IntroComponentRegistry = {
+const ComponentRegistry = {
     headshotcontainer: (props: HTMLAttributes<HTMLDivElement>) => { 
         return <HeadshotContainer {...props} />
     },
 }
 
-export default IntroComponentRegistry;
+export default ComponentRegistry;

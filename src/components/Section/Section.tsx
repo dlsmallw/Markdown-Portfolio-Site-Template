@@ -1,5 +1,5 @@
 import { VFile } from "vfile";
-import ComponentRegistry from "../ComponentRegistry";
+import ComponentRegistry from "../markdown";
 import ReactMarkdown, { Components } from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { HTMLAttributes, useEffect, useState } from "react";
@@ -11,12 +11,8 @@ interface PageSectionProps extends HTMLAttributes<HTMLDivElement> {
     markdown: VFile;
 }
 
-interface SectionBorderProps extends HTMLAttributes<HTMLDivElement> {
-    key: string;
-}
-
 const PageSection: React.FC<PageSectionProps> = ({ scrollRef, markdown, ...props }) => {
-    
+    // console.log(ComponentRegistry)
     return (
         <div className={`${styles.section} page-section`} ref={scrollRef} {...props}>
             {markdown ? (
@@ -28,11 +24,10 @@ const PageSection: React.FC<PageSectionProps> = ({ scrollRef, markdown, ...props
     )
 }
 
-const SectionBorder: React.FC<SectionBorderProps> = ({ key, ...props }) => {
+const SectionBorder: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     return (
         <div 
             className={styles.sectionBorder} 
-            key={key} 
             {...props}
         />
     )

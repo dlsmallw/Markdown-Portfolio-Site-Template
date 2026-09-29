@@ -1,7 +1,7 @@
 import React from "react";
 import { HTMLAttributes } from "react";
 
-import styles from './Skills.module.css';
+import styles from './component.module.css';
 
 interface SkillsCategoryBlock extends HTMLAttributes<HTMLDivElement> {
     title: string;
@@ -18,7 +18,7 @@ const SkillsCategoryContainer: React.FC<SkillsCategoryBlock> = ({ title, childre
     )
 }
 
-const SkillsComponentRegistry = {
+const ComponentRegistry = {
     skillscategorycontainer: (props: SkillsCategoryBlock) => { 
         return <SkillsCategoryContainer {...props} />
     },
@@ -26,4 +26,4 @@ const SkillsComponentRegistry = {
 
 };
 
-export default SkillsComponentRegistry;
+export default ComponentRegistry;

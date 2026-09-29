@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import type { HTMLAttributes } from "react";
 
-import styles from './WrappingContainer.module.css';
-import { useIsWrapped } from "../../util/WrappingUtil";
+import styles from './component.module.css';
+import { useIsWrapped } from "../../../util/WrappingUtil";
 
 export interface WrappingContainerProps extends HTMLAttributes<HTMLDivElement> {
     separator?: string;
@@ -39,7 +39,6 @@ export const WrappingContainer: React.FC<WrappingContainerProps> = ({ separator,
         >
             {childArr.reduce<React.ReactNode[]>((acc, child, index) => {
                 if (React.isValidElement(child)) {
-                    console.log(child);
                     acc.push(child);
 
                     if (separator && index < childArr.length - 1) {
@@ -55,10 +54,10 @@ export const WrappingContainer: React.FC<WrappingContainerProps> = ({ separator,
         )
 };
 
-const WrappingContainerComponentRegistry = {
+const ComponentRegistry = {
     wrappingcontainer: ( props: WrappingContainerProps ) => {
         return <WrappingContainer {...props} />
     }
 }
 
-export default WrappingContainerComponentRegistry;
+export default ComponentRegistry;
