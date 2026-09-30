@@ -1,6 +1,6 @@
-import React, { HTMLAttributes } from 'react';
-import { Navbar as BSNavbar, Container, Nav, NavLinkProps } from 'react-bootstrap';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { type HTMLAttributes } from 'react';
+import { Navbar as BSNavbar, Container, Nav, type NavLinkProps } from 'react-bootstrap';
+import { useLocation, useNavigate } from 'react-router';
 
 import styles from './component.module.css';
 import { ThemeToggle } from '../ThemeToggle';

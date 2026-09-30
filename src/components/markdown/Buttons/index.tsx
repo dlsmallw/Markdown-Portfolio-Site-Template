@@ -1,4 +1,4 @@
-import { HTMLAttributes, useEffect } from "react";
+import { type HTMLAttributes, useEffect } from "react";
 
 import styles from './component.module.css';
 

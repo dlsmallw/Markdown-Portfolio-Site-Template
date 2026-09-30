@@ -1,7 +1,6 @@
 import { createRef, StrictMode, useEffect, useMemo, useState } from 'react';
-import { createBrowserRouter, LoaderFunctionArgs, Outlet, RouterProvider, useLoaderData, useLocation } from 'react-router-dom';
+import { createBrowserRouter, type LoaderFunctionArgs, Outlet, RouterProvider, useLoaderData, useLocation } from 'react-router';
 
-import { VFile } from 'vfile';
 import matter from 'gray-matter';
 
 import { processMarkdown } from './util/Markdown';
@@ -10,7 +9,7 @@ import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home/Home';
 import Portfolio from './pages/Portfolio/Portfolio';
 
-import homeLayoutJSON from './static/markdown/home/layout.json';
+
 
 import { 
   MD_PATH,
@@ -18,13 +17,15 @@ import {
 } from './config';
 
 
-import { 
+import type { 
   HomeSectionData,
   HomeLoaderData,
   PortfolioSectionData,
   PortfolioLoaderData,
   AppDataContextType
 } from './types/DataLoading';
+
+import homeLayoutJSON from './static/markdown/home/layout.json';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';

@@ -1,8 +1,8 @@
 import { VFile } from "vfile";
 import ComponentRegistry from "../markdown";
-import ReactMarkdown, { Components } from "react-markdown";
+import ReactMarkdown, { type Components } from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import { HTMLAttributes, useEffect, useState } from "react";
+import { type HTMLAttributes, useEffect, useState } from "react";
 
 import styles from './component.module.css';
 

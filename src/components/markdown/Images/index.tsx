@@ -1,4 +1,4 @@
-import { ImgHTMLAttributes, useEffect, useRef, useState } from "react";
+import { type ImgHTMLAttributes, useEffect, useRef, useState } from "react";
 
 import styles from './component.module.css';
 

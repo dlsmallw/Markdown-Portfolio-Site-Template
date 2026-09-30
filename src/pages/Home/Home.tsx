@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useOutletContext } from 'react-router';
 
 import { useScrollSpy } from '../../util/ScrollSpy';
 
-import { AppDataContextType } from '../../types/DataLoading';
+import type { AppDataContextType } from '../../types/DataLoading';
 
 import { 
     PageSection,
