@@ -1,4 +1,4 @@
-import React, { useState, useEffect, type HTMLAttributes } from 'react';
+import React, { type HTMLAttributes } from 'react';
 import type { Components } from "react-markdown";
 
 function inlineTryCatch<T, R>(fn: () => T, fallback: R): T | R {
@@ -15,8 +15,6 @@ interface DateProps extends HTMLAttributes<HTMLSpanElement> {
     day?: string;
     year?: string;
 }
-
-
 
 interface DefaultContainerProps extends HTMLAttributes<HTMLDivElement> {
     classname?: string;
@@ -44,8 +42,6 @@ const DateElement: React.FC<DateProps> = ({ locales, month, day, year, ...props 
     )
 }
 
-const modules = import.meta.glob<Components>('./**/index.tsx', { eager: true });
-
 let ComponentRegistry: Components = {
     ...{
         p: (props: HTMLAttributes<HTMLParagraphElement>) => {
@@ -69,11 +65,17 @@ let ComponentRegistry: Components = {
     }
 }
 
-for (const path in modules) {
-    if (path === './index.tsx') continue;
-    const module = await import(path);
+const modules = (import.meta as ImportMeta & {
+    glob: <T>(pattern: string, options: { eager: true }) => Record<string, T>
+}).glob<Components>('./**/index.tsx', { eager: true });
+
+for (const fp in modules) {
+    if (fp === './index.tsx') continue;
+    
+    const module = await import(/* @vite-ignore */ fp);
+    if (!module) continue;
+
     const importRegistry = module.default as Components;
-    // console.log(importRegistry)
     ComponentRegistry = {
         ...ComponentRegistry,
         ...importRegistry

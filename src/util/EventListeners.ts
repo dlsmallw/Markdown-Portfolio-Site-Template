@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigation } from "react-router";
 
+/**
+ * Helper for handling automatic container wrapping when changing the dimensions of the window.
+ * @returns         A reference to the wrapping container and a boolean that indicates whether 
+ *                  the container is wrapped.
+ */
 export function useIsWrapped() {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [isWrapped, setIsWrapped] = useState(false);
@@ -20,12 +26,8 @@ export function useIsWrapped() {
             const containerWidth = container.offsetWidth;
             let totalChildrenWidth = 0;
 
-            // if (container.id === 'major-minor-block') {
-            //     console.log(`start containerWidth: ${containerWidth}`);
-            // }
-
             children.forEach((child) => {
-                let childWidth = 0
+                let childWidth = 0;
 
                 if (child.id === 'wrapping-separator') {
                     const sepVisibility = child.style.visibility;
@@ -51,22 +53,10 @@ export function useIsWrapped() {
                     totalChildrenWidth += gapCorrectedWidth;
                     
                 } else {
-                    childWidth = child.scrollWidth
+                    childWidth = child.scrollWidth;
                     totalChildrenWidth += childWidth;
                 }
-
-                // if (container.id === 'major-minor-block') {
-                //     console.log(`Child: ${child.tagName} ${child.id} ${child.className}`);
-                //     console.log(`Child width: ${childWidth}`);
-                //     console.log(`sum totalWidths ${totalChildrenWidth}`);
-                // }
-
-            })
-
-            // if (container.id === 'major-minor-block') {
-            //     console.log(`end totalChildrenWidth: ${totalChildrenWidth}`);
-            //     console.log(`end containerWidth: ${containerWidth}`);
-            // }
+            });
 
             setIsWrapped(totalChildrenWidth > containerWidth);
         }
@@ -80,4 +70,56 @@ export function useIsWrapped() {
     }, [])
 
     return { containerRef, isWrapped };
+}
+
+/**
+ * Facilitates tracking which section the user is at while scrolling.
+ * @param sectionIDs        The list of sections available to scroll.
+ * @param options           Options that mutate the algorithms logic for determining the current section.
+ * @returns         The current active section the user is at.
+ */
+export function useScrollSpy(sectionIDs: string[], options?: IntersectionObserverInit): string | null { 
+    const [activeSection, setActiveSection] = useState<string | null>(null);
+    const visibleSections = useRef<Record<string, boolean>>({});
+
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                visibleSections.current[entry.target.id] = entry.isIntersecting;
+            });
+
+            const currActive = sectionIDs.find(id => visibleSections.current[id]);
+            if (currActive) {
+                setActiveSection(currActive);
+            }
+        }, options);
+
+        sectionIDs.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                observer.observe(element);
+            }
+        });
+
+        return () => {
+            observer.disconnect();
+        }
+    }, [sectionIDs, options]);
+
+    return activeSection;
+}
+
+export function useScrollRestorationListener(
+    beforeCallback: () => void, 
+    afterCallback: () => void
+) {
+    const location = useLocation();
+    const navigation = useNavigation();
+
+    useEffect(() => {
+        if (navigation.state !== 'idle') 
+            beforeCallback();
+        else 
+            afterCallback();
+    }, [location.key, navigation.state]);
 }

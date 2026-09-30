@@ -1,15 +1,21 @@
 import { createRef, StrictMode, useEffect, useMemo, useState } from 'react';
-import { createBrowserRouter, type LoaderFunctionArgs, Outlet, RouterProvider, useLoaderData, useLocation } from 'react-router';
+import { 
+  type LoaderFunctionArgs, 
+  createBrowserRouter, 
+  Outlet, 
+  RouterProvider, 
+  useLoaderData, 
+  useLocation, 
+  ScrollRestoration 
+} from 'react-router';
 
 import matter from 'gray-matter';
 
 import { processMarkdown } from './util/Markdown';
 
 import MainLayout from './layouts/MainLayout';
-import Home from './pages/Home/Home';
-import Portfolio from './pages/Portfolio/Portfolio';
-
-
+import Home from './routes/home';
+import Portfolio from './routes/portfolio';
 
 import { 
   MD_PATH,
@@ -29,6 +35,7 @@ import homeLayoutJSON from './static/markdown/home/layout.json';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import { useScrollRestorationListener } from './util/EventListeners';
 
 const RouterLoader = () => {
   const router = useMemo(() => createBrowserRouter([
@@ -90,8 +97,6 @@ export async function appDataLoader(_args: LoaderFunctionArgs) {
     return null;
   }
 
-  
-
   const homeData: HomeLoaderData | null = await loadHomeData(homeLayoutJSON.sectionOrder, DEFAULT_MD_PATH);
   const portfolioData: PortfolioLoaderData | null = await loadPortfolioData();
 
@@ -109,6 +114,15 @@ const AppContent = () => {
       setNavbarHeight(navbar.getBoundingClientRect().height);
     });
 
+    useScrollRestorationListener(
+      () => {
+        document.documentElement.style.scrollBehavior = 'instant';
+      },
+      () => {
+        document.documentElement.style.scrollBehavior = 'auto';
+      }
+    )
+
     observer.observe(navbar);
     setNavbarHeight(navbar.getBoundingClientRect().height);
 
@@ -121,6 +135,7 @@ const AppContent = () => {
   return (
     <MainLayout>
       <Outlet context={{ homeData, portfolioData, navbarHeight }} key={location.pathname}/>
+      <ScrollRestoration getKey={(location) => location.pathname} />
     </MainLayout>
   )
 }

@@ -11,6 +11,12 @@ import {visit} from 'unist-util-visit'
 import {h} from 'hastscript'
 import type {Root} from 'mdast';
 
+/**
+ * Converts the markdown from a string to a node tree to be parsed.
+ * @param mdStr         The raw markdown as a string.
+ * @param plugin        Plugins used for parsing the markdown.
+ * @returns             The markdown as a node tree.
+ */
 async function markdownToNodeTree(mdStr: string, plugin: () =>(tree: Root) => void) {
     return await unified()
         .use(remarkParse)
@@ -23,7 +29,11 @@ async function markdownToNodeTree(mdStr: string, plugin: () =>(tree: Root) => vo
         .process(mdStr);
 }
 
-function sectionDirectivePlugin() {
+/**
+ * A custom plugin used to parse the raw markdown files and associate the correct React element type.
+ * @returns     The parsed node tree.
+ */
+function customDirectivePlugin() {
     return () => {
         return (tree: Root) => {
             visit(tree, (node) => {
@@ -41,8 +51,13 @@ function sectionDirectivePlugin() {
     }
 }
 
+/**
+ * Processes a markdown file using the specified directive.
+ * @param mdStr     The markdown as a string.
+ * @returns         The processed node tree.
+ */
 async function processMarkdown(mdStr: string): Promise<VFile> {
-    return await markdownToNodeTree(mdStr, sectionDirectivePlugin());
+    return await markdownToNodeTree(mdStr, customDirectivePlugin());
 }
 
 export { processMarkdown }

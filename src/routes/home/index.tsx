@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router';
 
-import { useScrollSpy } from '../../util/ScrollSpy';
+import { useScrollSpy } from '../../util/EventListeners';
 
 import type { AppDataContextType } from '../../types/DataLoading';
 
@@ -17,13 +17,14 @@ import {
     InpageNavbarContainer 
 } from '../../components/InpageNavigation';
 
-import styles from './Home.module.css';
+import styles from './route.module.css';
 
 const Home: React.FC = () => {
+    const [targetSection, setTargetSection] = useState<string | undefined>();
     const [ targetRef, setTargetRef ] = useState<React.RefObject<HTMLDivElement | null>>();
     const { homeData, navbarHeight } = useOutletContext<AppDataContextType>();
 
-    let activeSection = useScrollSpy(homeData.sectionOrder.map((section, index) => {
+    const activeSection = useScrollSpy(homeData.sectionOrder.map((section) => {
         return `${section}-section`;
     }), { root: null, rootMargin: `-${navbarHeight + 180}px 0px 0px 0px`, threshold: 0 });
 
@@ -38,7 +39,7 @@ const Home: React.FC = () => {
             inline: 'nearest'
         }); 
 
-        activeSection = current.id;
+        // setTargetSection(current.id);
     };
 
     const handleMaintainSection = () => {
@@ -60,16 +61,28 @@ const Home: React.FC = () => {
         return () => {
             window.removeEventListener('resize', handleMaintainSection)
         }
-    });
+    }, []);
+
+    useEffect(() => {
+        // if (homeData && homeData.sectionOrder.length > 0)
+        setTargetSection(homeData.sectionOrder[0]);
+    }, [homeData.sectionOrder])
+
+    useEffect(() => {
+        setTargetSection(activeSection);
+    }, [activeSection]);
 
     return (
         <div className={styles.homePage} id="outer-container">
             <InpageNavbarContainer>
-                {homeData.sectionData ? homeData.sectionData.map((section) => {
+                {homeData.sectionData ? homeData.sectionData.map((section, index) => {
+                    let isActive = false;
+                    if (!targetSection && index === 0) isActive = true;
+                    else isActive = targetSection === `${section.id}-section`;
                     return (
                         <InpageNavButton 
                             key={`${section.id}-nav-btn`}
-                            isActive={activeSection === `${section.id}-section`}  
+                            isActive={isActive}  
                             onClick={() => {
                                 handleScroll(section.ref);
                                 setTargetRef(section.ref);

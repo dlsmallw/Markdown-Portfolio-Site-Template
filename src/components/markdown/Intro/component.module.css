@@ -18,3 +18,10 @@
     border-radius: 3%;
     border: 1px solid var(--border-color);
 }
+
+:global(#intro-links-block) {
+    width: 35%;
+    min-width: fit-content;
+    align-self: center;
+}
+

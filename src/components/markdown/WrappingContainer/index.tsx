@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import type { HTMLAttributes } from "react";
 
 import styles from './component.module.css';
-import { useIsWrapped } from "../../../util/WrappingUtil";
+import { useIsWrapped } from "../../../util/EventListeners";
 
 export interface WrappingContainerProps extends HTMLAttributes<HTMLDivElement> {
     separator?: string;
