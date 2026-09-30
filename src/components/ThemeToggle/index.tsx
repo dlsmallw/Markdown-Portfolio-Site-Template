@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-import { ReactComponent as LightModeIcon } from '../../assets/theme/light-mode.svg';
-import { ReactComponent as DarkModeIcon } from "../../assets/theme/dark-mode.svg";
-
 import styles from './component.module.css';
 
 const ThemeToggle: React.FC = () => {
     const [theme, setThemeState] = useState<'light' | 'dark'>('dark');
+    const [darkModeSVG, setDarkModeSVG] = useState("");
+    const [lightModeSVG, setLightModeSVG] = useState("");
 
     const toggleTheme = () => {
         const newTheme = theme === 'dark' ? 'light' : 'dark';
@@ -42,19 +41,45 @@ const ThemeToggle: React.FC = () => {
         setThemeState(savedTheme === 'light' ? 'light' : 'dark');
         document.documentElement.setAttribute('data-theme', savedTheme === 'light' ? 'light' : 'dark');
     }, []);
+
+    useEffect(() => {
+            fetch("/theme/light-mode.svg")
+                .then(res => res.text())
+                .then(setLightModeSVG);
+
+            fetch("/theme/dark-mode.svg")
+                .then(res => res.text())
+                .then(setDarkModeSVG);
+    }, []);
     
     return (
         <div className={styles.themeToggleContainer} id="theme-toggle-container" 
             onClick={toggleTheme} 
             title={`Toggle Theme`}
         >
-            <LightModeIcon className={styles.lightModeIcon} style={{
+            {/* <LightModeIcon className={styles.lightModeIcon} style={{
                 opacity: theme === 'light' ? 1 : 0,
                 position: 'absolute' as const,
             }} />
             <DarkModeIcon className={styles.darkModeIcon} style={{
                 opacity: theme === 'dark' ? 1 : 0,
-            }} />
+            }} /> */}
+
+            <div
+                className={styles.lightModeIcon}
+                dangerouslySetInnerHTML={{ __html: lightModeSVG }}
+                style={{
+                    opacity: theme === 'light' ? 1 : 0,
+                    position: 'absolute' as const,
+                }}
+            />
+            <div
+                className={styles.darkModeIcon}
+                dangerouslySetInnerHTML={{ __html: darkModeSVG }}
+                style={{
+                    opacity: theme === 'dark' ? 1 : 0,
+                }}
+            />
         </div>
     );
 };

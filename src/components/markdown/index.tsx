@@ -1,5 +1,5 @@
-import React, { useState, useEffect, HTMLAttributes } from 'react';
-import { Components } from "react-markdown";
+import React, { useState, useEffect, type HTMLAttributes } from 'react';
+import type { Components } from "react-markdown";
 
 function inlineTryCatch<T, R>(fn: () => T, fallback: R): T | R {
     try {
@@ -44,7 +44,7 @@ const DateElement: React.FC<DateProps> = ({ locales, month, day, year, ...props 
     )
 }
 
-const context = require.context('./', true, /\/index\.tsx$/);
+const modules = import.meta.glob<Components>('./**/index.tsx', { eager: true });
 
 let ComponentRegistry: Components = {
     ...{
@@ -69,15 +69,15 @@ let ComponentRegistry: Components = {
     }
 }
 
-context.keys().forEach((key) => {
-    if (key === './index.tsx') return;
-    const module = context(key);
-    const registry = module.default as Components;
-    
+for (const path in modules) {
+    if (path === './index.tsx') continue;
+    const module = await import(path);
+    const importRegistry = module.default as Components;
+    // console.log(importRegistry)
     ComponentRegistry = {
-        ...ComponentRegistry, 
-        ...registry
+        ...ComponentRegistry,
+        ...importRegistry
     }
-});
+};
 
 export default ComponentRegistry;
