@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router';
 
 import { useScrollSpy } from '../../util/EventListeners';
-
 import type { AppDataContextType } from '../../types/DataLoading';
 
 import { 
     PageSection,
-    SectionBorder,
-    BottomSpacer
+    SectionBorder
 } from '../../components/Section';
 
 import { 
@@ -20,13 +18,12 @@ import {
 import styles from './route.module.css';
 
 const Home: React.FC = () => {
-    const [targetSection, setTargetSection] = useState<string | undefined>();
-    const [ targetRef, setTargetRef ] = useState<React.RefObject<HTMLDivElement | null>>();
+    const [targetRef, setTargetRef] = useState<React.RefObject<HTMLDivElement | null>>();
     const { homeData, navbarHeight } = useOutletContext<AppDataContextType>();
 
     const activeSection = useScrollSpy(homeData.sectionOrder.map((section) => {
         return `${section}-section`;
-    }), { root: null, rootMargin: `-${navbarHeight + 180}px 0px 0px 0px`, threshold: 0 });
+    }), { root: null, rootMargin: `-${navbarHeight + 200}px 0px 0px 0px`, threshold: 0 });
 
     const handleScroll = (elementRef: React.RefObject<HTMLDivElement | null>) => {
         const current = elementRef.current;
@@ -53,8 +50,9 @@ const Home: React.FC = () => {
             setTargetRef(homeData.sectionData[0].ref);
         }
     }
-
+    // console.log(targetSection)
     useEffect(() => {
+        
         window.addEventListener('resize', handleMaintainSection);
         handleInitTargetRef();
 
@@ -65,11 +63,11 @@ const Home: React.FC = () => {
 
     useEffect(() => {
         // if (homeData && homeData.sectionOrder.length > 0)
-        setTargetSection(homeData.sectionOrder[0]);
+        // setTargetSection(homeData.sectionOrder[0]);
     }, [homeData.sectionOrder])
 
     useEffect(() => {
-        setTargetSection(activeSection);
+        // setTargetSection(activeSection);
     }, [activeSection]);
 
     return (
@@ -77,8 +75,8 @@ const Home: React.FC = () => {
             <InpageNavbarContainer>
                 {homeData.sectionData ? homeData.sectionData.map((section, index) => {
                     let isActive = false;
-                    if (!targetSection && index === 0) isActive = true;
-                    else isActive = targetSection === `${section.id}-section`;
+                    if (!activeSection && index === 0) isActive = true;
+                    else isActive = activeSection === `${section.id}-section`;
                     return (
                         <InpageNavButton 
                             key={`${section.id}-nav-btn`}
@@ -94,9 +92,11 @@ const Home: React.FC = () => {
 
             <div className={styles.contentContainer} id='content-container'>
                 {homeData.sectionData ? homeData.sectionData.map((section, index) => {
+                    const heightStyle = index === homeData.sectionData.length - 1 ? {height: 'var(--view-height)'} : {};
                     return (
                         <div key={`s-${index}`}>
                             <PageSection 
+                                style={{ ...heightStyle }}
                                 scrollRef={section.ref} 
                                 id={`${section.id}-section`} 
                                 key={section.id} 
@@ -108,8 +108,6 @@ const Home: React.FC = () => {
                         </div>
                     )
                 }) : <div className={styles.loadingContainer}>Loading...</div>}
-
-                <BottomSpacer />
             </div>
 
             {/* <div className='section-panel' id='dummy-right-grid' /> */}

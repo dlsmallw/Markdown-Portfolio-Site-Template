@@ -1,0 +1,27 @@
+.pdfPreviewContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: var(--view-height);
+}
+
+.pdfScrollContainer {
+    /* height: calc(var(--view-height) + var(--space-md)); */
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    overflow-y: auto;
+    gap: var(--space-md);
+}
+
+.pdfPageWrapper {
+    margin: 10px 0;
+}
+
+.pageIndexContainer {
+    position: sticky;
+    bottom: 1rem;
+    padding: 0 15px;
+    color: var(--text-main);
+    background-color: color-mix(in srgb, var(--bg-surface) 80%, transparent);
+}

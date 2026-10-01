@@ -1,5 +1,6 @@
 .homePage {
   display: grid;
+  height: var(--view-height);
 
   @media screen and (min-width: 1500px) {
     grid-template-columns: 0.5fr 1.5fr 0.5fr !important;
@@ -17,6 +18,10 @@
 .contentContainer {
     display: flex;
     flex-direction: column;
+    height: var(--view-height);
+    overflow-y: auto;
+    scrollbar-width: none;
+
     text-align: center;
     gap: var(--space-md);
     background-color: var(--bg-main);

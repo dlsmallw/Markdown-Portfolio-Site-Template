@@ -1,9 +1,11 @@
 .sidePanel {
-  position: sticky;
+  /* position: sticky;
   top: calc(var(--page-top-position));
   display: flex;
   width: 100%;
   height: calc(var(--view-height) - var(--space-md));
   overflow-y: auto;
-  scrollbar-width: none;
+  scrollbar-width: none; */
+  display: flex;
+  width: 100%;
 }

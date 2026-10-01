@@ -27,8 +27,7 @@ import type {
   HomeSectionData,
   HomeLoaderData,
   PortfolioSectionData,
-  PortfolioLoaderData,
-  AppDataContextType
+  PortfolioLoaderData
 } from './types/DataLoading';
 
 import homeLayoutJSON from './static/markdown/home/layout.json';
@@ -36,6 +35,7 @@ import homeLayoutJSON from './static/markdown/home/layout.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { useScrollRestorationListener } from './util/EventListeners';
+import Resume from './routes/resume';
 
 const RouterLoader = () => {
   const router = useMemo(() => createBrowserRouter([
@@ -51,6 +51,10 @@ const RouterLoader = () => {
         {
           path: '/portfolio',
           element: <Portfolio />,
+        },
+        {
+          path: '/resume',
+          element: <Resume />,
         }
       ]
     }
@@ -129,12 +133,12 @@ const AppContent = () => {
     return () => observer.disconnect();
   }, []);
 
-  const { homeData, portfolioData } = useLoaderData<AppDataContextType>();
+  const { homeData, portfolioData } = useLoaderData();
   const location = useLocation();
 
   return (
     <MainLayout>
-      <Outlet context={{ homeData, portfolioData, navbarHeight }} key={location.pathname}/>
+      <Outlet context={{ homeData, portfolioData, resumePDFFileURL: '/resume/Daniel Smallwood Resume.pdf', navbarHeight }} key={location.pathname}/>
       <ScrollRestoration getKey={(location) => location.pathname} />
     </MainLayout>
   )

@@ -1,0 +1,5 @@
+.resumeContainer {
+    /* height: var(--view-height); */
+    /* overflow-y: hidden; */
+    overflow: hidden;
+}

@@ -23,7 +23,7 @@
 }
 
 .inpageNavContainer {
-  margin-top: var(--space-sm);
+  margin-top: var(--space-lg);
   min-width: fit-content;
 }
 

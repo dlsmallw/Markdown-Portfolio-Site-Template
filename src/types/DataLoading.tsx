@@ -23,6 +23,7 @@ export interface PortfolioLoaderData {
 
 export interface AppDataContextType {
     homeData: HomeLoaderData;
-    portfolioData: PortfolioLoaderData | {},
-    navbarHeight: number
+    portfolioData: PortfolioLoaderData | {};
+    resumePDFFileURL: string;
+    navbarHeight: number;
 };
