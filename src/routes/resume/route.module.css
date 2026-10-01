@@ -1,5 +1,4 @@
 .resumeContainer {
-    /* height: var(--view-height); */
-    /* overflow-y: hidden; */
-    overflow: hidden;
+    display: flex;
+    justify-content: center;
 }

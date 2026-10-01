@@ -57,14 +57,6 @@ const ThemeToggle: React.FC = () => {
             onClick={toggleTheme} 
             title={`Toggle Theme`}
         >
-            {/* <LightModeIcon className={styles.lightModeIcon} style={{
-                opacity: theme === 'light' ? 1 : 0,
-                position: 'absolute' as const,
-            }} />
-            <DarkModeIcon className={styles.darkModeIcon} style={{
-                opacity: theme === 'dark' ? 1 : 0,
-            }} /> */}
-
             <div
                 className={styles.lightModeIcon}
                 dangerouslySetInnerHTML={{ __html: lightModeSVG }}

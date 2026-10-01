@@ -1,4 +1,4 @@
-.contactLinksBlock {
+:global(#contact-links-block) {
   display: flex;
   flex-direction: column;
   gap: 2px;

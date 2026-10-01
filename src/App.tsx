@@ -138,7 +138,7 @@ const AppContent = () => {
 
   return (
     <MainLayout>
-      <Outlet context={{ homeData, portfolioData, resumePDFFileURL: '/resume/Daniel Smallwood Resume.pdf', navbarHeight }} key={location.pathname}/>
+      <Outlet context={{ homeData, portfolioData, resumePDFFileURL: '/src/static/assets/resume/Daniel Smallwood Resume.pdf', navbarHeight }} key={location.pathname}/>
       <ScrollRestoration getKey={(location) => location.pathname} />
     </MainLayout>
   )
