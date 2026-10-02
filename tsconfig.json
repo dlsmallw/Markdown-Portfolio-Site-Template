@@ -1,5 +1,14 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@static/*": ["./src/static/*"],
+      "@components/*": ["./src/components/*"],
+      "@routes/*": ["./src/routes/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@types/*": ["src/typing/*"],
+      "@utils/*": ["./src/utils/*"]
+    },
     "target": "es2023",
     "module": "esnext",
     "lib": ["ES2023", "DOM"],

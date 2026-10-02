@@ -1,13 +1,7 @@
 import React, { type HTMLAttributes } from 'react';
 import type { Components } from "react-markdown";
 
-function inlineTryCatch<T, R>(fn: () => T, fallback: R): T | R {
-    try {
-        return fn();
-    } catch (error) {
-        return fallback;
-    }
-}
+import { inlineTryCatch } from '@utils/ErrorHandling';
 
 interface DateProps extends HTMLAttributes<HTMLSpanElement> {
     locales?: string,

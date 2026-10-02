@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import type { HTMLAttributes } from "react";
+import React, { useEffect, useState, type HTMLAttributes } from "react";
+
+import { useIsWrapped } from "@utils/EventListeners";
 
 import styles from './component.module.css';
-import { useIsWrapped } from "../../../util/EventListeners";
 
 export interface WrappingContainerProps extends HTMLAttributes<HTMLDivElement> {
     separator?: string;

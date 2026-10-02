@@ -1,7 +1,6 @@
-import { type ImgHTMLAttributes, useCallback, useEffect, useRef, useState } from "react";
+import React, { type ImgHTMLAttributes, useCallback, useEffect, useState } from "react";
 
-import styles from './component.module.css';
-import React from "react";
+import './component.module.css';
 
 interface ImageComponentProps extends ImgHTMLAttributes<HTMLImageElement> {
     ref: React.RefObject<HTMLDivElement | HTMLImageElement | null>;
@@ -57,4 +56,4 @@ const ImageComponent = React.memo(function Image(props: ImageComponentProps) {
     )
 })
 
-export default ImageComponent;
+export { ImageComponent };

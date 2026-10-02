@@ -1,4 +1,5 @@
 import { createRef, StrictMode, useEffect, useMemo, useState } from 'react';
+
 import { 
   type LoaderFunctionArgs, 
   createBrowserRouter, 
@@ -11,31 +12,32 @@ import {
 
 import matter from 'gray-matter';
 
-import { processMarkdown } from './util/Markdown';
+import { processMarkdown, useScrollRestorationListener} from './utils';
 
-import MainLayout from './layouts/MainLayout';
-import Home from './routes/home';
-import Portfolio from './routes/portfolio';
+import MainLayout from '@layouts/MainLayout';
+
+import Home from '@routes/home';
+import Portfolio from '@routes/portfolio';
+import Resume from '@routes/resume';
 
 import { 
   MD_PATH,
   DEFAULT_MD_PATH 
 } from './config';
 
-
 import type { 
   HomeSectionData,
   HomeLoaderData,
   PortfolioSectionData,
   PortfolioLoaderData
-} from './types/DataLoading';
+} from './typing/DataLoading';
 
-import homeLayoutJSON from './static/markdown/home/layout.json';
+import homeLayoutJSON from '@static/markdown/home/layout.json';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { useScrollRestorationListener } from './util/EventListeners';
-import Resume from './routes/resume';
+
+
 
 const RouterLoader = () => {
   const router = useMemo(() => createBrowserRouter([

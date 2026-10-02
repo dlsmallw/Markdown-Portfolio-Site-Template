@@ -13,8 +13,6 @@ interface ProjectLinkProps extends HTMLAttributes<HTMLAnchorElement> {
     src: string;
 }
 
-
-
 const LinkButton: React.FC<LinkButtonProps> = ({ title, src, target, rel, onClick, children, ...props }) => {
     useEffect(() => {
         const elements = document.querySelectorAll(".link-button .cursor-tooltip");
@@ -39,21 +37,6 @@ const LinkButton: React.FC<LinkButtonProps> = ({ title, src, target, rel, onClic
             
         </>
         
-    )
-}
-
-const ProjectLinkBtn: React.FC<ProjectLinkProps> = ({ src, children, ...props }) => {
-    return (
-        <div className={`${styles.projectLinkContainer} ${props.className}`}>
-            <a 
-                href={src} 
-                target='_blank' 
-                rel='noopener noreferrer' 
-                className={`${styles.projectLinkButton}`}
-            >
-                {children}
-            </a>
-        </div>
     )
 }
 

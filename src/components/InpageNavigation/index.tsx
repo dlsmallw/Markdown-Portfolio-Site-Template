@@ -1,11 +1,8 @@
 import { type HTMLAttributes, useState } from "react";
-import { SidePanel } from "../SidePanel";
+
+import { SidePanel } from "@components/SidePanel";
 
 import styles from './component.module.css';
-
-const DummyRightPanel: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
-    return <SidePanel className={styles.dummyRightGrid} {...props} />;
-}
 
 interface InpageNavButtonProps extends HTMLAttributes<HTMLButtonElement> {
     isActive: boolean;
@@ -52,4 +49,4 @@ const InpageNavbarContainer: React.FC<{ children: React.ReactNode }> = ({childre
     )
 }
 
-export { InpageNavButton, InpageNavbarContainer, DummyRightPanel };
+export { InpageNavButton, InpageNavbarContainer };

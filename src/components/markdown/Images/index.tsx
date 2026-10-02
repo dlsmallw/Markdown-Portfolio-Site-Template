@@ -1,9 +1,8 @@
-import { type ImgHTMLAttributes, useEffect, useRef, useState } from "react";
+import React, { type ImgHTMLAttributes, useEffect, useRef, useState } from "react";
+
+import { ImageComponent } from "@components/Image";
 
 import styles from './component.module.css';
-import React from "react";
-
-import ImageComponent from "../../Image";
 
 interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     tooltip?: string;

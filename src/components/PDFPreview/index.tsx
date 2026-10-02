@@ -1,19 +1,17 @@
-import { useEffect, useMemo, useRef, useState, type HTMLAttributes } from "react";
+import { useMemo, useRef, useState, type HTMLAttributes } from "react";
+import { Document, Page, pdfjs } from "react-pdf";
 
-import { Document, Page } from "react-pdf";
+import { ImageComponent } from "@components/Image";
+import { usePageSpy } from "@utils/EventListeners";
+
+import "react-pdf/dist/Page/TextLayer.css";
+import "react-pdf/dist/Page/AnnotationLayer.css";
+import styles from './component.module.css';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     "pdfjs-dist/build/pdf.worker.min.mjs",
     import.meta.url
 ).toString();
-
-import "react-pdf/dist/Page/TextLayer.css";
-import "react-pdf/dist/Page/AnnotationLayer.css";
-
-import styles from './component.module.css';
-import { pdfjs } from "react-pdf";
-import ImageComponent from "../Image";
-import { usePageSpy } from "../../util/EventListeners";
 
 interface PDFPreviewerProps extends HTMLAttributes<HTMLDivElement> {
     fileURL: string;
@@ -144,4 +142,4 @@ const PDFPreviewer: React.FC<PDFPreviewerProps> = ({ fileURL, ...props }) => {
     )
 }
 
-export default PDFPreviewer;
+export { PDFPreviewer };

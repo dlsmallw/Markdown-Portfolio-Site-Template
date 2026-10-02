@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router';
 
-import { useScrollSpy } from '../../util/EventListeners';
-import type { AppDataContextType } from '../../types/DataLoading';
+import { useScrollSpy } from '@utils/EventListeners';
+import type { AppDataContextType } from '../../typing/DataLoading';
 
 import { 
-    PageSection,
-    SectionBorder
-} from '../../components/Section';
-
-import { 
+    PageSection, 
+    SectionBorder, 
     DummyRightPanel, 
     InpageNavButton, 
-    InpageNavbarContainer 
-} from '../../components/InpageNavigation';
+    InpageNavbarContainer
+} from '../../components';
 
 import styles from './route.module.css';
 
@@ -35,8 +32,6 @@ const Home: React.FC = () => {
             block: 'start',
             inline: 'nearest'
         }); 
-
-        // setTargetSection(current.id);
     };
 
     const handleMaintainSection = () => {
@@ -50,9 +45,8 @@ const Home: React.FC = () => {
             setTargetRef(homeData.sectionData[0].ref);
         }
     }
-    // console.log(targetSection)
+
     useEffect(() => {
-        
         window.addEventListener('resize', handleMaintainSection);
         handleInitTargetRef();
 
@@ -60,15 +54,6 @@ const Home: React.FC = () => {
             window.removeEventListener('resize', handleMaintainSection)
         }
     }, []);
-
-    useEffect(() => {
-        // if (homeData && homeData.sectionOrder.length > 0)
-        // setTargetSection(homeData.sectionOrder[0]);
-    }, [homeData.sectionOrder])
-
-    useEffect(() => {
-        // setTargetSection(activeSection);
-    }, [activeSection]);
 
     return (
         <div className={styles.homePage} id="outer-container">
@@ -110,7 +95,6 @@ const Home: React.FC = () => {
                 }) : <div className={styles.loadingContainer}>Loading...</div>}
             </div>
 
-            {/* <div className='section-panel' id='dummy-right-grid' /> */}
             <DummyRightPanel id='dummy-right-grid' />
         </div>
     );

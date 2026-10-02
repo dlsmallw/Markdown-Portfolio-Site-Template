@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 
+import { ImageComponent } from "@components/Image";
+
 import styles from './component.module.css';
-import ImageComponent from "../Image";
 
 const ThemeToggle: React.FC = () => {
     const [theme, setThemeState] = useState<'light' | 'dark'>('dark');
-    const [darkModeSVG, setDarkModeSVG] = useState("");
-    const [lightModeSVG, setLightModeSVG] = useState("");
 
     const toggleTheme = () => {
         const newTheme = theme === 'dark' ? 'light' : 'dark';
@@ -42,25 +41,16 @@ const ThemeToggle: React.FC = () => {
         setThemeState(savedTheme === 'light' ? 'light' : 'dark');
         document.documentElement.setAttribute('data-theme', savedTheme === 'light' ? 'light' : 'dark');
     }, []);
-
-    useEffect(() => {
-            fetch("/theme/light-mode.svg")
-                .then(res => res.text())
-                .then(setLightModeSVG);
-
-            fetch("/theme/dark-mode.svg")
-                .then(res => res.text())
-                .then(setDarkModeSVG);
-    }, []);
     
     return (
         <div className={styles.themeToggleContainer} id="theme-toggle-container" 
             onClick={toggleTheme} 
             title={`Toggle Theme`}
         >
+
             <ImageComponent
                 className={styles.lightModeIcon}
-                src="/src/static/assets/theme/light-mode.svg"
+                src={'/src/static/assets/theme/light-mode.svg'}
                 ref={undefined}
                 style={{
                     opacity: theme === 'light' ? 1 : 0,
@@ -69,7 +59,7 @@ const ThemeToggle: React.FC = () => {
             />
             <ImageComponent
                 className={styles.darkModeIcon}
-                src="/src/static/assets/theme/dark-mode.svg"
+                src={'/src/static/assets/theme/dark-mode.svg'}
                 ref={undefined}
                 style={{
                     opacity: theme === 'dark' ? 1 : 0,

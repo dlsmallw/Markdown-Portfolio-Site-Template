@@ -1,9 +1,10 @@
 import React, { type HTMLAttributes } from 'react';
-import { Navbar as BSNavbar, Container, Nav, type NavLinkProps } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router';
+import { Navbar as BSNavbar, Container, Nav, type NavLinkProps } from 'react-bootstrap';
+
+import { ThemeToggle } from '@components/ThemeToggle';
 
 import styles from './component.module.css';
-import { ThemeToggle } from '../ThemeToggle';
 
 interface NavigationLinkProps extends NavLinkProps {
     to: string;
@@ -58,4 +59,4 @@ const Navbar: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     )
 }
 
-export default Navbar;
+export { Navbar };
