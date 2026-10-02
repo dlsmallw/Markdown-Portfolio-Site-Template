@@ -12,25 +12,93 @@ import "react-pdf/dist/Page/AnnotationLayer.css";
 
 import styles from './component.module.css';
 import { pdfjs } from "react-pdf";
+import ImageComponent from "../Image";
 
 interface PDFPreviewerProps extends HTMLAttributes<HTMLDivElement> {
     fileURL: string;
 }
 
-const PDFPreviewer: React.FC<PDFPreviewerProps> = ({ fileURL, ...props }) => {
-    const [numPages, setNumPages] = useState<number | null>(null);
-    const [currentPage, setCurrentPage] = useState(1);
-    const containerRef = useRef(null);
+interface UpperControlBarProps extends HTMLAttributes<HTMLDivElement> {
+    numPages: number | null;
+    currentPage: number;
+    zoom: number;
+    setZoom: React.Dispatch<React.SetStateAction<number>>;
+}
+
+interface ResponsivePDFContainerProps extends HTMLAttributes<HTMLDivElement> {
+    width: number;
+    setWidth: React.Dispatch<React.SetStateAction<number>>;
+}
+
+
+function responsivePDFResizeObserver(containerRef: React.RefObject<HTMLDivElement | null>, delay: number = 100) {
+    const [width, setWidth] = useState(undefined);
 
     useEffect(() => {
-        if (!containerRef.current || !numPages) return;
+        if (!containerRef.current) return;
+        const container = containerRef.current;
+        let timeoutId: number | null = null;
 
-        const pageElements = containerRef.current.querySelectorAll('.pdf-page-wrapper');
+        const checkContainerDimensions = () => {
+            const viewWidth = window.innerWidth;
+
+            const containerWidth = container.offsetWidth || 0;
+
+            // if (containerWidth > viewWidth) {
+            //     setHeight(undefined);
+            //     setWidth(viewWidth);
+            // } else if (containerHeight > viewHeight) {
+            //     setHeight(viewHeight);
+            //     setWidth(undefined);
+            // } else {
+            //     setHeight(undefined);
+            //     setWidth(undefined);
+            // }
+
+            if (timeoutId) {
+                window.clearTimeout(timeoutId);
+            }
+
+            timeoutId = window.setTimeout(() => {
+                if (containerWidth > viewWidth) {
+                    setWidth(viewWidth);
+                } else {
+                    setWidth(containerWidth);
+                }
+            }, delay);
+        }
+
+        const resizeObserver = new ResizeObserver(checkContainerDimensions);
+
+        resizeObserver.observe(container);
+
+        if (timeoutId) {
+            window.clearTimeout(timeoutId);
+        }
+
+        return () => {
+            resizeObserver.disconnect();
+            if (timeoutId) {
+                window.clearTimeout(timeoutId);
+            }
+        };
+
+    }, [containerRef, delay]);
+
+    return width;
+}
+
+function usePageSpy(scrollContainerRef: React.RefObject<HTMLDivElement | null>, numPages: number | null) {
+    const [currentPage, setCurrentPage] = useState(1);
+
+    useEffect(() => {
+        if (!scrollContainerRef.current || !numPages) return;
+
+        const pageElements = scrollContainerRef.current.querySelectorAll('.pdf-page-wrapper');
         const visibilityMap = new Map();
 
         const observer = new IntersectionObserver(
             (entries) => {
-                console.log(entries)
                 entries.forEach((entry) => {
                     const pageNum = Number(entry.target.getAttribute('data-page'));
                     visibilityMap.set(pageNum, entry.intersectionRatio);
@@ -52,21 +120,86 @@ const PDFPreviewer: React.FC<PDFPreviewerProps> = ({ fileURL, ...props }) => {
                 }
             },
             {
-                root: containerRef.current, // Observe intersections relative to the scroll container
+                root: scrollContainerRef.current, // Observe intersections relative to the scroll container
                 rootMargin: '0px',
                 threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0] // Granular tracking steps
             }
         );
 
-        pageElements.forEach((el) => observer.observe(el));
+        pageElements.forEach((el: Element) => observer.observe(el));
 
         return () => {
-            pageElements.forEach((el) => observer.unobserve(el));
+            pageElements.forEach((el: Element) => observer.unobserve(el));
             observer.disconnect();
         };
-    }, [numPages, currentPage]);
+    }, [currentPage, numPages]);
 
+    return currentPage;
+}
+
+const UpperControlBar: React.FC<UpperControlBarProps> = ({ zoom, setZoom, numPages, currentPage }) => {
+    const handleZoomIn = () => {
+        setZoom((prev: number) => Math.min(prev + 0.1, 3.0));
+    };
+
+    const handleZoomOut = () => {
+        setZoom((prev: number) => Math.max(prev - 0.1, 0.5));
+    };
+
+    return (
+        <div className={styles.upperControlBar} >
+            <div className={`${styles.controlGrid} ${styles.leftGrid}`} >
+                {numPages && (
+                    <span className={styles.pageIndexText} >
+                        Page {currentPage} / {numPages}
+                    </span>
+                )}
+            </div>
+            <div className={styles.divider} />
+            <div className={`${styles.controlGrid} ${styles.centerGrid}`} >
+                <div className={styles.zoomControls} >
+                    
+                    <ImageComponent
+                        className={`${styles.zoomButton} ${styles.minusIcon} ${styles.icon}`}
+                        src="/src/static/assets/icons/minus-svgrepo-com.svg"
+                        ref={undefined}
+                        onClick={handleZoomOut}
+                    />
+                    <div className={styles.zoomLevelContainer} >
+                        {Math.round(zoom * 100)}%
+                    </div>
+                    <ImageComponent
+                        className={`${styles.zoomButton} ${styles.plusIcon} ${styles.icon}`}
+                        src="/src/static/assets/icons/plus-svgrepo-com.svg"
+                        ref={undefined}
+                        onClick={handleZoomIn}
+                    />
+                </div>
+            </div>
+            <div className={styles.divider} />
+            <div className={`${styles.controlGrid} ${styles.rightGrid}`} >
+                <button title="Download PDF" className={styles.downloadButton} onClick={() => null} >
+                    <ImageComponent
+                        className={`${styles.downloadIcon} ${styles.icon}`}
+                        src="/src/static/assets/icons/download-minimalistic-svgrepo-com.svg"
+                        ref={undefined}
+                    />
+                </button>
+            </div>
+        </div>
+    )
+}
+
+const PDFPreviewer: React.FC<PDFPreviewerProps> = ({ fileURL, ...props }) => {
+    const [numPages, setNumPages] = useState<number | null>(null);
+    const [zoom, setZoom] = useState(1);
+
+    const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+    const pageContainerRef = useRef<HTMLDivElement | null>(null);
     const file = useMemo(() => ({ url: fileURL }), [fileURL]);
+
+    const currentPage = usePageSpy(scrollContainerRef, numPages);
+    // const { width, height } = responsivePDFResizeObserver(pageContainerRef);
 
     const onPDFLoad = ({ numPages }: { numPages: number}) => {
         setNumPages(numPages);
@@ -74,40 +207,32 @@ const PDFPreviewer: React.FC<PDFPreviewerProps> = ({ fileURL, ...props }) => {
 
     return (
         <div className={styles.pdfPreviewContainer} id='pdf-preview-container'>
-            <div 
-                ref={containerRef}
-                className={styles.pdfScrollContainer}
-                
-            >
+            <UpperControlBar zoom={zoom} setZoom={setZoom} numPages={numPages} currentPage={currentPage} />
+            <div ref={scrollContainerRef} className={styles.pdfScrollContainer} >
                 <Document file={file} onLoadSuccess={onPDFLoad} >
+                    <div ref={pageContainerRef} className={styles.pageContainer} >
                     {numPages && Array.from({ length: numPages }, (_, index) => {
                         const pageNum = index + 1
                         return (
                             <div 
-                                className={styles.pdfPageWrapper}
+                                className={`${styles.pdfPageWrapper} pdf-page-wrapper`}
                                 id={`page-${pageNum}`}
                                 key={`page_${pageNum}`} 
                                 data-page={pageNum}
-                                
                             >
                                 <Page 
                                     pageNumber={pageNum} 
-                                    scale={1.5}
-                                    // renderTextLayer={false}      // Optional performance configurations
-                                    // renderAnnotationLayer={false} // Optional performance configurations
+                                    scale={zoom}
+                                    width={1000}
+                                    // height={height ? height * zoom : undefined}
+                                    // width={width ? width * zoom : undefined}
                                 />
                             </div>
                         )})}
+                    </div>
                 </Document>
             </div>
-
-            {numPages && (
-                <div className={styles.pageIndexContainer}>
-                    <span className={styles.pageIndexText} >
-                        Page {currentPage} of {numPages}
-                    </span>
-                </div>
-            )}
+            <div className={styles.bottomBar} />
         </div>
     )
 }

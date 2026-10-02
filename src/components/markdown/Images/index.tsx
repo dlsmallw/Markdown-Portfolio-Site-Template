@@ -85,7 +85,8 @@ const ImgContainer: React.FC<ImageProps> = ({ alt, tooltip = 'true', ...props })
         <div className={styles.imageOuterContainer} id={`${props.id ? `${props.id}-` : ''}image-outer-container`}>
             <div ref={containerRef} className={styles.imageCell} id={`${props.id ? `${props.id}-` : ''}image-cell`}>
                 <ImageComponent 
-                    className={styles.imageIcon} id={`${props.id ? `${props.id}-` : ''}image-icon`}
+                    className={styles.imageIcon} 
+                    id={`${props.id ? `${props.id}-` : ''}image-icon`}
                     src={props.src}
                     alt={alt}
                     ref={imgRef}

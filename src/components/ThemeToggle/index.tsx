@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import styles from './component.module.css';
+import ImageComponent from "../Image";
 
 const ThemeToggle: React.FC = () => {
     const [theme, setThemeState] = useState<'light' | 'dark'>('dark');
@@ -57,20 +58,22 @@ const ThemeToggle: React.FC = () => {
             onClick={toggleTheme} 
             title={`Toggle Theme`}
         >
-            <div
+            <ImageComponent
                 className={styles.lightModeIcon}
-                dangerouslySetInnerHTML={{ __html: lightModeSVG }}
+                src="/src/static/assets/theme/light-mode.svg"
+                ref={undefined}
                 style={{
                     opacity: theme === 'light' ? 1 : 0,
                     position: 'absolute' as const,
                 }}
             />
-            <div
+            <ImageComponent
                 className={styles.darkModeIcon}
-                dangerouslySetInnerHTML={{ __html: darkModeSVG }}
+                src="/src/static/assets/theme/dark-mode.svg"
+                ref={undefined}
                 style={{
                     opacity: theme === 'dark' ? 1 : 0,
-                }}
+                }} 
             />
         </div>
     );

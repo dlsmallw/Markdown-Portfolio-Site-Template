@@ -12,10 +12,6 @@
   --text-3xl: clamp(1.875rem, 1.3rem + 2vw, 3rem);
   --text-4xl: clamp(2.25rem, 1.5rem + 3vw, 4rem);
 
-  /* Font Color */
-  --body-primary-color: #fff;
-  --tooltip-color: #fff;
-
   /* Preset spacing values */
   --space-xs: clamp(0.25rem, 0.2rem + 0.1vw, 0.375rem);
   --space-sm: clamp(0.5rem, 0.4rem + 0.2vw, 0.75rem);
@@ -29,14 +25,9 @@
   --scroll-top-position: calc(var(--page-top-position) + var(--space-sm));
   --view-height: calc(100vh - var(--page-top-position));
 
-  /* Background Color */
-  /* --bg-tooltip: #2D2D2D;
-  --bg-navbar: #21252C;
-  --bg-primary: #282c34; */
-  /* --bg-secondary: #3A3E46; */
 
-  --bg-main: #f9fafb;       /* Slightly tinted gray */
-  --bg-surface: #ffffff;    /* Pure white for lifted components */
+  --bg-main: #f9fafb;
+  --bg-surface: #ffffff;
   --bg-secondary: #ececec;
   --bg-tertiary: #eaedf1;
 
