@@ -11,6 +11,19 @@ import {visit} from 'unist-util-visit'
 import {h} from 'hastscript'
 import type {Root} from 'mdast';
 
+const defaultIDMap = {
+    "link": [
+        "sitelink", 
+        "emaillink",
+        "resumelink",
+        "sitebutton",
+        "emailbutton",
+        "projectbutton",
+        "resumebutton",
+        "downloadlink"
+    ]
+}
+
 /**
  * Converts the markdown from a string to a node tree to be parsed.
  * @param mdStr         The raw markdown as a string.
@@ -37,18 +50,55 @@ function customDirectivePlugin() {
     return () => {
         return (tree: Root) => {
             visit(tree, (node) => {
-                if (node.type === 'textDirective' || node.type === 'leafDirective' || node.type === 'containerDirective') {
+                if (
+                    node.type === 'textDirective' ||
+                    node.type === 'leafDirective' ||
+                    node.type === 'containerDirective'
+                ) {
                     const data = node.data || (node.data = {});
                     const attr = node.attributes || {};
 
-                    const hast = h(node.name, attr)
+                    if (defaultIDMap['link'].includes(node.name.toLowerCase())) {
+                        let defaultText = node.name.includes("email") ? node.attributes.src.split(":")[1] : "";
+
+                        for (const child of node.children) {
+                            if (
+                                child.type === 'textDirective' ||
+                                child.type === 'leafDirective' ||
+                                child.type === 'containerDirective'
+                            ) {
+                                const childAttr = child.attributes;
+                                if (defaultText === "" && child.name === "img") {
+                                    defaultText = child.attributes.alt;
+                                }
+
+                                if (childAttr && (!childAttr.id || childAttr.id.length < 1)) {
+                                    child.attributes.id = 'link';
+                                }
+                            }
+                        }
+
+                        if (
+                            (node.children.some((child) => child.name === 'img')) &&
+                            (!node.children.some((child) => child.type === 'text'))
+                        ) {
+                            node.children.push({
+                                type: "text",
+                                value: defaultText
+                            } as never)
+                        }
+
+                        
+                    }
+
+                    const hast = h(node.name, attr);
 
                     data.hName = hast.tagName;
                     data.hProperties = hast.properties;
                 }
             });
         };
-    }
+    };
 }
 
 /**

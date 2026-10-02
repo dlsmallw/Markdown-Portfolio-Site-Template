@@ -1,4 +1,4 @@
-.linkButton, .projectLinkButton {
+.buttonLink, .projectButtonLink {
   display: flex;
   align-items: center;
   gap: 2rem;
@@ -18,40 +18,40 @@
     transform 150ms ease;
 }
 
-.linkButton {
+.buttonLink {
     background-color: var(--bg-surface);
     border: 1px solid color-mix(in srgb, var(--bg-secondary) 50%, transparent);
 }
 
-.projectLinkButton {
+.projectButtonLink {
     background-color: color-mix(in srgb, var(--bg-secondary) 30%, transparent);
     border: 1px solid color-mix(in srgb, var(--border-color) 90%, transparent);
 }
 
-.linkButton:hover, .projectLinkButton:hover {
+.buttonLink:hover, .projectButtonLink:hover {
     cursor: pointer;
 }
 
-.linkButton:hover {
+.buttonLink:hover {
     border: 1px solid color-mix(in srgb, var(--bg-secondary) 90%, transparent);
     background-color: var(--bg-secondary);
     transform: translate(8px, 0px);
 }
 
-.projectLinkButton:hover {
+.projectButtonLink:hover {
     border: 1px solid color-mix(in srgb, var(--border-color) 90%, transparent);
     background-color: color-mix(in srgb, var(--bg-secondary) 50%, transparent);
     color: color-mix(in srgb, var(--text-main) 70%, transparent);
 }
 
-.linkButton :global(#link-button-image-outer-container),
-.linkButton :global(#link-button-image-cell) {
+.buttonLink :global(#link-image-outer-container),
+.buttonLink :global(#link-image-cell) {
     align-content: center;
     height: 1.8rem;
     width: 1.8rem;
 }
 
-.linkButton :global(#link-button-image-icon) {
+.buttonLink :global(#link-image-icon) {
     height: 1.8em;
     width: var(--text-lg);
     vertical-align: middle;
@@ -63,13 +63,88 @@
     }
 }
 
-.linkButton:focus-visible {
+.resumeButton :global(#link-image-icon) {
+    svg {
+        fill: none !important;
+
+        path {
+            stroke: currentColor;
+        }
+    }
+}
+
+.buttonLink:focus-visible {
     outline: 2px solid currentColor;
     outline-offset: 3px;
 }
 
-.projectLinkContainer {
+.projectButtonLinkContainer {
     display: flex;
     justify-content: right;
     margin: 0 1rem 1rem 1rem;
+}
+
+.anchorContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.anchorLink, .resumeLink {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    /* padding: 0.9rem 1.1rem; */
+    /* box-shadow: var(--shadow-lifted); */
+    border-radius: 0.6rem;
+
+    color: var(--text-main);
+    font-size: var(--text-sm);
+    text-decoration: none;
+    font-weight: 550;
+
+    transition:
+        color 150ms ease,
+        background-color 150ms ease,
+        border-color 150ms ease,
+        transform 150ms ease;
+}
+
+.anchorLink :global(#link-image-outer-container),
+.anchorLink :global(#link-image-cell),
+.downloadLink :global(#link-image-outer-container),
+.downloadLink :global(#link-image-cell) 
+{
+    align-content: center;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.anchorLink :global(#link-image-icon) {
+    height: 1.5em;
+    width: var(--text-lg);
+    vertical-align: middle;
+
+    svg {
+        width: 1.3rem;
+        height: 1.3rem;
+        fill: currentColor;
+    }
+}
+
+.downloadLink :global(#link-image-icon) {
+    svg {
+        width: 1.3rem;
+        height: 1.3rem;
+        fill: none !important;
+
+        path {
+            stroke: currentColor;
+        }
+    }
+}
+
+.anchorLink:hover, .downloadLink:hover {
+    /* background-color: color-mix(in srgb, var(--bg-secondary) 50%, transparent); */
+    text-decoration: underline;
 }

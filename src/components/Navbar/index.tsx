@@ -48,7 +48,6 @@ const Navbar: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
                     <Nav className={`${styles.navbarInnerContainer} mx-auto `} >
                         <NavLink to="/">Home</NavLink>
                         <NavLink to="/portfolio">Portfolio</NavLink>
-                        <NavLink to="/resume">Resume</NavLink>
                     </Nav>
                     <Nav className={`${styles.navbarInnerContainer} `}>
                         <ThemeToggle />

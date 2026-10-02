@@ -3,8 +3,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: var(--space-lg) var(--space-md) 0 var(--space-md);
-    gap: var(--space-md);
+    padding: var(--space-lg) var(--space-md);
+    gap: var(--space-sm);
 
     h5 {
         text-align: center;
@@ -20,8 +20,12 @@
 }
 
 :global(#intro-links-block) {
-    width: 35%;
-    min-width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+    /* min-width: fit-content; */
+    width: 100%;
     align-self: center;
 }
 
