@@ -17,8 +17,9 @@
     overflow-y: overlay;
     overflow-x: overlay;
     gap: var(--space-md);
-    max-width: inherit;
+    max-width: 100vw;
     min-width: 500px;
+    width: fit-content;
 }
 
 .pageContainer {
@@ -49,7 +50,7 @@
 }
 
 .bottomBar {
-    height: 5rem;
+    height: 3rem;
     width: 100%;
     box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
 }
@@ -78,7 +79,11 @@
 .controlGrid {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
+}
+
+.pageIndexText {
+    min-width: 1rem;
 }
 
 .zoomControls {
@@ -130,6 +135,19 @@
     svg {
         width: 1.8rem;
         height: 1.8rem;
+    }
+}
+
+.downloadIcon {
+    padding: 0 0.2rem;
+
+    svg {
+        width: 1.8rem;
+        height: 1.8rem;
+
+        path {
+            stroke: #f8f9fa;
+        }
     }
 }
 

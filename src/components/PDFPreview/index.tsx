@@ -22,70 +22,8 @@ interface UpperControlBarProps extends HTMLAttributes<HTMLDivElement> {
     numPages: number | null;
     currentPage: number;
     zoom: number;
+    fileURL: string;
     setZoom: React.Dispatch<React.SetStateAction<number>>;
-}
-
-interface ResponsivePDFContainerProps extends HTMLAttributes<HTMLDivElement> {
-    width: number;
-    setWidth: React.Dispatch<React.SetStateAction<number>>;
-}
-
-
-function responsivePDFResizeObserver(containerRef: React.RefObject<HTMLDivElement | null>, delay: number = 100) {
-    const [width, setWidth] = useState(undefined);
-
-    useEffect(() => {
-        if (!containerRef.current) return;
-        const container = containerRef.current;
-        let timeoutId: number | null = null;
-
-        const checkContainerDimensions = () => {
-            const viewWidth = window.innerWidth;
-
-            const containerWidth = container.offsetWidth || 0;
-
-            // if (containerWidth > viewWidth) {
-            //     setHeight(undefined);
-            //     setWidth(viewWidth);
-            // } else if (containerHeight > viewHeight) {
-            //     setHeight(viewHeight);
-            //     setWidth(undefined);
-            // } else {
-            //     setHeight(undefined);
-            //     setWidth(undefined);
-            // }
-
-            if (timeoutId) {
-                window.clearTimeout(timeoutId);
-            }
-
-            timeoutId = window.setTimeout(() => {
-                if (containerWidth > viewWidth) {
-                    setWidth(viewWidth);
-                } else {
-                    setWidth(containerWidth);
-                }
-            }, delay);
-        }
-
-        const resizeObserver = new ResizeObserver(checkContainerDimensions);
-
-        resizeObserver.observe(container);
-
-        if (timeoutId) {
-            window.clearTimeout(timeoutId);
-        }
-
-        return () => {
-            resizeObserver.disconnect();
-            if (timeoutId) {
-                window.clearTimeout(timeoutId);
-            }
-        };
-
-    }, [containerRef, delay]);
-
-    return width;
 }
 
 function usePageSpy(scrollContainerRef: React.RefObject<HTMLDivElement | null>, numPages: number | null) {
@@ -137,7 +75,7 @@ function usePageSpy(scrollContainerRef: React.RefObject<HTMLDivElement | null>, 
     return currentPage;
 }
 
-const UpperControlBar: React.FC<UpperControlBarProps> = ({ zoom, setZoom, numPages, currentPage }) => {
+const UpperControlBar: React.FC<UpperControlBarProps> = ({ zoom, setZoom, numPages, currentPage, fileURL }) => {
     const handleZoomIn = () => {
         setZoom((prev: number) => Math.min(prev + 0.1, 3.0));
     };
@@ -150,9 +88,12 @@ const UpperControlBar: React.FC<UpperControlBarProps> = ({ zoom, setZoom, numPag
         <div className={styles.upperControlBar} >
             <div className={`${styles.controlGrid} ${styles.leftGrid}`} >
                 {numPages && (
-                    <span className={styles.pageIndexText} >
-                        Page {currentPage} / {numPages}
-                    </span>
+                    <>
+                        <span className={styles.pageIndexText} >Page</span>
+                        <span className={styles.pageIndexText} >{currentPage}</span>
+                        <span className={styles.pageIndexText} >of</span>
+                        <span className={styles.pageIndexText} >{numPages}</span>
+                    </>
                 )}
             </div>
             <div className={styles.divider} />
@@ -178,13 +119,18 @@ const UpperControlBar: React.FC<UpperControlBarProps> = ({ zoom, setZoom, numPag
             </div>
             <div className={styles.divider} />
             <div className={`${styles.controlGrid} ${styles.rightGrid}`} >
-                <button title="Download PDF" className={styles.downloadButton} onClick={() => null} >
+                <a 
+                    title="Download PDF" 
+                    download={fileURL.split('/').pop() || 'document.pdf'} 
+                    href={fileURL}
+                    className={styles.downloadButton} 
+                >
                     <ImageComponent
                         className={`${styles.downloadIcon} ${styles.icon}`}
                         src="/src/static/assets/icons/download-minimalistic-svgrepo-com.svg"
                         ref={undefined}
                     />
-                </button>
+                </a>
             </div>
         </div>
     )
@@ -207,7 +153,13 @@ const PDFPreviewer: React.FC<PDFPreviewerProps> = ({ fileURL, ...props }) => {
 
     return (
         <div className={styles.pdfPreviewContainer} id='pdf-preview-container'>
-            <UpperControlBar zoom={zoom} setZoom={setZoom} numPages={numPages} currentPage={currentPage} />
+            <UpperControlBar 
+                zoom={zoom} 
+                setZoom={setZoom} 
+                numPages={numPages} 
+                currentPage={currentPage} 
+                fileURL={fileURL} 
+            />
             <div ref={scrollContainerRef} className={styles.pdfScrollContainer} >
                 <Document file={file} onLoadSuccess={onPDFLoad} >
                     <div ref={pageContainerRef} className={styles.pageContainer} >
@@ -224,8 +176,6 @@ const PDFPreviewer: React.FC<PDFPreviewerProps> = ({ fileURL, ...props }) => {
                                     pageNumber={pageNum} 
                                     scale={zoom}
                                     width={1000}
-                                    // height={height ? height * zoom : undefined}
-                                    // width={width ? width * zoom : undefined}
                                 />
                             </div>
                         )})}
