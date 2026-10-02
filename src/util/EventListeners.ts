@@ -123,3 +123,52 @@ export function useScrollRestorationListener(
             afterCallback();
     }, [location.key, navigation.state]);
 }
+
+export function usePageSpy(scrollContainerRef: React.RefObject<HTMLDivElement | null>, numPages: number | null) {
+    const [currentPage, setCurrentPage] = useState(1);
+
+    useEffect(() => {
+        if (!scrollContainerRef.current || !numPages) return;
+
+        const pageElements = scrollContainerRef.current.querySelectorAll('.pdf-page-wrapper');
+        const visibilityMap = new Map();
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    const pageNum = Number(entry.target.getAttribute('data-page'));
+                    visibilityMap.set(pageNum, entry.intersectionRatio);
+                });
+
+                // Determine which page has the highest visible percentage
+                let highestRatio = 0;
+                let mostVisiblePage = currentPage;
+
+                visibilityMap.forEach((ratio, pageNum) => {
+                    if (ratio > highestRatio) {
+                        highestRatio = ratio;
+                        mostVisiblePage = pageNum;
+                    }
+                });
+
+                if (highestRatio > 0 && mostVisiblePage !== currentPage) {
+                    setCurrentPage(mostVisiblePage);
+                }
+            },
+            {
+                root: scrollContainerRef.current, // Observe intersections relative to the scroll container
+                rootMargin: '0px',
+                threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0] // Granular tracking steps
+            }
+        );
+
+        pageElements.forEach((el: Element) => observer.observe(el));
+
+        return () => {
+            pageElements.forEach((el: Element) => observer.unobserve(el));
+            observer.disconnect();
+        };
+    }, [currentPage, numPages]);
+
+    return currentPage;
+}
