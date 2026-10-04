@@ -12,7 +12,7 @@ import {
 
 import matter from 'gray-matter';
 
-import { processMarkdown, useScrollRestorationListener} from './utils';
+import { processMarkdown, useScrollRestorationListener} from '@utils';
 
 import MainLayout from '@layouts/MainLayout';
 
@@ -30,12 +30,13 @@ import type {
   HomeLoaderData,
   PortfolioSectionData,
   PortfolioLoaderData
-} from './typing/DataLoading';
+} from '@typing/DataLoading';
 
 import homeLayoutJSON from '@static/markdown/home/layout.json';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import type { VFile } from 'node_modules/rehype-raw/lib';
 
 
 
@@ -72,15 +73,19 @@ export async function appDataLoader(_args: LoaderFunctionArgs) {
 
       await Promise.all(sectionOrder.map(async (section) => {
           try {
-              const sectionMDRaw = await fetch(new URL(`${fp}/home/${section}.md`, import.meta.url)).then((response) => response.text());
-              const { data, content } = matter(sectionMDRaw);
-              const sectionMarkdown = await processMarkdown(String(content));
+              // const sectionMDRaw = await fetch(new URL(`${fp}/home/${section}.md`, import.meta.url)).then((response) => response.text());
+              // const { data, content } = matter(sectionMDRaw);
+              // const sectionMarkdown = await processMarkdown(String(content));
+
+              const sectionMap = __MARKDOWN_MAP__['home'][section] as MD_MAP;
+              const frontmatter = sectionMap.frontmatter;
+              const markdown = sectionMap.markdown;
 
               homeSectionData.push({
                   id: section,
-                  navLabel: data.navLabel,
+                  navLabel: frontmatter.navLabel,
                   ref: createRef(),
-                  markdown: sectionMarkdown
+                  markdown: markdown as VFile
               });
           } catch (e) {
               console.log(e)
