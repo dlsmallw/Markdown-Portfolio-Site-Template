@@ -13,7 +13,9 @@
 
 .imageIcon {
     display: block;
+    fill: currentColor;
 }
+
 
 .cursorToolTip {
     position: absolute;

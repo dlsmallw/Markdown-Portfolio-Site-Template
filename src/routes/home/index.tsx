@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router';
 
-import { useScrollSpy } from '@utils/EventListeners';
-import type { AppDataContextType } from '../../typing/DataLoading';
+import { useScrollSpy } from '@utils';
+import type { AppDataContextType } from '@typing/DataLoading';
 
 import { 
     PageSection, 
     SectionBorder, 
     DummyRightPanel, 
-    InpageNavButton, 
+    InpageNavButton,
     InpageNavbarContainer
-} from '../../components';
+} from '@components';
 
 import styles from './route.module.css';
+import type { VFile } from 'node_modules/rehype-raw/lib';
 
 const Home: React.FC = () => {
     const [targetRef, setTargetRef] = useState<React.RefObject<HTMLDivElement | null>>();
@@ -50,6 +51,8 @@ const Home: React.FC = () => {
         window.addEventListener('resize', handleMaintainSection);
         handleInitTargetRef();
 
+        // console.log(homeData)
+
         return () => {
             window.removeEventListener('resize', handleMaintainSection)
         }
@@ -85,7 +88,7 @@ const Home: React.FC = () => {
                                 scrollRef={section.ref} 
                                 id={`${section.id}-section`} 
                                 key={section.id} 
-                                markdown={section.markdown} 
+                                markdown={section.markdown as VFile} 
                             />
                             {index < homeData.sectionData.length -1 && (
                                 <SectionBorder id='section-border' key={`section-spacer-${index}`} />

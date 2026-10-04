@@ -1,24 +1,6 @@
-.dummyRightGrid {
-  width: auto;
-
-  @media screen and (min-width: 1500px) {
-    /* WIP */
-  }
-
-  @media screen and (max-width: 1500px) {
-    display: flex;
-    background-color: var(--bg-main);
-  }
-
-  @media screen and (max-width: 960px) {
-    display: none;
-  }
-}
-
 .leftGrid {
   justify-content: right;
   padding-left: 10px;
-  /* border-right: 1px solid #cccccc0a; */
   transition: opacity 0.3s ease-in-out, background-image 0.3s ease-in-out;
 }
 
@@ -43,20 +25,4 @@
   .inpageNavButton {
     border-bottom: 1px solid color-mix(in srgb, var(--text-main) 5%, transparent);
   }
-}
-
-.inpageNavButtonContainer {
-  padding: 0 var(--space-sm);
-  width: auto;
-}
-
-.inpageNavButton {
-  width: 100%;
-  background-color: transparent;
-  border: none;
-  color: var(--text-main);
-  cursor: pointer;
-  text-align: left;
-  font-size: var(--text-lg);
-  padding: 0 5px;
 }

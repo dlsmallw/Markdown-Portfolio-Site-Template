@@ -1,0 +1,15 @@
+.inpageNavButtonContainer {
+  padding: 0 var(--space-sm);
+  width: auto;
+}
+
+.inpageNavButton {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+  text-align: left;
+  font-size: var(--text-lg);
+  padding: 0 5px;
+}

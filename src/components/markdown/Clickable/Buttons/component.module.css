@@ -1,0 +1,74 @@
+.button, .projectButton {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.9rem 1.1rem;
+  box-shadow: var(--shadow-lifted);
+  border-radius: 0.6rem;
+
+  color: var(--text-main);
+  font-size: var(--text-sm);
+  text-decoration: none;
+  font-weight: 550;
+
+  transition:
+    color 150ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+
+.button {
+    background-color: var(--bg-surface);
+    border: 1px solid color-mix(in srgb, var(--bg-secondary) 50%, transparent);
+}
+
+.projectButton {
+    background-color: color-mix(in srgb, var(--bg-secondary) 30%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border-color) 90%, transparent);
+}
+
+.button:hover, .projectButton:hover {
+    cursor: pointer;
+}
+
+.button:hover {
+    border: 1px solid color-mix(in srgb, var(--bg-secondary) 90%, transparent);
+    background-color: var(--bg-secondary);
+    transform: translate(8px, 0px);
+}
+
+.projectButton:hover {
+    border: 1px solid color-mix(in srgb, var(--border-color) 90%, transparent);
+    background-color: color-mix(in srgb, var(--bg-secondary) 50%, transparent);
+    color: color-mix(in srgb, var(--text-main) 70%, transparent);
+}
+
+.button :global(#link-image-outer-container),
+.button :global(#link-image-cell) {
+    align-content: center;
+    height: 1.8rem;
+    width: 1.8rem;
+}
+
+.button :global(#link-image-icon) {
+    height: 1.8em;
+    width: var(--text-lg);
+    vertical-align: middle;
+
+    svg {
+        width: 2rem;
+        height: 2rem;
+        fill: currentColor;
+    }
+}
+.button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+}
+
+.projectButtonLinkContainer {
+    display: flex;
+    justify-content: right;
+    margin: 0 1rem 1rem 1rem;
+}

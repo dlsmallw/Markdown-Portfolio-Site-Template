@@ -11,12 +11,8 @@ interface DateProps extends HTMLAttributes<HTMLSpanElement> {
     year?: string;
 }
 
-interface DefaultContainerProps extends HTMLAttributes<HTMLDivElement> {
-    classname?: string;
-}
-
-const DefaultContainer: React.FC<DefaultContainerProps> = ({ ...props }) => {
-    return <div className={props.classname} {...props} />
+const DefaultContainer: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
+    return <div className={props.className} {...props} />
 }
 
 const DateElement: React.FC<DateProps> = ({ locales, month, day, year, ...props }) => {
@@ -36,21 +32,16 @@ const DateElement: React.FC<DateProps> = ({ locales, month, day, year, ...props 
         </>
     )
 }
+
+const GroupedSpan: React.FC<HTMLAttributes<HTMLSpanElement>> = ({ ...props }) => {
+    return <span {...props} />;
+}
+
 const ComponentRegistry = {
-    ...{
-        p: (props: HTMLAttributes<HTMLParagraphElement>) => {
-            return <p {...props} />
-        },
-        grouped: (props: HTMLAttributes<HTMLSpanElement>) => {
-            return <span {...props} />
-        },
-        date: (props: HTMLAttributes<HTMLSpanElement>) => {
-            return <DateElement {...props} />
-        },
-        container: (props: DefaultContainerProps) => {
-            return <DefaultContainer {...props} />
-        }
-    }
+        ['grouped']: GroupedSpan,
+        ['date']: DateElement,
+        ['container']: DefaultContainer,
+    
 }
 
 

@@ -5,16 +5,13 @@ navLabel: Experience
 ## Work Experience
 
 :::::container{ id='company-block' }
-
 ### Example Technology Company
 
 ::::container{ id="position-block" }
 
-:::wrappingContainer{ separator="|" id="position-details" }
-
+:::wrapping-container{ separator="|" id="position-details" }
 ::grouped[**Software Engineer**]
 ::grouped[*:date[01/01/2024] - Present*]
-
 :::
 
  - Develop and maintain software applications using modern programming languages and frameworks.
@@ -27,11 +24,9 @@ navLabel: Experience
 
 ::::container{ id="position-block" }
 
-:::wrappingContainer{ separator="|" id="position-details" }
-
+:::wrapping-container{ separator="|" id="position-details" }
 ::grouped[**Software Engineer Intern**]
 ::grouped[*:date[08/01/2023] - :date[01/01/2024]*]
-
 :::
 
  - Assisted in the development and maintainenance of software applications using modern programming languages and frameworks.
@@ -41,6 +36,5 @@ navLabel: Experience
  - Collaborated with developers, designers, and stakeholders throughout the software development lifecycle.
 
 ::::
-
 :::::
 

@@ -4,7 +4,7 @@ export interface HomeSectionData {
   id: string;
   navLabel: string; 
   ref: React.RefObject<HTMLDivElement | null>;
-  markdown: VFile;
+  markdown: VFile | string;
 };
 
 export interface HomeLoaderData {

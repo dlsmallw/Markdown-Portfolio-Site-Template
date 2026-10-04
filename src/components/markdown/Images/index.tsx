@@ -1,6 +1,6 @@
 import React, { type ImgHTMLAttributes, useEffect, useRef, useState } from "react";
 
-import { ImageComponent } from "@components/Image";
+import { MediaComponent } from "@components/Media";
 
 import styles from './component.module.css';
 
@@ -8,8 +8,8 @@ interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     tooltip?: string;
 }
 
-const ImgContainer: React.FC<ImageProps> = ({ alt, tooltip = 'true', ...props }) => {
-    const handleElemMouseMove = (e: React.MouseEvent<HTMLImageElement | HTMLDivElement>) => {
+const MarkdownImage: React.FC<ImageProps> = ({ alt, tooltip = 'true', ...props }) => {
+    const handleElemMouseMove = (e: MouseEvent) => {
         if (!imgRef.current || !isHovered) return;
     
         let xAdjust = 0
@@ -21,10 +21,12 @@ const ImgContainer: React.FC<ImageProps> = ({ alt, tooltip = 'true', ...props })
                 xAdjust = parseFloat(flexBasis) / 2;
             }
         }
-
+        
         const rect = imgRef.current.getBoundingClientRect();
         const x = xAdjust + e.clientX - rect.left;
         const y = e.clientY - rect.top;
+
+        // console.log(x, y)
 
         setTTCoords({
             left: x + 15,
@@ -36,7 +38,7 @@ const ImgContainer: React.FC<ImageProps> = ({ alt, tooltip = 'true', ...props })
     const [ttCoords, setTTCoords] = useState({ left: 0, top: 0 });
 
     const containerRef = useRef<HTMLDivElement | null>(null);
-    const imgRef = useRef<HTMLImageElement | HTMLDivElement | null>(null);
+    const imgRef = useRef<HTMLImageElement | SVGElement | null>(null);
 
     const lastMousePosition = useRef({
         x: 0,
@@ -83,7 +85,7 @@ const ImgContainer: React.FC<ImageProps> = ({ alt, tooltip = 'true', ...props })
     return (
         <div className={styles.imageOuterContainer} id={`${props.id ? `${props.id}-` : ''}image-outer-container`}>
             <div ref={containerRef} className={styles.imageCell} id={`${props.id ? `${props.id}-` : ''}image-cell`}>
-                <ImageComponent 
+                <MediaComponent 
                     className={styles.imageIcon} 
                     id={`${props.id ? `${props.id}-` : ''}image-icon`}
                     src={props.src}
@@ -91,7 +93,7 @@ const ImgContainer: React.FC<ImageProps> = ({ alt, tooltip = 'true', ...props })
                     ref={imgRef}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
-                    onMouseMove={handleElemMouseMove}
+                    onMouseMove={handleElemMouseMove as () => void}
                 />
                        
                 {tooltip === 'true' && <span className={`${styles.cursorToolTip} cursor-tooltip`}
@@ -109,11 +111,7 @@ const ImgContainer: React.FC<ImageProps> = ({ alt, tooltip = 'true', ...props })
 }
 
 const ComponentRegistry = {
-    img: (props: ImageProps) => {
-        return (
-            <ImgContainer {...props} />
-        )
-    }
+    ['img']: MarkdownImage,
 }
 
 export default ComponentRegistry;

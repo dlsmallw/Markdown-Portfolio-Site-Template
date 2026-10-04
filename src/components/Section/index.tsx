@@ -17,7 +17,7 @@ const PageSection: React.FC<PageSectionProps> = ({ scrollRef, markdown, ...props
     return (
         <div className={`${styles.section} page-section`} ref={scrollRef} {...props}>
             {markdown ? (
-                <ReactMarkdown components={ComponentRegistry as Components} rehypePlugins={[rehypeRaw]} >{`${markdown}`}</ReactMarkdown>
+                <ReactMarkdown components={ComponentRegistry as Components} rehypePlugins={[rehypeRaw]} >{`${markdown.value}`}</ReactMarkdown>
             ) : (
                 <div className='container'>Loading...</div>
             )}

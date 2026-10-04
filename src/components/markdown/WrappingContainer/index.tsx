@@ -55,9 +55,7 @@ export const WrappingContainer: React.FC<WrappingContainerProps> = ({ separator,
 };
 
 const ComponentRegistry = {
-    wrappingcontainer: ( props: WrappingContainerProps ) => {
-        return <WrappingContainer {...props} />
-    }
+    ['wrapping-container']: WrappingContainer
 }
 
 export default ComponentRegistry;

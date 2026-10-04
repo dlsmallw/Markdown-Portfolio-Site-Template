@@ -11,19 +11,6 @@ import {visit} from 'unist-util-visit'
 import {h} from 'hastscript'
 import type {Root} from 'mdast';
 
-const defaultIDMap = {
-    "link": [
-        "sitelink", 
-        "emaillink",
-        "resumelink",
-        "sitebutton",
-        "emailbutton",
-        "projectbutton",
-        "resumebutton",
-        "downloadlink"
-    ]
-}
-
 /**
  * Converts the markdown from a string to a node tree to be parsed.
  * @param mdStr         The raw markdown as a string.
@@ -57,9 +44,9 @@ function customDirectivePlugin() {
                 ) {
                     const data = node.data || (node.data = {});
                     const attr = node.attributes || {};
-
-                    if (defaultIDMap['link'].includes(node.name.toLowerCase())) {
-                        let defaultText = node.name.includes("email") ? node.attributes.src.split(":")[1] : "";
+                    
+                    if (node.name.toLowerCase().includes('link') || node.name.toLowerCase().includes('button')) {
+                        let defaultText = node.name.includes("email") ? node.attributes.href?.split(":")[1] : "";
 
                         for (const child of node.children) {
                             if (
@@ -87,8 +74,6 @@ function customDirectivePlugin() {
                                 value: defaultText
                             } as never)
                         }
-
-                        
                     }
 
                     const hast = h(node.name, attr);

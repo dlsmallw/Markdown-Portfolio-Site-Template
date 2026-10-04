@@ -1,0 +1,50 @@
+.linkContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.link, .resumeLink {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    /* padding: 0.9rem 1.1rem; */
+    /* box-shadow: var(--shadow-lifted); */
+    border-radius: 0.6rem;
+
+    color: var(--text-main);
+    font-size: var(--text-sm);
+    text-decoration: none;
+    font-weight: 550;
+
+    transition:
+        color 150ms ease,
+        background-color 150ms ease,
+        border-color 150ms ease,
+        transform 150ms ease;
+}
+
+.link :global(#link-image-outer-container),
+.link :global(#link-image-cell)
+{
+    align-content: center;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.link :global(#link-image-icon) {
+    height: 1.5em;
+    width: var(--text-lg);
+    vertical-align: middle;
+
+    svg {
+        width: 1.3rem;
+        height: 1.3rem;
+        fill: currentColor;
+    }
+}
+
+.link:hover {
+    /* background-color: color-mix(in srgb, var(--bg-secondary) 50%, transparent); */
+    text-decoration: underline;
+}
