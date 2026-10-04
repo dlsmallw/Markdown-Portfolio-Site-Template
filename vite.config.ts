@@ -1,19 +1,20 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react';
-import { nodePolyfills } from 'vite-plugin-node-polyfills';
-import svgr from 'vite-plugin-svgr';
+import path from 'path';
 import { fileURLToPath } from 'url';
+import svgr from 'vite-plugin-svgr';
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite'
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
+
+import { markdownPreprocess } from './plugins';
 
 export default defineConfig({
   plugins: [
+    markdownPreprocess(path.join(__dirname, '/src/static/markdown')),
     react(),
-    svgr({
-      svgrOptions: { exportType: 'default' },
-      include: '**/*.svg',
-    }),
+    svgr(),
     nodePolyfills({
       globals: {
-        Buffer: true, // Injects the Buffer global polyfill
+        Buffer: true,
       },
     }),
   ],

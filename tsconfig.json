@@ -4,10 +4,15 @@
     "paths": {
       "@static/*": ["./src/static/*"],
       "@components/*": ["./src/components/*"],
+      "@components": ["./src/components"],
       "@routes/*": ["./src/routes/*"],
+      "@routes": ["./src/routes"],
       "@layouts/*": ["./src/layouts/*"],
-      "@types/*": ["src/typing/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@layouts": ["./src/layouts"],
+      "@typing/*": ["src/typing/*"],
+      "@typing": ["src/typing"],
+      "@utils/*": ["./src/utils/*"],
+      "@utils": ["./src/utils"]
     },
     "target": "es2023",
     "module": "esnext",
