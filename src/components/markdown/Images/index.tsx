@@ -1,4 +1,4 @@
-import React, { type ImgHTMLAttributes, useEffect, useRef, useState } from "react";
+import React, { type ImgHTMLAttributes, useEffect, useMemo, useRef, useState } from "react";
 
 import { MediaComponent } from "@components/Media";
 
@@ -8,7 +8,97 @@ interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     tooltip?: string;
 }
 
-const MarkdownImage: React.FC<ImageProps> = ({ alt, tooltip = 'true', ...props }) => {
+interface ThemedIconProps extends ImageProps {
+    themesrcs: string;
+}
+
+interface IconProps extends ImageProps {
+    iconTheme: string;
+}
+
+function documentAttrObserver(attrName: string, fallback: any = undefined) {
+    const [attrValue, setAttrValue] = useState(() => 
+        document.documentElement.getAttribute(attrName) || fallback
+    );
+
+    useEffect(() => {
+        const attrChangeObserver = (mutationList: MutationRecord[]) => {
+            for (const mutation of mutationList) {
+                if (
+                    (mutation.type === 'attributes') &&
+                    (mutation.attributeName === attrName)
+                ) {
+                    const currAttrValue = (mutation.target as Element).getAttribute(attrName);
+                    setAttrValue(currAttrValue || fallback);
+                }
+            }
+        };
+
+        const observer = new MutationObserver(attrChangeObserver);
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: [attrName]
+        });
+
+        return () => {
+            observer.disconnect();
+        }
+    }, []);
+
+    return attrValue;
+}
+
+const ThemedIcon: React.FC<ThemedIconProps> = ({ themesrcs, src, ...props }) => {
+    const theme = documentAttrObserver('data-theme', 'dark') as string;
+    const themeSources: Record<string, string> = JSON.parse(themesrcs);
+
+    const Icon: React.FC<IconProps> = ({ iconTheme, ...props }) => {
+        const [isHidden, setIsHidden] = useState(iconTheme === theme);
+
+        useEffect(() => {
+            setIsHidden(iconTheme !== theme);
+        }, [theme]);
+
+        return (
+            <div style={{ display: isHidden ? 'none' : 'block' }} >
+                <MarkdownImage 
+                    {...props} 
+                    src={themeSources[iconTheme]} 
+                />
+            </div>
+            
+        )
+    }
+    
+    const Component = () => {
+        const themes = Object.keys(themeSources);
+        if (themeSources && themes.length > 1) {
+            return (
+                <>
+                    {themes.map((iconTheme, index) => {
+                        const iconSrc = themeSources[iconTheme];
+
+                        return (
+                            <Icon {...props} iconTheme={iconTheme} src={iconSrc} key={`themed-icon-${index}`} />
+                        )
+                    })}
+                </>
+            )
+        } else {
+            return <MarkdownImage {...props} src={src} />
+        }
+    };
+
+    useEffect(() => {
+        console.log(`Current theme: ${theme}`);
+    }, [theme]);
+
+    // console.log(Component);
+
+    return <Component />;
+}
+
+export const MarkdownImage: React.FC<ImageProps> = ({ alt, tooltip = 'true', ...props }) => {
     const handleElemMouseMove = (e: MouseEvent) => {
         if (!imgRef.current || !isHovered) return;
     
@@ -86,7 +176,7 @@ const MarkdownImage: React.FC<ImageProps> = ({ alt, tooltip = 'true', ...props }
         <div className={styles.imageOuterContainer} id={`${props.id ? `${props.id}-` : ''}image-outer-container`}>
             <div ref={containerRef} className={styles.imageCell} id={`${props.id ? `${props.id}-` : ''}image-cell`}>
                 <MediaComponent 
-                    className={styles.imageIcon} 
+                    className={`${styles.imageIcon} ${props.className}`} 
                     id={`${props.id ? `${props.id}-` : ''}image-icon`}
                     src={props.src}
                     alt={alt}
@@ -112,6 +202,7 @@ const MarkdownImage: React.FC<ImageProps> = ({ alt, tooltip = 'true', ...props }
 
 const ComponentRegistry = {
     ['img']: MarkdownImage,
+    ['themed-icon']: ThemedIcon,
 }
 
 export default ComponentRegistry;

@@ -37,13 +37,14 @@ function customDirectivePlugin() {
     return () => {
         return (tree: Root) => {
             visit(tree, (node) => {
+
                 if (
                     node.type === 'textDirective' ||
                     node.type === 'leafDirective' ||
                     node.type === 'containerDirective'
                 ) {
                     const data = node.data || (node.data = {});
-                    const attr = node.attributes || {};
+                    let attr = node.attributes || {};
                     
                     if (node.name.toLowerCase().includes('link') || node.name.toLowerCase().includes('button')) {
                         let defaultText = node.name.includes("email") ? node.attributes.href?.split(":")[1] : "";
@@ -66,7 +67,7 @@ function customDirectivePlugin() {
                         }
 
                         if (
-                            (node.children.some((child) => child.name === 'img')) &&
+                            (node.children.some((child) => ['img', 'themed-icon'].includes(child.name))) &&
                             (!node.children.some((child) => child.type === 'text'))
                         ) {
                             node.children.push({
@@ -74,6 +75,34 @@ function customDirectivePlugin() {
                                 value: defaultText
                             } as never)
                         }
+                    } 
+                    
+                    if (node.name === 'themed-icon') {
+                        const newAttr: Record<string, any> = {};
+                        const themeSources: Record<string, string> = {}
+
+                        Object.keys(attr).forEach((key) => {
+                            
+                            const attrName = key.toLowerCase();
+                            const attrVal = attr[key];
+                            
+                            if (attrName.includes('theme') && attrName.includes('src')) {
+                                if (!attrVal || attrVal.length < 1) return;
+
+                                const theme = attrName.replaceAll('-', '')
+                                    .replaceAll('theme', '')
+                                    .replaceAll('src', '');
+
+                                console.log(theme, attrVal);
+
+                                themeSources[theme] = attrVal;
+                            } else {
+                                newAttr[key] = attrVal;
+                            }
+                        });
+
+                        newAttr['themesrcs'] = JSON.stringify(themeSources);
+                        attr = newAttr;
                     }
 
                     const hast = h(node.name, attr);

@@ -1,7 +1,7 @@
 import matter from "gray-matter";
 import path from "path";
 import { UserConfig } from "vite";
-import { processMarkdown } from "../src/utils/Markdown";
+import { processMarkdown } from "../src/utils/Markdown.ts";
 import * as fs from "fs";
 import { VFile } from "vfile";
 

@@ -41,7 +41,7 @@ const UpperControlBar: React.FC<UpperControlBarProps> = ({ zoom, setZoom, numPag
                     
                     <MediaComponent
                         className={`${styles.zoomButton}`}
-                        src="/src/static/assets/icons/minus-svgrepo-com.svg"
+                        src="/src/static/assets/icons/minus-icon.svg"
                         ref={undefined}
                         onClick={handleZoomOut}
                     />
@@ -50,7 +50,7 @@ const UpperControlBar: React.FC<UpperControlBarProps> = ({ zoom, setZoom, numPag
                     </div>
                     <MediaComponent
                         className={`${styles.zoomButton}`}
-                        src="/src/static/assets/icons/plus-svgrepo-com.svg"
+                        src="/src/static/assets/icons/plus-icon.svg"
                         ref={undefined}
                         onClick={handleZoomIn}
                     />
@@ -69,7 +69,7 @@ const UpperControlBar: React.FC<UpperControlBarProps> = ({ zoom, setZoom, numPag
                 >
                     <MediaComponent
                         className={`${styles.downloadIcon}`}
-                        src="/src/static/assets/icons/download-minimalistic-svgrepo-com.svg"
+                        src="/src/static/assets/icons/download-icon.svg"
                         ref={undefined}
                     />
                 </a>

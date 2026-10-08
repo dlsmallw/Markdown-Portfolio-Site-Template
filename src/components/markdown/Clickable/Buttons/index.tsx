@@ -6,7 +6,7 @@ import { LinkComponent } from "..";
 
 import styles from './component.module.css';
 
-const InternalButtonComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
+export const InternalButtonComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
     return (
         <LinkComponent 
             {...props} 
@@ -19,7 +19,7 @@ const InternalButtonComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>>
     )
 }
 
-const ExternalButtonComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
+export const ExternalButtonComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
     return (
         <LinkComponent 
             {...props} 
@@ -30,7 +30,7 @@ const ExternalButtonComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>>
     )
 }
 
-const EmailButtonComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
+export const EmailButtonComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
     return (
         <LinkComponent 
             {...props} 
@@ -43,7 +43,7 @@ const EmailButtonComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = 
     )
 }
 
-const DownloadButtonComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
+export const DownloadButtonComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
     if (!props.download) props.download = inlineTryCatch(() => props.href.split("/").pop(), "Resume.pdf")
 
     return (

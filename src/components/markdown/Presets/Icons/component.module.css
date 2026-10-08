@@ -1,0 +1,20 @@
+.emailIcon {
+    fill: currentColor;
+}
+
+.downloadIcon {
+    path {
+        stroke: var(--primary);
+    }
+}
+
+.resumeIcon {
+    fill: currentColor;
+}
+
+[data-theme="dark"] .githubIcon {
+    g {
+        fill: currentColor;
+    }
+}
+

@@ -1,14 +1,15 @@
 .linkContainer {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: left;
 }
 
-.link, .resumeLink {
+.link {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    /* padding: 0.9rem 1.1rem; */
+    width: 100%;
+    padding: 0.2rem 1rem;
     /* box-shadow: var(--shadow-lifted); */
     border-radius: 0.6rem;
 
@@ -45,6 +46,6 @@
 }
 
 .link:hover {
-    /* background-color: color-mix(in srgb, var(--bg-secondary) 50%, transparent); */
+    background-color: color-mix(in srgb, var(--bg-secondary) 75%, transparent);
     text-decoration: underline;
 }

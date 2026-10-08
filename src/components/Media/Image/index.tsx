@@ -13,8 +13,8 @@ const ImageComponent = React.memo(function Image(props: ImageComponentProps) {
         <>
             {props.src ? (
                 <img 
-                {...props} 
-                ref={props.ref as React.RefObject<HTMLImageElement>} 
+                    {...props} 
+                    ref={props.ref as React.RefObject<HTMLImageElement>} 
                 />
             ) : (
                 <LoadingFallback {...props} />

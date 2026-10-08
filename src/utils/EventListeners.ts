@@ -172,3 +172,35 @@ export function usePageSpy(scrollContainerRef: React.RefObject<HTMLDivElement | 
 
     return currentPage;
 }
+
+export function documentAttrObserver(attrName: string, fallback: any = undefined) {
+    const [attrValue, setAttrValue] = useState(() => 
+        document.documentElement.getAttribute(attrName) || fallback
+    );
+
+    useEffect(() => {
+        const attrChangeObserver = (mutationList: MutationRecord[]) => {
+            for (const mutation of mutationList) {
+                if (
+                    (mutation.type === 'attributes') &&
+                    (mutation.attributeName === attrName)
+                ) {
+                    const currAttrValue = (mutation.target as Element).getAttribute(attrName);
+                    setAttrValue(currAttrValue || fallback);
+                }
+            }
+        };
+
+        const observer = new MutationObserver(attrChangeObserver);
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: [attrName]
+        });
+
+        return () => {
+            observer.disconnect();
+        }
+    }, []);
+
+    return attrValue;
+}

@@ -1,6 +1,6 @@
 import React, { type ImgHTMLAttributes, useMemo } from "react";
 
-import { LoadingFallback, ErrorFallback } from "..";
+import { LoadingFallback, ErrorFallback } from "../";
 import SVG from 'react-inlinesvg';
 
 import './component.module.css';
@@ -10,10 +10,10 @@ interface SVGComponentProps extends ImgHTMLAttributes<HTMLImageElement> {
 }
 
 const LocalSVG: React.FC<SVGComponentProps> = ({ ref, ...props }) => {
-    const Icon = useMemo(() => {
+    const SVGImage = useMemo(() => {
         return React.lazy<React.ComponentType<SVGComponentProps>>(async () => {
             try {
-                const module = await import(`${props.src}?react`);
+                const module = await import(/* @vite-ignore */ `${props.src}?react`);
                 return {
                     default: module.default as React.ComponentType<SVGComponentProps>
                 };
@@ -28,12 +28,12 @@ const LocalSVG: React.FC<SVGComponentProps> = ({ ref, ...props }) => {
 
     return (
         <React.Suspense fallback={<LoadingFallback {...props} />} >
-            <Icon {...props} ref={ref as React.RefObject<SVGElement>} />
+            <SVGImage {...props} ref={ref as React.RefObject<SVGElement>} />
         </React.Suspense>
     )
 }
 
-const SVGComponent: React.FC<SVGComponentProps> = ({ ...props }) => {
+const SVGComponent = React.memo(function SVGComponentInner(props: SVGComponentProps) {
     const isURL = () => {
         return URL.canParse(props.src);
     }
@@ -52,6 +52,6 @@ const SVGComponent: React.FC<SVGComponentProps> = ({ ...props }) => {
             )}
         </>
     )
-}
+})
 
 export default SVGComponent;

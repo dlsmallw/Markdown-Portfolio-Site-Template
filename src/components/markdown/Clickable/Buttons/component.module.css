@@ -1,13 +1,13 @@
 .button, .projectButton {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
   padding: 0.9rem 1.1rem;
   box-shadow: var(--shadow-lifted);
   border-radius: 0.6rem;
 
   color: var(--text-main);
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   text-decoration: none;
   font-weight: 550;
 
@@ -44,21 +44,14 @@
     color: color-mix(in srgb, var(--text-main) 70%, transparent);
 }
 
-.button :global(#link-image-outer-container),
 .button :global(#link-image-cell) {
     align-content: center;
-    height: 1.8rem;
-    width: 1.8rem;
+    width: 2rem;
+    height: 2rem;
 }
 
 .button :global(#link-image-icon) {
-    height: 1.8em;
-    width: var(--text-lg);
-    vertical-align: middle;
-
     svg {
-        width: 2rem;
-        height: 2rem;
         fill: currentColor;
     }
 }

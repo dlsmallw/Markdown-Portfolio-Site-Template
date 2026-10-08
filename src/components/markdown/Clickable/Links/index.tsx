@@ -6,7 +6,7 @@ import { LinkComponent } from "..";
 
 import styles from './component.module.css';
 
-const InternalLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
+export const InternalLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
     return (
         <div className={styles.linkContainer}>
             <LinkComponent 
@@ -22,7 +22,7 @@ const InternalLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> =
     
 }
 
-const ExternalLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
+export const ExternalLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
     return (
         <div className={styles.linkContainer}>
             <LinkComponent 
@@ -35,7 +35,7 @@ const ExternalLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> =
     )
 }
 
-const EmailLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
+export const EmailLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
     return (
         <div className={styles.linkContainer}>
             <LinkComponent 
@@ -50,7 +50,7 @@ const EmailLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({
     )
 }
 
-const DownloadLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
+export const DownloadLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
     if (!props.download) props.download = inlineTryCatch(() => props.href.split("/").pop(), "Resume.pdf")
 
     return (
@@ -60,7 +60,7 @@ const DownloadLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> =
     )
 }
 
-const LinkComponentRegistry = {
+export const LinkComponentRegistry = {
     ['external-link']: ExternalLinkComponent,
     ['internal-link']: InternalLinkComponent,
     ['email-link']: EmailLinkComponent,

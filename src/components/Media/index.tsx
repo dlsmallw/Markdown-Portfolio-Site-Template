@@ -4,8 +4,10 @@ import React, {
     type HTMLAttributes, 
     type ImgHTMLAttributes 
 } from 'react';
+
 import SVGComponent from './SVG';
 import ImageComponent from './Image';
+
 
 export const LoadingFallback: React.FC<HTMLAttributes<HTMLImageElement>> = ({ ...props }) => {
     return <span {...props} className={`${props.className} svg-icon-loading`}/>
@@ -17,6 +19,8 @@ export const ErrorFallback: React.FC<HTMLAttributes<HTMLImageElement>> = ({ ...p
 
 interface MediaComponentProps extends ImgHTMLAttributes<HTMLImageElement> {
     ref: React.RefObject<SVGElement | HTMLImageElement | null>;
+    darkModeSrc?: string;
+    lightModeSrc?: string;
 }
 
 // const MediaComponent = React.memo(function Image(props: MediaComponentProps) {
@@ -44,11 +48,6 @@ const MediaComponent: React.FC<MediaComponentProps> = ({ ...props }) => {
 
         return result;
     }
-
-    // useEffect(() => {
-    //     console.log(`Is SVG: ${isSVG(props.src)}`);
-    //     console.log(props)
-    // }, []);
 
     return (
         <>
