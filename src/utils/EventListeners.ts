@@ -72,6 +72,43 @@ export function useIsWrapped() {
     return { containerRef, isWrapped };
 }
 
+export function windowResizeListener(timeoutDelay: number = 200) {
+    const [isResizing, setIsResizing] = useState(false);
+    const [windowSize, setWindowSize] = useState({
+        width: window ? window.innerWidth : 0,
+        height: window ? window.innerHeight : 0
+    });
+
+    const resizeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    useEffect(() => {
+        if (!window) return;
+
+        const handleResize = () => {
+            setIsResizing(true);
+
+            if (resizeTimeoutRef.current) clearTimeout(resizeTimeoutRef.current);
+
+            resizeTimeoutRef.current = setTimeout(() => {
+                setIsResizing(false);
+                setWindowSize({
+                    width: window ? window.innerWidth : 0,
+                    height: window ? window.innerHeight : 0
+                })
+            }, timeoutDelay);
+        }
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+            if (resizeTimeoutRef.current) clearTimeout(resizeTimeoutRef.current);
+        };
+    }, []);
+
+    return { windowSize, isResizing };
+}
+
 /**
  * Facilitates tracking which section the user is at while scrolling.
  * @param sectionIDs        The list of sections available to scroll.

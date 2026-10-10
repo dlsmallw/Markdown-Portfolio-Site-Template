@@ -40,6 +40,7 @@
     "remark-frontmatter": "^5.0.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
+    "remark-stringify": "^11.0.0",
     "to-vfile": "^8.0.0",
     "vite-plugin-node-polyfills": "^0.28.0"
   }

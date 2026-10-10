@@ -3,7 +3,7 @@ navLabel: Introduction
 ---
 
 ::::container{ id="headshot-container" }
-::img{ src="/src/static/assets/default_headshot.jpg" alt="headshot" id="headshot" tooltip="false" }
+::img{ src="/src/assets/default_headshot.jpg" alt="headshot" id="headshot" tooltip="false" }
 
 ## John Doe
 

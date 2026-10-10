@@ -4,12 +4,11 @@ export interface HomeSectionData {
   id: string;
   navLabel: string; 
   ref: React.RefObject<HTMLDivElement | null>;
-  markdown: VFile | string;
 };
 
 export interface HomeLoaderData {
-  sectionOrder: string[];
   sectionData: HomeSectionData[];
+  markdown: VFile;
 };
 
 export interface PortfolioSectionData {

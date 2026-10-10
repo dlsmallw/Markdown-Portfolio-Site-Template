@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import LightModeIcon from '@static/assets/theme/light-mode.svg?react';
-import DarkModeIcon from '@static/assets/theme/dark-mode.svg?react';
+import LightModeIcon from '@assets/theme/light-mode.svg?react';
+import DarkModeIcon from '@assets/theme/dark-mode.svg?react';
 
 import styles from './component.module.css';
 
@@ -48,7 +48,6 @@ const ThemeToggle: React.FC = () => {
             onClick={toggleTheme} 
             title={`Toggle Theme`}
         >
-
             <LightModeIcon
                 className={styles.lightModeIcon}
                 style={{
@@ -62,24 +61,6 @@ const ThemeToggle: React.FC = () => {
                     opacity: theme === 'dark' ? 1 : 0,
                 }}
             />
-
-            {/* <ImageComponent
-                className={styles.lightModeIcon}
-                src={'/src/static/assets/theme/light-mode.svg'}
-                ref={undefined}
-                style={{
-                    opacity: theme === 'light' ? 1 : 0,
-                    position: 'absolute' as const,
-                }}
-            />
-            <ImageComponent
-                className={styles.darkModeIcon}
-                src={'/src/static/assets/theme/dark-mode.svg'}
-                ref={undefined}
-                style={{
-                    opacity: theme === 'dark' ? 1 : 0,
-                }} 
-            /> */}
         </div>
     );
 };

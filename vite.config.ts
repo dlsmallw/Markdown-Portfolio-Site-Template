@@ -5,11 +5,11 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite'
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
-import { markdownPreprocess } from './plugins/index.ts';
+import { markdownPreprocess } from './plugins/MarkdownPreprocessing.ts';
 
 export default defineConfig({
   plugins: [
-    markdownPreprocess(path.join(import.meta.dirname, '/src/static/markdown')),
+    markdownPreprocess(path.join(import.meta.dirname, '/markdown')),
     react(),
     svgr(),
     nodePolyfills({
@@ -23,7 +23,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@static': fileURLToPath(new URL('./src/static', import.meta.url)),
+      '@assets': fileURLToPath(new URL('./src/assets', import.meta.url)),
       '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
       '@routes': fileURLToPath(new URL('./src/routes', import.meta.url)),
       '@layouts': fileURLToPath(new URL('./src/layouts', import.meta.url)),

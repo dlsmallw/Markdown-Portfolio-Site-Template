@@ -3,7 +3,7 @@ import type { ImgHTMLAttributes } from 'react';
 import { MarkdownImage } from '../../Images';
 import type React from 'react';
 
-const iconAssetPath = '/src/static/assets/icons';
+import { ICON_ASSETS_PATH } from '@utils/Constants';
 
 export const EmailSVG: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ ...props }) => {
     return <MarkdownImage 
@@ -12,7 +12,7 @@ export const EmailSVG: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ ...pro
                 id="link" 
                 alt="Email"
                 tooltip="false"
-                src={`${iconAssetPath}/email-icon.svg`}
+                src={`${ICON_ASSETS_PATH}/email-icon.svg`}
             />
 }
 
@@ -23,7 +23,7 @@ export const DownloadIcon: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ ..
                 id="link" 
                 alt="Download"
                 tooltip="false"
-                src={`${iconAssetPath}/download-icon.svg`}
+                src={`${ICON_ASSETS_PATH}/download-icon.svg`}
             />
 }
 
@@ -34,7 +34,7 @@ export const ResumeIcon: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ ...p
                 id="link" 
                 alt="Resume"
                 tooltip="false"
-                src={`${iconAssetPath}/resume.svg`}
+                src={`${ICON_ASSETS_PATH}/resume.svg`}
             />
 }
 

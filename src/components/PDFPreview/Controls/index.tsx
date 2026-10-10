@@ -4,6 +4,8 @@ import { MediaComponent } from "@components";
 
 import styles from './component.module.css';
 
+import { ICON_ASSETS_PATH } from "@utils/Constants";
+
 interface UpperControlBarProps extends HTMLAttributes<HTMLDivElement> {
     numPages: number | null;
     currentPage: number;
@@ -41,7 +43,7 @@ const UpperControlBar: React.FC<UpperControlBarProps> = ({ zoom, setZoom, numPag
                     
                     <MediaComponent
                         className={`${styles.zoomButton}`}
-                        src="/src/static/assets/icons/minus-icon.svg"
+                        src={`${ICON_ASSETS_PATH}/minus-icon.svg`}
                         ref={undefined}
                         onClick={handleZoomOut}
                     />
@@ -50,7 +52,7 @@ const UpperControlBar: React.FC<UpperControlBarProps> = ({ zoom, setZoom, numPag
                     </div>
                     <MediaComponent
                         className={`${styles.zoomButton}`}
-                        src="/src/static/assets/icons/plus-icon.svg"
+                        src={`${ICON_ASSETS_PATH}/plus-icon.svg`}
                         ref={undefined}
                         onClick={handleZoomIn}
                     />
@@ -69,7 +71,7 @@ const UpperControlBar: React.FC<UpperControlBarProps> = ({ zoom, setZoom, numPag
                 >
                     <MediaComponent
                         className={`${styles.downloadIcon}`}
-                        src="/src/static/assets/icons/download-icon.svg"
+                        src={`${ICON_ASSETS_PATH}/download-icon.svg`}
                         ref={undefined}
                     />
                 </a>

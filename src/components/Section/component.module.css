@@ -8,6 +8,10 @@
     width: 50vw;
 }
 
+:global(.last-page-section) {
+    height: var(--view-height);
+}
+
 .sectionBorder {
     width: 52vw;
     border-bottom: 1px solid var(--border-color);

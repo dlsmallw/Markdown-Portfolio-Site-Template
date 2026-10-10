@@ -10,18 +10,24 @@ import styles from './component.module.css';
 
 interface PageSectionProps extends HTMLAttributes<HTMLDivElement> {
     scrollRef: React.RefObject<HTMLDivElement | null>;
-    markdown: VFile;
+    markdown?: VFile;
 }
 
-const PageSection: React.FC<PageSectionProps> = ({ scrollRef, markdown, ...props }) => {
+// const PageSection: React.FC<PageSectionProps> = ({ scrollRef, markdown, ...props }) => {
+//     return (
+//         <div className={`${styles.section} page-section`} ref={scrollRef} {...props}>
+//             {markdown ? (
+//                 <ReactMarkdown components={ComponentRegistry as Components} rehypePlugins={[rehypeRaw]} >{`${markdown.value}`}</ReactMarkdown>
+//             ) : (
+//                 <div className='container'>Loading...</div>
+//             )}
+//         </div>
+//     )
+// }
+
+const PageSection: React.FC<PageSectionProps> = ({ scrollRef, ...props }) => {
     return (
-        <div className={`${styles.section} page-section`} ref={scrollRef} {...props}>
-            {markdown ? (
-                <ReactMarkdown components={ComponentRegistry as Components} rehypePlugins={[rehypeRaw]} >{`${markdown.value}`}</ReactMarkdown>
-            ) : (
-                <div className='container'>Loading...</div>
-            )}
-        </div>
+        <div {...props} className={`${styles.section}${`${props.className ? " " + props.className : ""}`} page-section`} ref={scrollRef} />
     )
 }
 

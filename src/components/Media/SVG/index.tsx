@@ -10,7 +10,7 @@ interface SVGComponentProps extends ImgHTMLAttributes<HTMLImageElement> {
 }
 
 const LocalSVG: React.FC<SVGComponentProps> = ({ ref, ...props }) => {
-    const SVGImage = useMemo(() => {
+    const SVGImageURL = useMemo(() => {
         return React.lazy<React.ComponentType<SVGComponentProps>>(async () => {
             try {
                 const module = await import(/* @vite-ignore */ `${props.src}?react`);
@@ -28,7 +28,7 @@ const LocalSVG: React.FC<SVGComponentProps> = ({ ref, ...props }) => {
 
     return (
         <React.Suspense fallback={<LoadingFallback {...props} />} >
-            <SVGImage {...props} ref={ref as React.RefObject<SVGElement>} />
+            <SVGImageURL {...props} ref={ref} />
         </React.Suspense>
     )
 }
@@ -43,9 +43,9 @@ const SVGComponent = React.memo(function SVGComponentInner(props: SVGComponentPr
             {isURL() ? (
                 // <RemoteSVG {...props} />  
                 <SVG 
+                    {...(props as unknown as React.ComponentProps<typeof SVG>)}
                     innerRef={props.ref as React.RefObject<SVGElement>}
                     src={props.src}
-                    {...(props as unknown as React.ComponentProps<typeof SVG>)}
                 />  
             ) : (
                 <LocalSVG {...props} />

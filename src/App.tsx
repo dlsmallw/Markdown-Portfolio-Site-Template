@@ -10,9 +10,8 @@ import {
   ScrollRestoration 
 } from 'react-router';
 
-import matter from 'gray-matter';
 
-import { processMarkdown, useScrollRestorationListener} from '@utils';
+import { useScrollRestorationListener} from '@utils';
 
 import MainLayout from '@layouts/MainLayout';
 
@@ -20,23 +19,17 @@ import Home from '@routes/home';
 import Portfolio from '@routes/portfolio';
 import Resume from '@routes/resume';
 
-import { 
-  MD_PATH,
-  DEFAULT_MD_PATH 
-} from './config';
-
 import type { 
   HomeSectionData,
   HomeLoaderData,
   PortfolioSectionData,
-  PortfolioLoaderData
+  PortfolioLoaderData,
 } from '@typing/DataLoading';
-
-import homeLayoutJSON from '@static/markdown/home/layout.json';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import type { VFile } from 'node_modules/rehype-raw/lib';
+
+import { RESUME_PATH } from '@utils/Constants';
 
 
 
@@ -67,36 +60,28 @@ const RouterLoader = () => {
 };
 
 export async function appDataLoader(_args: LoaderFunctionArgs) {
-  const loadHomeData = async (sectionOrder: string[], fp: string) => {
+  const loadHomeData = async () => {
     try {
       const homeSectionData: HomeSectionData[] = [];
+      const pageData = __MARKDOWN_MAP__['home'];
+      const markdown = pageData.markdown;
+      const sectionData = pageData.sectionData;
 
-      await Promise.all(sectionOrder.map(async (section) => {
-          try {
-              // const sectionMDRaw = await fetch(new URL(`${fp}/home/${section}.md`, import.meta.url)).then((response) => response.text());
-              // const { data, content } = matter(sectionMDRaw);
-              // const sectionMarkdown = await processMarkdown(String(content));
-
-              const sectionMap = __MARKDOWN_MAP__['home'][section] as MD_MAP;
-              const frontmatter = sectionMap.frontmatter;
-              const markdown = sectionMap.markdown;
-
-              homeSectionData.push({
-                  id: section,
-                  navLabel: frontmatter.navLabel,
-                  ref: createRef(),
-                  markdown: markdown as VFile
-              });
-          } catch (e) {
-              console.log(e)
-          }
-      }));
-
-      homeSectionData.sort((a, b) => sectionOrder.indexOf(a.id) - sectionOrder.indexOf(b.id));
+      for (const section of sectionData) {
+        try {
+          homeSectionData.push({
+            id: section.id,
+            navLabel: section.navLabel,
+            ref: createRef(),
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      }
 
       return {
-        sectionOrder: sectionOrder,
-        sectionData: homeSectionData
+        sectionData: homeSectionData,
+        markdown: markdown
       }
     } catch (e) {
       console.log(e)
@@ -108,7 +93,7 @@ export async function appDataLoader(_args: LoaderFunctionArgs) {
     return null;
   }
 
-  const homeData: HomeLoaderData | null = await loadHomeData(homeLayoutJSON.sectionOrder, DEFAULT_MD_PATH);
+  const homeData: HomeLoaderData | null = await loadHomeData();
   const portfolioData: PortfolioLoaderData | null = await loadPortfolioData();
 
   return { homeData, portfolioData };
@@ -140,12 +125,13 @@ const AppContent = () => {
     return () => observer.disconnect();
   }, []);
 
-  const { homeData, portfolioData } = useLoaderData();
+  const { homeData, homeDataAlt, portfolioData } = useLoaderData();
+  console.log(homeDataAlt)
   const location = useLocation();
 
   return (
     <MainLayout>
-      <Outlet context={{ homeData, portfolioData, resumePDFFileURL: '/src/static/assets/resume/example_resume.pdf', navbarHeight }} key={location.pathname}/>
+      <Outlet context={{ homeData, portfolioData, resumePDFFileURL: RESUME_PATH, navbarHeight }} key={location.pathname}/>
       <ScrollRestoration getKey={(location) => location.pathname} />
     </MainLayout>
   )
