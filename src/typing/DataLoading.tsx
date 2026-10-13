@@ -1,28 +1,26 @@
 import { VFile } from "vfile";
 
-export interface HomeSectionData {
+export interface SectionData {
   id: string;
-  navLabel: string; 
+  navLabel?: string; 
   ref: React.RefObject<HTMLDivElement | null>;
-};
+}
 
-export interface HomeLoaderData {
-  sectionData: HomeSectionData[];
+export interface LoaderData {
+  sectionData: SectionData[];
   markdown: VFile;
-};
-
-export interface PortfolioSectionData {
-    [key: string]: any;
-};
-
-export interface PortfolioLoaderData {
-    sectionOrder: string[];
-    sectionData: PortfolioSectionData[]
-};
+}
+export interface PageDataProps {
+  pageData: LoaderData;
+  scrollPos: number;
+  setScrollPos: React.Dispatch<React.SetStateAction<number>>;
+  sectionState?: string;
+  setSectionState?: React.Dispatch<React.SetStateAction<string>>;
+}
 
 export interface AppDataContextType {
-    homeData: HomeLoaderData;
-    portfolioData: PortfolioLoaderData | {};
-    resumePDFFileURL: string;
-    navbarHeight: number;
+  homeProps: PageDataProps;
+  portfolioProps: PageDataProps;
+  resumePDFFileURL: string;
+  navbarHeight: number;
 };

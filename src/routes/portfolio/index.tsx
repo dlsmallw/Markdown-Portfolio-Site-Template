@@ -5,9 +5,9 @@ import type { AppDataContextType } from '@typing/DataLoading';
 import { useOutletContext } from 'react-router';
 
 const Portfolio: React.FC = () => {
-    const { portfolioData, navbarHeight } = useOutletContext<AppDataContextType>();
+    const { portfolioProps } = useOutletContext<AppDataContextType>();
 
-    const projects = portfolioData;
+    const portfolioData = portfolioProps.pageData;
 
     return (
         <div className={styles.portfolioPage} id="outer-container">

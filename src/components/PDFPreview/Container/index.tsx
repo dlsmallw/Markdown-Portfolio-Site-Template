@@ -17,7 +17,7 @@ interface PDFPreviewerProps extends HTMLAttributes<HTMLDivElement> {
     fileURL: string;
 }
 
-const PDFPreviewer: React.FC<PDFPreviewerProps> = ({ fileURL, ...props }) => {
+const PDFPreviewer: React.FC<PDFPreviewerProps> = ({ fileURL }) => {
     const [numPages, setNumPages] = useState<number | null>(null);
     const [zoom, setZoom] = useState(1);
 
@@ -40,6 +40,7 @@ const PDFPreviewer: React.FC<PDFPreviewerProps> = ({ fileURL, ...props }) => {
                 currentPage={currentPage} 
                 fileURL={fileURL} 
             />
+
             <div ref={scrollContainerRef} className={styles.pdfScrollContainer} >
                 <Document file={file} onLoadSuccess={onPDFLoad} >
                     <div ref={pageContainerRef} className={styles.pageContainer} >

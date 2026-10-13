@@ -1,4 +1,3 @@
-
 /**
  * Used to condense simple variable operations that can result in an error into a single line.
  * @param fn            The function/operation to be attempted.

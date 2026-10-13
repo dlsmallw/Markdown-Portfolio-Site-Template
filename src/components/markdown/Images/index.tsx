@@ -1,4 +1,4 @@
-import React, { type ImgHTMLAttributes, useEffect, useMemo, useRef, useState } from "react";
+import React, { type ImgHTMLAttributes, useEffect, useRef, useState } from "react";
 
 import { MediaComponent } from "@components/Media";
 
@@ -89,12 +89,6 @@ const ThemedIcon: React.FC<ThemedIconProps> = ({ themesrcs, src, ...props }) => 
         }
     };
 
-    useEffect(() => {
-        console.log(`Current theme: ${theme}`);
-    }, [theme]);
-
-    // console.log(Component);
-
     return <Component />;
 }
 
@@ -115,8 +109,6 @@ export const MarkdownImage: React.FC<ImageProps> = ({ alt, tooltip = 'true', ...
         const rect = imgRef.current.getBoundingClientRect();
         const x = xAdjust + e.clientX - rect.left;
         const y = e.clientY - rect.top;
-
-        // console.log(x, y)
 
         setTTCoords({
             left: x + 15,
@@ -143,7 +135,7 @@ export const MarkdownImage: React.FC<ImageProps> = ({ alt, tooltip = 'true', ...
             };
         };
 
-        const handleScroll = (e: Event) => {
+        const handleScroll = () => {
             const element = imgRef.current;
             if (!element) return;
 

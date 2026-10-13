@@ -72,51 +72,14 @@ export function useIsWrapped() {
     return { containerRef, isWrapped };
 }
 
-export function windowResizeListener(timeoutDelay: number = 200) {
-    const [isResizing, setIsResizing] = useState(false);
-    const [windowSize, setWindowSize] = useState({
-        width: window ? window.innerWidth : 0,
-        height: window ? window.innerHeight : 0
-    });
-
-    const resizeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-    useEffect(() => {
-        if (!window) return;
-
-        const handleResize = () => {
-            setIsResizing(true);
-
-            if (resizeTimeoutRef.current) clearTimeout(resizeTimeoutRef.current);
-
-            resizeTimeoutRef.current = setTimeout(() => {
-                setIsResizing(false);
-                setWindowSize({
-                    width: window ? window.innerWidth : 0,
-                    height: window ? window.innerHeight : 0
-                })
-            }, timeoutDelay);
-        }
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-            if (resizeTimeoutRef.current) clearTimeout(resizeTimeoutRef.current);
-        };
-    }, []);
-
-    return { windowSize, isResizing };
-}
-
 /**
  * Facilitates tracking which section the user is at while scrolling.
  * @param sectionIDs        The list of sections available to scroll.
  * @param options           Options that mutate the algorithms logic for determining the current section.
- * @returns         The current active section the user is at.
+ * @returns                 The current active section the user is at.
  */
-export function useScrollSpy(sectionIDs: string[], options?: IntersectionObserverInit): string | null { 
-    const [activeSection, setActiveSection] = useState<string | null>(null);
+export function useScrollSpy(sectionState: string | null, sectionIDs: string[], options?: IntersectionObserverInit): string | null { 
+    const [activeSection, setActiveSection] = useState<string | null>(sectionState || sectionIDs[0] || null);
     const visibleSections = useRef<Record<string, boolean>>({});
 
     useEffect(() => {
@@ -161,6 +124,12 @@ export function useScrollRestorationListener(
     }, [location.key, navigation.state]);
 }
 
+/**
+ * Used to track the current page when using the PDFPreviewer component to preview a PDF.
+ * @param scrollContainerRef        A RefObject of the scroll container.
+ * @param numPages                  The number of pages the PDF contains.
+ * @returns                         The page number of the current page in view.
+ */
 export function usePageSpy(scrollContainerRef: React.RefObject<HTMLDivElement | null>, numPages: number | null) {
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -210,6 +179,12 @@ export function usePageSpy(scrollContainerRef: React.RefObject<HTMLDivElement | 
     return currentPage;
 }
 
+/**
+ * Helper for monitoring a specific attribute of the HTML Document element.
+ * @param attrName          The name/key of the attribute.
+ * @param fallback          The fallback value to default to if desired.
+ * @returns                 The attributes current value.
+ */
 export function documentAttrObserver(attrName: string, fallback: any = undefined) {
     const [attrValue, setAttrValue] = useState(() => 
         document.documentElement.getAttribute(attrName) || fallback

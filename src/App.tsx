@@ -10,7 +10,6 @@ import {
   ScrollRestoration 
 } from 'react-router';
 
-
 import { useScrollRestorationListener} from '@utils';
 
 import MainLayout from '@layouts/MainLayout';
@@ -19,19 +18,11 @@ import Home from '@routes/home';
 import Portfolio from '@routes/portfolio';
 import Resume from '@routes/resume';
 
-import type { 
-  HomeSectionData,
-  HomeLoaderData,
-  PortfolioSectionData,
-  PortfolioLoaderData,
-} from '@typing/DataLoading';
+import { RESUME_PATH } from '@utils/Constants';
+import type { SectionData, LoaderData, PageDataProps } from '@typing/DataLoading';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-
-import { RESUME_PATH } from '@utils/Constants';
-
-
 
 const RouterLoader = () => {
   const router = useMemo(() => createBrowserRouter([
@@ -60,9 +51,9 @@ const RouterLoader = () => {
 };
 
 export async function appDataLoader(_args: LoaderFunctionArgs) {
-  const loadHomeData = async () => {
+  async function loadHomeData(): Promise<LoaderData> {
     try {
-      const homeSectionData: HomeSectionData[] = [];
+      const homeSectionData: SectionData[] = [];
       const pageData = __MARKDOWN_MAP__['home'];
       const markdown = pageData.markdown;
       const sectionData = pageData.sectionData;
@@ -85,18 +76,82 @@ export async function appDataLoader(_args: LoaderFunctionArgs) {
       }
     } catch (e) {
       console.log(e)
-      return null;
+    
+      return { sectionData: [], markdown: null };
     }
-  }
+  } 
 
-  const loadPortfolioData = async () => {
-    return null;
-  }
+  // const loadHomeData = async () => {
+  //   try {
+  //     const homeSectionData: HomeSectionData[] = [];
+  //     const pageData = __MARKDOWN_MAP__['home'];
+  //     const markdown = pageData.markdown;
+  //     const sectionData = pageData.sectionData;
 
-  const homeData: HomeLoaderData | null = await loadHomeData();
-  const portfolioData: PortfolioLoaderData | null = await loadPortfolioData();
+  //     for (const section of sectionData) {
+  //       try {
+  //         homeSectionData.push({
+  //           id: section.id,
+  //           navLabel: section.navLabel,
+  //           ref: createRef(),
+  //         });
+  //       } catch (e) {
+  //         console.log(e)
+  //       }
+  //     }
 
-  return { homeData, portfolioData };
+  //     return {
+  //       sectionData: homeSectionData,
+  //       markdown: markdown
+  //     }
+  //   } catch (e) {
+  //     console.log(e)
+  //     return null;
+  //   }
+  // }
+
+  async function loadPortfolioData(): Promise<LoaderData> {
+    try {
+      const portfolioSectionData: SectionData[] = [];
+      const pageData = __MARKDOWN_MAP__['portfolio'];
+      const markdown = pageData.markdown;
+      const sectionData = pageData.sectionData;
+
+      for (const section of sectionData) {
+        try {
+          portfolioSectionData.push({
+            id: section.id,
+            navLabel: section.navLabel,
+            ref: createRef(),
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      }
+
+      return {
+        sectionData: portfolioSectionData,
+        markdown: markdown
+      }
+    } catch (e) {
+      console.log(e)
+    
+      return { sectionData: [], markdown: null };
+    }
+  } 
+
+  const homeLoaderData = await loadHomeData();
+  const portfolioLoaderData = await loadPortfolioData();
+
+  return { homeLoaderData, portfolioLoaderData };
+}
+
+function pageStateContainer({ sectionData, markdown }: LoaderData): PageDataProps {
+  const [scrollPos, setScrollPos] = useState(0);
+  const [sectionState, setSectionState] = useState<string | null>(null)
+  const pageData = { sectionData, markdown };
+
+  return { scrollPos, setScrollPos, sectionState, setSectionState, pageData };
 }
 
 const AppContent = () => {
@@ -125,13 +180,28 @@ const AppContent = () => {
     return () => observer.disconnect();
   }, []);
 
-  const { homeData, homeDataAlt, portfolioData } = useLoaderData();
-  console.log(homeDataAlt)
+  const { homeLoaderData, portfolioLoaderData } = useLoaderData();
+  const homeProps = pageStateContainer(homeLoaderData);
+  const portfolioProps = pageStateContainer(portfolioLoaderData);
+  // const portfolioProps = pageStateContainer<HomeSectionData | null>(homeData.sectionData, homeData.markdown);
+
+  // const homeProps = {
+  //   homeData, 
+  //   scrollPos: homeScrollPos,
+  //   setScrollPos: setHomeScrollPos
+  // };
+
+  // const portfolioProps = {
+  //   portfolioData,
+  //   scrollPos: portfolioScrollPos,
+  //   setScrollPos: setPortfolioScrollPos
+  // }
+
   const location = useLocation();
 
   return (
     <MainLayout>
-      <Outlet context={{ homeData, portfolioData, resumePDFFileURL: RESUME_PATH, navbarHeight }} key={location.pathname}/>
+      <Outlet context={{ homeProps, portfolioProps, resumePDFFileURL: RESUME_PATH, navbarHeight }} key={location.pathname}/>
       <ScrollRestoration getKey={(location) => location.pathname} />
     </MainLayout>
   )

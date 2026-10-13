@@ -1,4 +1,4 @@
-import React, { useCallback, type ImgHTMLAttributes } from "react";
+import React, { type ImgHTMLAttributes } from "react";
 
 import { LoadingFallback } from "..";
 
