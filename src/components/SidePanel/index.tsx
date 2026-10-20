@@ -6,8 +6,8 @@ const SidePanel: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     return <div {...props} className={`${styles.sidePanel} ${props.className}`} />
 }
 
-const DummyRightPanel: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
-    return <SidePanel className={styles.dummyRightGrid} {...props} />;
+const DummySidePanel: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
+    return <SidePanel className={styles.dummyPanelGrid} {...props} />;
 }
 
-export { SidePanel, DummyRightPanel };
+export { SidePanel, DummySidePanel };

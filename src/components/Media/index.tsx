@@ -9,12 +9,27 @@ import SVGComponent from './SVG';
 import ImageComponent from './Image';
 
 
-export const LoadingFallback: React.FC<HTMLAttributes<HTMLImageElement>> = ({ ...props }) => {
-    return <span {...props} className={`${props.className} svg-icon-loading`}/>
+export const LoadingFallback: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ ...props }) => {
+    return (
+        <span 
+            {...props} 
+            className={`${props.className} icon-loading`}
+            style={{
+                fontWeight: "bold",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'var(--bg-main)',
+                minHeight: '100px',
+            }}
+        >
+            {props.alt}
+        </span>
+    )
 }
 
 export const ErrorFallback: React.FC<HTMLAttributes<HTMLImageElement>> = ({ ...props }) => {
-    return <span {...props} className={`${props.className} svg-icon-error`}>⚠️</span>
+    return <span {...props} className={`${props.className} icon-error`}>⚠️</span>
 }
 
 interface MediaComponentProps extends ImgHTMLAttributes<HTMLImageElement> {

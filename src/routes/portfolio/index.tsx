@@ -10,8 +10,8 @@ const Portfolio: React.FC = () => {
     const portfolioData = portfolioProps.pageData;
 
     return (
-        <div className={styles.portfolioPage} id="outer-container">
-            <div className={styles.portfolioContent} >
+        <div className={styles.page} id="outer-container">
+            <div className={styles.contentContainer} >
                 
             </div>
         </div>

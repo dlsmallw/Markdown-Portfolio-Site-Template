@@ -1,5 +1,12 @@
-import './component.module.css';
+import type { HTMLAttributes } from 'react';
+import styles from './component.module.css';
 
-const ComponentRegistry = {};
+const ProjectBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
+    return <div {...props} className={`${styles.projectBlock} ${props.className}`} />
+}
+
+const ComponentRegistry = {
+    ['project-block']: ProjectBlock,
+};
 
 export default ComponentRegistry;

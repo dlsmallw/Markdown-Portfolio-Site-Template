@@ -9,6 +9,7 @@ interface InpageNavButtonProps extends HTMLAttributes<HTMLButtonElement> {
 const InpageNavButton: React.FC<InpageNavButtonProps> = ({ isActive, ...props }) => {
     const [isHovered, setIsHovered] = useState(false);
 
+    props.onClick
     return (
         <div className={styles.inpageNavButtonContainer} 
             style={{
@@ -23,7 +24,6 @@ const InpageNavButton: React.FC<InpageNavButtonProps> = ({ isActive, ...props })
                 onMouseLeave={() => setIsHovered(false)} 
                 style={{
                     transform: isActive ? 'translateX(-4px)' : 'none',
-                    
                 }}
                 {...props} 
             />

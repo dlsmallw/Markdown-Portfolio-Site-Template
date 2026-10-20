@@ -51,17 +51,77 @@ function toVFile(filename: string, relativePath: string) {
   } as CustomVFile;
 }
 
-/**
- * A custom plugin used to parse the raw markdown files and associate the correct React element type.
- * @returns     The parsed node tree.
- */
-function customDirectivePlugin() {
+function featuredProjectsDirective() {
   return () => {
     return (tree: Root, file?: VFile) => {
       const fileData = file?.data as Data | undefined;
       const frontmatter = fileData?.frontmatter ?? {};
       const currDir = (file && file.dirname) ? file.dirname : process.cwd();
       const sectionDir = frontmatter['sectionRoot'] ? resolve(currDir, frontmatter['sectionRoot']) : undefined;
+
+      visit(tree, (node, index, parent) => {
+        if (
+          node.type === 'textDirective' ||
+          node.type === 'leafDirective' ||
+          node.type === 'containerDirective'
+        ) {
+          const data = node.data || (node.data = {});
+          let attr = node.attributes || {};
+
+          if (
+            node.name.toLowerCase() === 'section-container' &&
+            node.attributes.id === 'projects-section'
+          ) {
+            const newChildren = node.children.filter((child) => {
+              // Allows all directive types except for project-blocks without the "featured" className
+              if (
+                child.type === 'containerDirective' ||
+                child.type === 'leafDirective' ||
+                child.type === 'textDirective'
+              ) {
+                if (
+                  child.name === 'project-block' &&
+                  child.attributes['className'] &&
+                  child.attributes['className'] === 'featured'
+                ) {
+                  return true;
+                } else {
+                  return false;
+                }
+              } else {
+                return true;
+              }
+
+            });
+
+            node.children = newChildren as typeof node.children;
+          }
+
+          const hast = h(node.name, attr);
+
+          data.hName = hast.tagName;
+          data.hProperties = hast.properties;
+        }
+      });
+    };
+  };
+}
+
+/**
+ * A custom plugin used to parse the raw markdown files and associate the correct React element type.
+ * @returns     The parsed node tree.
+ */
+function defaultDirectivePlugin() {
+  return () => {
+    return (tree: Root, file?: VFile) => {
+      const fileData = file?.data as Data | undefined;
+      const frontmatter = fileData?.frontmatter ?? {};
+      const currDir = (file && file.dirname) ? file.dirname : process.cwd();
+      const sectionDir = frontmatter['sectionRoot'] ? resolve(currDir, frontmatter['sectionRoot']) : undefined;
+
+      // console.log(`File: ${file}`);
+      // console.log(`FM: ${frontmatter}`);
+      // console.log(`CDir: ${currDir}`);
 
       visit(tree, (node, index, parent) => {
         if (
@@ -182,15 +242,19 @@ async function parseMDToAST(mdRaw: string, plugins: (() => (tree: Root, file?: V
 async function processMDToComponents(mdVFile: CustomVFile): Promise<VFile> {
   return await markdownToNodeTree(
     mdVFile,
-    [customDirectivePlugin()]
+    [defaultDirectivePlugin()]
   );
 }
 
-async function parsePageMD(filename: string, relativePath: string) {
+async function parsePageMD(
+  filename: string, 
+  relativePath: string, 
+  plugins: (() => (tree: Root, file?: VFile) => void)[] = [defaultDirectivePlugin()]
+) {
   const processor = unified()
     .use(remarkParse)
     .use(remarkDirective)
-    .use(customDirectivePlugin())
+    .use(plugins)
     .use(remarkStringify);
 
   const pageLayoutMDVFile = toVFile(filename, relativePath);
@@ -230,7 +294,7 @@ async function parsePageMD(filename: string, relativePath: string) {
     }
   });
 
-  const processedMD = await parseMDToAST(processor.stringify(cloneTree), [customDirectivePlugin()]) as CustomVFile;
+  const processedMD = await parseMDToAST(processor.stringify(cloneTree), plugins) as CustomVFile;
   processedMD.data.sectionOrderData = sectionOrderData;
   return processedMD;
 }
@@ -246,7 +310,13 @@ export async function markdownPreprocess(mdDirPath: string) {
     const pageName = page.split('.')[0];
 
     try {
-      const markdown = await parsePageMD(page, mdDirPath);
+      let plugins = [defaultDirectivePlugin()];
+
+      if (!pageName.includes("portfolio")) {
+        plugins.push(featuredProjectsDirective())
+      }
+
+      const markdown = await parsePageMD(page, mdDirPath, plugins);
       const sectionData = markdown.data.sectionOrderData;
 
       mdMap[pageName] = {

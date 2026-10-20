@@ -7,7 +7,7 @@ import type { AppDataContextType } from '@typing/DataLoading';
 import { 
     PageSection, 
     SectionBorder, 
-    DummyRightPanel, 
+    DummySidePanel, 
     InpageNavButton,
     InpageNavbarContainer
 } from '@components';
@@ -16,6 +16,7 @@ import styles from './route.module.css';
 import ReactMarkdown from 'react-markdown';
 import ComponentRegistry from '@components/markdown';
 import rehypeRaw from "rehype-raw";
+import InpageNavbar from '@components/InpageNavigation';
 
 interface ScrollWrapperProps extends HTMLAttributes<HTMLDivElement> {
     scrollPos: number;
@@ -84,6 +85,8 @@ export const Home: React.FC = () => {
             block: 'start',
             inline: 'nearest'
         }); 
+
+        targetSectionRef.current = `${current.id}-section`;
     };
 
     const handleMaintainSection = () => {
@@ -123,26 +126,7 @@ export const Home: React.FC = () => {
 
     return (
         <div className={styles.homePage} id="outer-container">
-            <InpageNavbarContainer>
-                {homeData.sectionData ? homeData.sectionData.map((section, index) => {
-                    let isActive = false;
-
-                    if (!activeSection && index === 0) isActive = true;
-                    else isActive = activeSection === `${section.id}-section`;
-
-                    return (
-                        <InpageNavButton 
-                            id={`${section.id}-section-nav`}
-                            key={`${section.id}-nav-btn`}
-                            isActive={isActive}  
-                            onClick={() => {
-                                handleScroll(section.ref);
-                                targetSectionRef.current = `${section.id}-section`;
-                            }}
-                        >{section.navLabel}</InpageNavButton>
-                    )
-                }) : null}
-            </InpageNavbarContainer>
+            <InpageNavbar sections={homeData.sectionData} activeSection={activeSection} handleScroll={handleScroll} />
 
                 {
                     homeData.markdown ? (
@@ -170,7 +154,7 @@ export const Home: React.FC = () => {
                     ) : <div className={styles.loadingContainer}>Loading...</div>
                 }
 
-            <DummyRightPanel id='dummy-right-grid' />
+            <DummySidePanel id='dummy-right-grid' />
         </div>
     );
 }

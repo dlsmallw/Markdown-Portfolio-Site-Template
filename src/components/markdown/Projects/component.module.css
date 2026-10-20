@@ -1,4 +1,4 @@
-:global(#project-block) {
+.projectBlock {
   display: flex;
   flex-direction: column;
   margin: 2%;
