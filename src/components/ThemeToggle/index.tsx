@@ -4,8 +4,10 @@ import LightModeIcon from '@assets/theme/light-mode.svg?react';
 import DarkModeIcon from '@assets/theme/dark-mode.svg?react';
 
 import styles from './component.module.css';
+import { useIsMobile } from "@utils/EventListeners";
 
 const ThemeToggle: React.FC = () => {
+    const isMobile = useIsMobile();
     const [theme, setThemeState] = useState<'light' | 'dark'>('dark');
 
     const toggleTheme = () => {
@@ -44,21 +46,26 @@ const ThemeToggle: React.FC = () => {
     }, []);
     
     return (
-        <div className={styles.themeToggleContainer} id="theme-toggle-container" 
+        <div 
+            className={styles.themeToggleContainer} 
+            id="theme-toggle-container" 
             onClick={toggleTheme} 
-            title={`Toggle Theme`}
+            title='Toggle Theme'
         >
             <LightModeIcon
                 className={styles.lightModeIcon}
                 style={{
+                    display: theme === 'light' ? 'block' : 'none',
                     opacity: theme === 'light' ? 1 : 0,
-                    position: 'absolute' as const,
+                    width: isMobile ? 'var(--text-2xl)' : 'var(--text-xl)'
                 }}
             />
             <DarkModeIcon
                 className={styles.darkModeIcon}
                 style={{
+                    display: theme === 'dark' ? 'block' : 'none',
                     opacity: theme === 'dark' ? 1 : 0,
+                    width: isMobile ? 'var(--text-2xl)' : 'var(--text-xl)'
                 }}
             />
         </div>

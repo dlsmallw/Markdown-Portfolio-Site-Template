@@ -216,3 +216,29 @@ export function documentAttrObserver(attrName: string, fallback: any = undefined
 
     return attrValue;
 }
+
+const MOBILE_BREAKPOINT = 768;
+
+/**
+ * Listener for tracking if using mobile device (by screen size).
+ * @returns     A boolean representing if it is a mobile device or not.
+ */
+export function useIsMobile() {
+    const [isMobile, setIsMobile] = useState<boolean>(() => {
+        if (typeof window === 'undefined') return false;
+        return window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`).matches;
+    });
+
+    useEffect(() => {
+        const ql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+        const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+
+        ql.addEventListener('change', onChange);
+
+        return () => {
+            ql.removeEventListener('change', onChange);
+        }
+    }, []);
+
+    return isMobile;
+}

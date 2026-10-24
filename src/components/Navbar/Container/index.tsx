@@ -1,10 +1,12 @@
-import React, { type HTMLAttributes } from 'react';
+import React, { useEffect, useRef, useState, type HTMLAttributes } from 'react';
 import { useLocation, useNavigate } from 'react-router';
-import { Navbar as BSNavbar, Container, Nav, type NavLinkProps } from 'react-bootstrap';
+import { Navbar as BSNavbar, Container, Nav, Offcanvas, type NavLinkProps } from 'react-bootstrap';
 
 import { ThemeToggle } from '@components';
+import HamburgerIcon from '@assets/icons/hamburger-menu-icon.svg?react';
 
 import styles from './component.module.css';
+import { useIsMobile } from '@utils/EventListeners';
 
 interface NavigationLinkProps extends NavLinkProps {
     to: string;
@@ -38,23 +40,80 @@ const NavLink: React.FC<NavigationLinkProps> = ({ to, ...props }) => {
     );
 }
 
-const Navbar: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
+const HamburgerButton: React.FC<Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'>> = ({ ...props }) => {
     return (
-        <BSNavbar className={`${styles.navbarContainer} ${props.className}`} sticky="top">
-            <Container className='justify-content-center'>
-                <BSNavbar.Collapse id="basic-navbar-nav">
+        <Nav 
+            {...props}
+            className={`${styles.hamburgerButton} ${props.className ?? ''}`} 
+            onClick={props.onClick}
+        >
+            <HamburgerIcon />
+        </Nav>
+    )
+}
 
-                
-                    <Nav className={`${styles.navbarInnerContainer} mx-auto `} >
-                        <NavLink to="/">Home</NavLink>
-                        <NavLink to="/portfolio">Portfolio</NavLink>
-                    </Nav>
-                    <Nav className={`${styles.navbarInnerContainer} `}>
-                        <ThemeToggle />
-                    </Nav>
-                </BSNavbar.Collapse>
-            </Container>
-        </BSNavbar>
+const ThemeToggleButton = () => {
+    const isMobile = useIsMobile();
+
+    return (
+        <Nav
+            style={{
+                margin: !isMobile ? '0 1rem' : 'unset',
+            }}
+        >
+            <ThemeToggle />
+        </Nav>
+    )
+}
+
+interface NavbarProps extends HTMLAttributes<HTMLDivElement> {
+    sidebarContent?: React.ReactNode;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ sidebarContent, ...props }) => {
+    const [show, setShow] = useState(false);
+    const isMobile = useIsMobile();
+
+    useEffect(() => {
+        if (!isMobile || !sidebarContent) setShow(false);
+    }, [isMobile, sidebarContent])
+
+    return (
+        <div className={styles.container}>
+            <BSNavbar className={`${styles.navbarContainer} ${props.className}`} sticky="top">
+                <Container className='justify-content-center'>
+                    <BSNavbar.Collapse id="basic-navbar-nav">
+
+                        <HamburgerButton 
+                            className={show ? styles.offCanvasActive : ''} 
+                            onClick={() => {
+                                setShow(!show);
+                            }} 
+                            style={{
+                                visibility: (isMobile && sidebarContent) ? 'visible': 'hidden',
+                                margin: !isMobile ? '0 1rem' : 'unset',
+                            }}
+                        />
+                    
+                        <Nav className={`${styles.navbarInnerContainer} mx-auto `} >
+                            <NavLink to="/">Home</NavLink>
+                            <NavLink to="/portfolio">Portfolio</NavLink>
+                        </Nav>
+
+                        <ThemeToggleButton />
+                    </BSNavbar.Collapse>
+                </Container>
+            </BSNavbar>
+            
+            <div style={{
+                display: (isMobile && sidebarContent) ? 'block' : 'none'
+            }}>
+                <Offcanvas show={show} onHide={() => setShow(false)}>
+                    {sidebarContent}
+                </Offcanvas>
+            </div>
+        </div>
+       
     )
 }
 

@@ -1,77 +1,31 @@
-import React, { useEffect, useLayoutEffect, useRef, useState, type HTMLAttributes } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, type HTMLAttributes } from 'react';
 import { useOutletContext } from 'react-router';
 
-import { useScrollSpy } from '@utils';
 import type { AppDataContextType } from '@typing/DataLoading';
 
 import { 
     PageSection, 
-    SectionBorder, 
-    DummySidePanel, 
-    InpageNavButton,
-    InpageNavbarContainer
 } from '@components';
+
+import {
+    LeftSideBar,
+    ContentContainer
+} from '@layouts/Page';
+
+import PageContainer from '@layouts/Page';
 
 import styles from './route.module.css';
 import ReactMarkdown from 'react-markdown';
 import ComponentRegistry from '@components/markdown';
 import rehypeRaw from "rehype-raw";
 import InpageNavbar from '@components/InpageNavigation';
-
-interface ScrollWrapperProps extends HTMLAttributes<HTMLDivElement> {
-    scrollPos: number;
-    setScrollPos: React.Dispatch<React.SetStateAction<number>>;
-}
-
-const ScrollWrapper: React.FC<ScrollWrapperProps> = ({ scrollPos, setScrollPos, ...props }) => {
-    const [currScrollPos, setCurrScrollPos] = useState(scrollPos);
-    const scrollStateRef = useRef(currScrollPos);
-
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        scrollStateRef.current = currScrollPos;
-    }, [currScrollPos]);
-
-    useEffect(() => {
-        return () => {
-            setScrollPos(scrollStateRef.current);
-        }
-    }, []);
-
-    useLayoutEffect(() => {
-        const container = containerRef.current;
-        if (!container) return;
-
-        container.scrollTo({
-            top: scrollPos,
-            behavior: 'instant',
-        });
-    }, []);
-
-    return (
-        <div {...props} ref={containerRef} onScroll={(e) => setCurrScrollPos(e.currentTarget.scrollTop)} />
-    )
-}
+import { useAppState } from '@layouts/App';
 
 export const Home: React.FC = () => {
-    const { homeProps, navbarHeight } = useOutletContext<AppDataContextType>();
+    const { homeProps } = useOutletContext<AppDataContextType>();
     const homeData = homeProps.pageData;
 
-    const [isMounted, setIsMounted] = useState(false);
-    
-
-    const activeSection = useScrollSpy(
-        homeProps.sectionState, 
-        homeData.sectionData?.map((section) => {
-            return `${section.id}-section`;
-        }), 
-        { 
-            root: null, 
-            rootMargin: `-${navbarHeight + 200}px 0px 0px 0px`, 
-            threshold: 0 
-        }
-    );
+    const { setSidebarContent } = useAppState();
 
     const targetSectionRef = useRef<string | null>(null);
 
@@ -92,29 +46,27 @@ export const Home: React.FC = () => {
     const handleMaintainSection = () => {
         const targetSection = targetSectionRef.current;
         if (targetSection) {
-            console.log(targetSection);
             const element = (homeData.sectionData.find((section) => section.id === targetSection.split('-')[0])?.ref)?.current;
-            console.log(element);
             if (!element) return;
 
             element.scrollIntoView({behavior: 'instant' as unknown as ScrollBehavior, block: 'start'});
         }
     }
 
-    useEffect(() => {
-        if (isMounted) {
-            targetSectionRef.current = activeSection;
-        }
-    }, [activeSection])
+    const SideNavbar = () => {
+        return (
+            <InpageNavbar sectionState={homeProps.sectionState} sections={homeData.sectionData} targetSectionRef={targetSectionRef} handleScroll={handleScroll} />
+        )
+    }
 
     useEffect(() => {
         window.addEventListener('resize', handleMaintainSection);
-        setIsMounted(true);
+        
         
         return () => {
             window.removeEventListener('resize', handleMaintainSection);
-            setIsMounted(false);
             homeProps.setSectionState(targetSectionRef.current);
+            setSidebarContent(null);
         }
     }, []);
 
@@ -122,16 +74,21 @@ export const Home: React.FC = () => {
         if (homeProps.sectionState) {
             targetSectionRef.current = homeProps.sectionState;
         }
+
+        setSidebarContent(<SideNavbar />);
     }, [])
 
     return (
-        <div className={styles.homePage} id="outer-container">
-            <InpageNavbar sections={homeData.sectionData} activeSection={activeSection} handleScroll={handleScroll} />
+        <PageContainer>
+            <LeftSideBar>
+                <SideNavbar />
+            </LeftSideBar>
 
-                {
-                    homeData.markdown ? (
-                        <ScrollWrapper scrollPos={homeProps.scrollPos} setScrollPos={homeProps.setScrollPos} className={styles.contentContainer} id='content-container'>
-                            <ReactMarkdown components={{
+            {
+                homeData.markdown ? (
+                    <ContentContainer scrollPos={homeProps.scrollPos} setScrollPos={homeProps.setScrollPos} >
+                        <ReactMarkdown 
+                            components={{
                                 ...ComponentRegistry,
                                 ...{
                                     ['section-container']: (props: { navLabel: string; } & Partial<HTMLAttributes<HTMLDivElement>>) => {
@@ -140,22 +97,25 @@ export const Home: React.FC = () => {
                                         const isLastSection = sectionIndex === numSections - 1;
                                         
                                         return (
-                                            <div key={`s-${sectionIndex}`}>
-                                                <PageSection {...props} className={`${isLastSection ? "last-page-section" : props.className}`} scrollRef={homeData.sectionData[sectionIndex]?.ref} />
-                                                {!isLastSection && <SectionBorder id='section-border' key={`section-spacer-${sectionIndex}`} />}
-                                            </div>
+                                            <PageSection 
+                                                {...props} 
+                                                key={`s-${sectionIndex}`}
+                                                scrollRef={homeData.sectionData[sectionIndex]?.ref} 
+                                                className={`${props.className}`} 
+                                                lastSection={isLastSection} 
+                                            />
                                         )
                                     }
                                 }
-                            }} rehypePlugins={[rehypeRaw]}>
-                                {`${homeData.markdown.value}`}
-                            </ReactMarkdown>
-                        </ScrollWrapper>
-                    ) : <div className={styles.loadingContainer}>Loading...</div>
-                }
+                            }} rehypePlugins={[rehypeRaw]}
+                        >
+                            {`${homeData.markdown.value}`}
+                        </ReactMarkdown>
+                    </ContentContainer>
+                ) : <div className={styles.loadingContainer}>Loading...</div>
+            }
 
-            <DummySidePanel id='dummy-right-grid' />
-        </div>
+        </PageContainer>
     );
 }
 

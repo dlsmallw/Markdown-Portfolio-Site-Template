@@ -22,5 +22,4 @@ export interface AppDataContextType {
   homeProps: PageDataProps;
   portfolioProps: PageDataProps;
   resumePDFFileURL: string;
-  navbarHeight: number;
-};
+}

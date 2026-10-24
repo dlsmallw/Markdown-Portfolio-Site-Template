@@ -1,10 +1,14 @@
+.container {
+  width: 100%;
+  height: var(--page-top-position);
+}
+
 .navbarContainer {
   width: 100%;
   height: var(--page-top-position);
   background-color: var(--bg-surface);
   box-shadow: var(--shadow-lifted);
   color: var(--text-main);
-  padding: 0 20px !important;
 }
 
 .navbarInnerContainer {
@@ -22,4 +26,41 @@
   font-size: var(--text-xl) !important;
 }
 
+.hamburgerButton {
+  margin: 0 1rem;
+  padding: 5px !important;
+  border: 0.5px solid transparent;
+  border-radius: 10px;
+  transition: background-color 150ms ease;
 
+  svg {
+    width: var(--text-3xl);
+    height: auto;
+
+    path {
+      stroke: currentColor;
+    }
+  }
+}
+
+.offCanvasActive {
+  background-color: color-mix(in srgb, var(--text-main) 5%, transparent);
+  border: 1px solid var(--border-color);
+}
+
+.hamburgerButton:hover {
+  background-color: color-mix(in srgb, var(--text-main) 5%, transparent);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+}
+
+:global(.offcanvas-backdrop) {
+  z-index: 1018 !important;
+}
+
+:global(.offcanvas) {
+  width: fit-content !important;
+  background-color: var(--bg-main) !important;
+  top: var(--page-top-position) !important;
+  z-index: 1019 !important;
+}
