@@ -53,3 +53,9 @@
     width: 52vw;
     border-bottom: 1px solid #cccccc0d;
 }
+
+.sideNavbar > div {
+  background-color: transparent !important;
+  box-shadow: unset !important;
+  border: 1px solid transparent !important;
+}

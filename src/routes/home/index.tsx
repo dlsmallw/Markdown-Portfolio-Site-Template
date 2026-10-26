@@ -53,15 +53,14 @@ export const Home: React.FC = () => {
         }
     }
 
-    const SideNavbar = () => {
+    const SideNavbar = ({ className }: { className?: string }) => {
         return (
-            <InpageNavbar sectionState={homeProps.sectionState} sections={homeData.sectionData} targetSectionRef={targetSectionRef} handleScroll={handleScroll} />
+            <InpageNavbar className={className} sectionState={homeProps.sectionState} sections={homeData.sectionData} targetSectionRef={targetSectionRef} handleScroll={handleScroll} />
         )
     }
 
     useEffect(() => {
         window.addEventListener('resize', handleMaintainSection);
-        
         
         return () => {
             window.removeEventListener('resize', handleMaintainSection);
@@ -75,7 +74,7 @@ export const Home: React.FC = () => {
             targetSectionRef.current = homeProps.sectionState;
         }
 
-        setSidebarContent(<SideNavbar />);
+        setSidebarContent(<SideNavbar className={styles.sideNavbar} />);
     }, [])
 
     return (
