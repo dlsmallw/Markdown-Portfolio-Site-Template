@@ -1,4 +1,6 @@
 ---
+index: true
+navLabel: 'Home'
 sectionRoot: './sections'
 ---
 

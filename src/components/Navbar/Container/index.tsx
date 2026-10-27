@@ -90,28 +90,25 @@ const Navbar: React.FC<NavbarProps> = ({ sidebarContent, ...props }) => {
                                 setShow(!show);
                             }} 
                             style={{
-                                visibility: (isMobile && sidebarContent) ? 'visible': 'hidden',
+                                visibility: (isMobile && sidebarContent !== null) ? 'visible': 'hidden',
                                 margin: !isMobile ? '0 1rem' : 'unset',
                             }}
                         />
                     
                         <Nav className={`${styles.navbarInnerContainer} mx-auto `} >
-                            <NavLink to="/">Home</NavLink>
-                            <NavLink to="/portfolio">Portfolio</NavLink>
+                            {__ROUTES__ && __ROUTES__.map((route, index) => {
+                                return <NavLink key={`page-nav-${index}`} to={route.pathName}>{route.navLabel}</NavLink>
+                            })}
                         </Nav>
 
                         <ThemeToggleButton />
                     </BSNavbar.Collapse>
                 </Container>
             </BSNavbar>
-            
-            <div style={{
-                display: (isMobile && sidebarContent) ? 'block' : 'none'
-            }}>
-                <Offcanvas show={show} onHide={() => setShow(false)}>
-                    {sidebarContent}
-                </Offcanvas>
-            </div>
+
+            <Offcanvas show={show} onHide={() => setShow(false)}>
+                {sidebarContent}
+            </Offcanvas>
         </div>
        
     )

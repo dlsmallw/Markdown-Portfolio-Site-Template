@@ -2,8 +2,6 @@ import { useScrollSpy } from '@utils/EventListeners';
 import InpageNavButton from './NavButton';
 import InpageNavbarContainer from './NavContainer';
 
-
-
 import type { SectionData } from "@typing/DataLoading";
 import { useEffect, type HTMLAttributes } from 'react';
 
@@ -25,7 +23,7 @@ const InpageNavbar: React.FC<InpageNavbarProps> = ({ sectionState, sections, tar
     const activeSection = useScrollSpy(
         sectionState, 
         sections?.map((section) => {
-            return `${section.id}-section`;
+            return section.id;
         }), 
         OBSERVER_OPTIONS
     );
@@ -40,17 +38,19 @@ const InpageNavbar: React.FC<InpageNavbarProps> = ({ sectionState, sections, tar
                     let isActive = false;
 
                     if (!activeSection && index === 0) isActive = true;
-                    else isActive = activeSection === `${section.id}-section`;
+                    else isActive = activeSection === section.id;
 
                     return (
                         <InpageNavButton 
-                            id={`${section.id}-section-nav`}
+                            id={`${section.id}-nav`}
                             key={`${section.id}-nav-btn`}
                             isActive={isActive}  
                             onClick={() => {
                                 handleScroll(section.ref);
                             }}
-                        >{section.navLabel}</InpageNavButton>
+                        >
+                            {section.navLabel}
+                        </InpageNavButton>
                     )
                 }) : null}
         </InpageNavbarContainer>

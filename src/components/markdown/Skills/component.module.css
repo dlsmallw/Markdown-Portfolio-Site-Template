@@ -21,6 +21,10 @@
     padding: 10px;
 }
 
+:global(#skill-image-outer-container):not(:has(svg)) {
+    display: none;
+}
+
 :global(#skill-image-icon) {
     width: clamp(70px, 8vw, 84px);
     height: clamp(70px, 8vw, 84px);

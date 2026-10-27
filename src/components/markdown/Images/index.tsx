@@ -93,6 +93,17 @@ const ThemedIcon: React.FC<ThemedIconProps> = ({ themesrcs, src, ...props }) => 
 }
 
 export const MarkdownImage: React.FC<ImageProps> = ({ alt, tooltip = 'true', ...props }) => {
+    const [isHovered, setIsHovered] = useState(false);
+    const [ttCoords, setTTCoords] = useState({ left: 0, top: 0 });
+
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const imgRef = useRef<HTMLImageElement | SVGElement | null>(null);
+
+    const lastMousePosition = useRef({
+        x: 0,
+        y: 0,
+    });
+
     const handleElemMouseMove = (e: MouseEvent) => {
         if (!imgRef.current || !isHovered) return;
     
@@ -116,16 +127,7 @@ export const MarkdownImage: React.FC<ImageProps> = ({ alt, tooltip = 'true', ...
         });
     }
 
-    const [isHovered, setIsHovered] = useState(false);
-    const [ttCoords, setTTCoords] = useState({ left: 0, top: 0 });
-
-    const containerRef = useRef<HTMLDivElement | null>(null);
-    const imgRef = useRef<HTMLImageElement | SVGElement | null>(null);
-
-    const lastMousePosition = useRef({
-        x: 0,
-        y: 0,
-    });
+    const src = props.src ? (props.src.trim() !== "" ? props.src : null) : null;
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
@@ -170,23 +172,30 @@ export const MarkdownImage: React.FC<ImageProps> = ({ alt, tooltip = 'true', ...
                 <MediaComponent 
                     className={`${styles.imageIcon} ${props.className}`} 
                     id={`${props.id ? `${props.id}-` : ''}image-icon`}
-                    src={props.src}
+                    src={src}
                     alt={alt}
                     ref={imgRef}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
+                    onTouchStart={() => setIsHovered(true)}
+                    onTouchEnd={() => setIsHovered(false)}
                     onMouseMove={handleElemMouseMove as () => void}
                 />
                        
-                {tooltip === 'true' && <span className={`${styles.cursorToolTip} cursor-tooltip`}
-                    id={`${props.id ? `${props.id}-` : ''}cursor-tooltip`}
-                    style={{
-                        left: isHovered ? `${ttCoords.left}px` : '0px',
-                        top: isHovered ? `${ttCoords.top}px` : '0px',
-                        opacity: isHovered ? 1 : 0,
-                        visibility: isHovered ? 'visible' : 'hidden'
-                    }}>{alt}</span>
-                }
+                {tooltip === 'true' && (
+                    <span 
+                        className={`${styles.cursorToolTip} cursor-tooltip`}
+                        id={`${props.id ? `${props.id}-` : ''}cursor-tooltip`}
+                        style={{
+                            left: isHovered ? `${ttCoords.left}px` : '0px',
+                            top: isHovered ? `${ttCoords.top}px` : '0px',
+                            opacity: isHovered ? 1 : 0,
+                            visibility: isHovered ? 'visible' : 'hidden'
+                        }}
+                    >
+                        {alt}
+                    </span>
+                )}
             </div>
         </div>
     )

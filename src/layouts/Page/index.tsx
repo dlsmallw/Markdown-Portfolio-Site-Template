@@ -7,9 +7,19 @@ import type { ScrollWrapperProps } from '@components/ScrollWrapper';
 import ScrollWrapper from '@components/ScrollWrapper';
 import { useIsMobile } from '@utils/EventListeners';
 
-export const ContentContainer: React.FC<ScrollWrapperProps> = ({ ...props }) => {
-    return (
+interface ContentContainerProps extends ScrollWrapperProps {
+    scrollable?: boolean;
+}
+
+export const ContentContainer: React.FC<ContentContainerProps> = ({ scrollable = true, ...props }) => {
+    return scrollable ? (
         <ScrollWrapper 
+            {...props} 
+            className={`${props.className} ${styles.contentContainer} ${styles.centerGrid}`} 
+            id='content-container' 
+        />
+    ) : (
+        <div 
             {...props} 
             className={`${props.className} ${styles.contentContainer} ${styles.centerGrid}`} 
             id='content-container' 
@@ -37,7 +47,7 @@ const PageContainer: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) =
         <div 
             {...props} 
             ref={containerRef} 
-            className={styles.page} 
+            className={`${styles.page} ${props.className}`} 
             data-is-mobile={isMobile}
         />
     );

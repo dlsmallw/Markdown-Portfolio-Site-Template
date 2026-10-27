@@ -1,4 +1,4 @@
-.projectBlock {
+.homeProjectBlock {
   display: flex;
   flex-direction: column;
   margin: 2%;
@@ -24,4 +24,44 @@
   object-position: center;
   border-radius: 8px;
   border: 1px solid var(--border-color);
+}
+
+.projectTitleCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-content: center;
+  padding: auto 3rem;
+  height: 100%;
+}
+
+.projectTextCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.portfolioProjectBlock[data-below-width="false"] {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* flex-direction: column; */
+  /* margin: 2%; */
+  padding: 1rem;
+  width: 100%;
+  /* overflow: hidden; */
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+  box-shadow: var(--shadow-lifted);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  /* height: fit-content; */
+
+  img, svg {
+    object-fit: contain;
+  }
+  
+}
+
+.portfolioProjectBlock[data-below-width="true"] {
+  display: flex;
+  flex-direction: column;
 }

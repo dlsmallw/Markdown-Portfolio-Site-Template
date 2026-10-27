@@ -7,41 +7,38 @@ import {
   RouterProvider, 
   useLoaderData, 
   useLocation, 
-  ScrollRestoration 
+  ScrollRestoration, 
+  type RouteObject
 } from 'react-router';
-
-import AppLayout from '@layouts/App';
-
-import Home from '@routes/home';
-import Portfolio from '@routes/portfolio';
-import Resume from '@routes/resume';
 
 import { RESUME_PATH } from '@utils/Constants';
 import type { SectionData, LoaderData, PageDataProps, AppDataContextType } from '@typing/DataLoading';
+
+import AppLayout from '@layouts/App';
+import SitePage, { ResumePage } from '@components/SitePage';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 const RouterLoader = () => {
+  const childRoutes = __ROUTES__.map((route) => {
+    return {
+      index: route.index,
+      path: route.pathName,
+      element: <SitePage id={route.id} />
+    }
+  }) as RouteObject[];
+
+  childRoutes.push({
+    path: '/resume',
+    element: <ResumePage />,
+  });
+
   const router = useMemo(() => createBrowserRouter([
     {
-      path: '',
       element: <AppContent />,
       loader: appDataLoader,
-      children: [
-        {
-          index: true,
-          element: <Home />,
-        },
-        {
-          path: '/portfolio',
-          element: <Portfolio />,
-        },
-        {
-          path: '/resume',
-          element: <Resume />,
-        }
-      ]
+      children: childRoutes
     }
   ]), []);
 
@@ -49,16 +46,16 @@ const RouterLoader = () => {
 };
 
 export async function appDataLoader(_args: LoaderFunctionArgs) {
-  async function loadHomeData(): Promise<LoaderData> {
+  async function loadPageData(page: string): Promise<LoaderData> {
     try {
-      const homeSectionData: SectionData[] = [];
-      const pageData = __MARKDOWN_MAP__['home'];
+      const pageSectionData: SectionData[] = [];
+      const pageData = __MARKDOWN_MAP__[page];
       const markdown = pageData.markdown;
       const sectionData = pageData.sectionData;
 
       for (const section of sectionData) {
         try {
-          homeSectionData.push({
+          pageSectionData.push({
             id: section.id,
             navLabel: section.navLabel,
             ref: createRef(),
@@ -69,7 +66,7 @@ export async function appDataLoader(_args: LoaderFunctionArgs) {
       }
 
       return {
-        sectionData: homeSectionData,
+        sectionData: pageSectionData,
         markdown: markdown
       }
     } catch (e) {
@@ -77,42 +74,15 @@ export async function appDataLoader(_args: LoaderFunctionArgs) {
     
       return { sectionData: [], markdown: null };
     }
-  } 
+  }
 
-  async function loadPortfolioData(): Promise<LoaderData> {
-    try {
-      const portfolioSectionData: SectionData[] = [];
-      const pageData = __MARKDOWN_MAP__['portfolio'];
-      const markdown = pageData.markdown;
-      const sectionData = pageData.sectionData;
+  const pageLoaderDataMap: Record<string, LoaderData> = {};
 
-      for (const section of sectionData) {
-        try {
-          portfolioSectionData.push({
-            id: section.id,
-            navLabel: section.navLabel,
-            ref: createRef(),
-          });
-        } catch (e) {
-          console.log(e)
-        }
-      }
+  for (const route of __ROUTES__) {
+    pageLoaderDataMap[route.id] = await loadPageData(route.id);
+  }
 
-      return {
-        sectionData: portfolioSectionData,
-        markdown: markdown
-      }
-    } catch (e) {
-      console.log(e)
-    
-      return { sectionData: [], markdown: null };
-    }
-  } 
-
-  const homeLoaderData = await loadHomeData();
-  const portfolioLoaderData = await loadPortfolioData();
-
-  return { homeLoaderData, portfolioLoaderData };
+  return pageLoaderDataMap;
 }
 
 function pageStateContainer({ sectionData, markdown }: LoaderData): PageDataProps {
@@ -124,12 +94,16 @@ function pageStateContainer({ sectionData, markdown }: LoaderData): PageDataProp
 }
 
 const AppContent = () => {
-  const { homeLoaderData, portfolioLoaderData } = useLoaderData();
+  const pageLoaderDataMap = useLoaderData() as Record<string, LoaderData>;
+  const pagePropsMap: Record<string, PageDataProps> = {}
+
+  Object.keys(pageLoaderDataMap).forEach((key, index) => {
+    pagePropsMap[key] = pageStateContainer(pageLoaderDataMap[key]);
+  });
 
   const outletContext: AppDataContextType = {
-    homeProps: pageStateContainer(homeLoaderData),
-    portfolioProps: pageStateContainer(portfolioLoaderData),
     resumePDFFileURL: RESUME_PATH,
+    ...pagePropsMap
   }
 
   const location = useLocation();

@@ -64,13 +64,16 @@ const MediaComponent: React.FC<MediaComponentProps> = ({ ...props }) => {
         return result;
     }
 
+    const src = props.src ? (props.src.trim() !== "" ? props.src : null) : null;
+
     return (
         <>
-            {props.src ? (
+            {src ? (
                 <>
-                    {!isSVG(props.src) ? (
+                    {!isSVG(src) ? (
                         <ImageComponent 
                             {...props}
+                            src={src}
                             ref={props.ref as React.RefObject<HTMLImageElement>}
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}
@@ -79,6 +82,7 @@ const MediaComponent: React.FC<MediaComponentProps> = ({ ...props }) => {
                     ) : (
                         <SVGComponent {...props}
                             ref={props.ref}
+                            src={src}
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}
                             onMouseMove={handleMouseMove} 

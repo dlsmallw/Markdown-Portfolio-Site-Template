@@ -42,7 +42,7 @@ const PDFPreviewer: React.FC<PDFPreviewerProps> = ({ fileURL }) => {
             />
 
             <div ref={scrollContainerRef} className={styles.pdfScrollContainer} >
-                <Document file={file} onLoadSuccess={onPDFLoad} >
+                <Document className={styles.reactPDFDoc} file={file} onLoadSuccess={onPDFLoad} >
                     <div ref={pageContainerRef} className={styles.pageContainer} >
                     {numPages && Array.from({ length: numPages }, (_, index) => {
                         const pageNum = index + 1

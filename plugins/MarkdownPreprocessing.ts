@@ -11,7 +11,7 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import matter from "gray-matter";
 
-import type { DataMap, VFile } from 'vfile';
+import type { VFile } from 'vfile';
 import { unified } from 'unified';
 
 import { visit } from 'unist-util-visit'
@@ -24,19 +24,7 @@ import type {
   Root 
 } from 'mdast';
 
-type Data = {
-  frontmatter?: Record<string, any>;
-  sectionOrderData?: { id: string; navLabel: string; }[]
-} & Partial<DataMap>;
-
-interface CustomVFile extends VFile {
-  data: Data;
-};
-
-interface PAGE_MD_DATA {
-    sectionData: { id: string; navLabel: string; }[];
-    markdown: VFile;
-}
+import type{ Data, CustomVFile, LoaderData, MARKDOWN_MAP, SITE_ROUTES, SectionData, PageMetaData } from '@typing/DataLoading';
 
 function toVFile(filename: string, relativePath: string) {
   const fp = resolve(relativePath, filename);
@@ -51,79 +39,27 @@ function toVFile(filename: string, relativePath: string) {
   } as CustomVFile;
 }
 
-function featuredProjectsDirective() {
-  return () => {
-    return (tree: Root, file?: VFile) => {
-      const fileData = file?.data as Data | undefined;
-      const frontmatter = fileData?.frontmatter ?? {};
-      const currDir = (file && file.dirname) ? file.dirname : process.cwd();
-      const sectionDir = frontmatter['sectionRoot'] ? resolve(currDir, frontmatter['sectionRoot']) : undefined;
-
-      visit(tree, (node, index, parent) => {
-        if (
-          node.type === 'textDirective' ||
-          node.type === 'leafDirective' ||
-          node.type === 'containerDirective'
-        ) {
-          const data = node.data || (node.data = {});
-          let attr = node.attributes || {};
-
-          if (
-            node.name.toLowerCase() === 'section-container' &&
-            node.attributes.id === 'projects-section'
-          ) {
-            const newChildren = node.children.filter((child) => {
-              // Allows all directive types except for project-blocks without the "featured" className
-              if (
-                child.type === 'containerDirective' ||
-                child.type === 'leafDirective' ||
-                child.type === 'textDirective'
-              ) {
-                if (
-                  child.name === 'project-block' &&
-                  child.attributes['className'] &&
-                  child.attributes['className'] === 'featured'
-                ) {
-                  return true;
-                } else {
-                  return false;
-                }
-              } else {
-                return true;
-              }
-
-            });
-
-            node.children = newChildren as typeof node.children;
-          }
-
-          const hast = h(node.name, attr);
-
-          data.hName = hast.tagName;
-          data.hProperties = hast.properties;
-        }
-      });
-    };
-  };
-}
-
 /**
  * A custom plugin used to parse the raw markdown files and associate the correct React element type.
  * @returns     The parsed node tree.
  */
 function defaultDirectivePlugin() {
   return () => {
-    return (tree: Root, file?: VFile) => {
-      const fileData = file?.data as Data | undefined;
-      const frontmatter = fileData?.frontmatter ?? {};
-      const currDir = (file && file.dirname) ? file.dirname : process.cwd();
-      const sectionDir = frontmatter['sectionRoot'] ? resolve(currDir, frontmatter['sectionRoot']) : undefined;
+    return (tree: Root, _file?: VFile) => {
+      visit(tree, (node, _index, _parent) => {
 
-      // console.log(`File: ${file}`);
-      // console.log(`FM: ${frontmatter}`);
-      // console.log(`CDir: ${currDir}`);
+        if (node.type === 'root') {
+          if (node.children.some((child) => 'name' in child && child.name === 'portfolio-block')) {
+            let integer = 1;
+            node.children.forEach((child) => {
+              if ('name' in child && child.name === 'portfolio-block') {
+                child.attributes.id = `portfolio-block-${integer}`;
+                integer += 1;
+              }
+            });
+          }
+        }
 
-      visit(tree, (node, index, parent) => {
         if (
           node.type === 'textDirective' ||
           node.type === 'leafDirective' ||
@@ -199,24 +135,6 @@ function defaultDirectivePlugin() {
 }
 
 /**
- * Converts the markdown from a string to a node tree to be parsed.
- * @param mdVirtualFile         The raw VFile markdown.
- * @param plugins               Plugins used for parsing the markdown.
- * @returns                     The processed markdown file as VFile.
- */
-async function markdownToNodeTree(mdVirtualFile: CustomVFile, plugins: (() => (tree: Root, file?: VFile) => void)[]) {
-  return await unified()
-    .use(remarkParse)
-    .use(remarkDirective)
-    .use(plugins)
-    .use(remarkRehype)
-    .use(rehypeFormat)
-    .use(rehypeStringify)
-    .use(remarkFrontmatter, ['yaml', 'toml'])
-    .process(mdVirtualFile);
-}
-
-/**
  * Takes a raw markdown string and parses it into an AST node tree.
  * @param mdRaw       The raw markdown file as a string.
  * @param plugins     the plugins to be applied while processing.
@@ -234,18 +152,6 @@ async function parseMDToAST(mdRaw: string, plugins: (() => (tree: Root, file?: V
     .process(mdRaw);
 }
 
-/**
- * Processes a markdown file, converting custom directives and standard react markdown syntax to React components.
- * @param mdVFile     The markdown as a virtual file.
- * @returns           The fully processed markdown file as React components in string from.
- */
-async function processMDToComponents(mdVFile: CustomVFile): Promise<VFile> {
-  return await markdownToNodeTree(
-    mdVFile,
-    [defaultDirectivePlugin()]
-  );
-}
-
 async function parsePageMD(
   filename: string, 
   relativePath: string, 
@@ -258,10 +164,11 @@ async function parsePageMD(
     .use(remarkStringify);
 
   const pageLayoutMDVFile = toVFile(filename, relativePath);
-  const sectionOrderData: { id: string; navLabel: any; }[] | undefined = [];
+  const sectionOrderData: SectionData[] = [];
 
   const pageNodeTree = processor.parse(pageLayoutMDVFile);
   const cloneTree = structuredClone(pageNodeTree);
+
   visit(cloneTree, (node) => {
     if (
       node.type === 'textDirective' ||
@@ -270,32 +177,60 @@ async function parsePageMD(
     ) {
       if (
         ('name' in node) && 
-        (node.name === 'section-ref') &&
         ('children' in node) &&
         (pageLayoutMDVFile.data.frontmatter?.['sectionRoot'])
       ) {
-        node.type = 'containerDirective';
-        node.name = 'section-container';
+        if (node.name === 'section-ref') {
+          node.type = 'containerDirective';
+          node.name = 'section-container';
 
-        const textNode = node.children.find((childNode) => childNode.type === 'text' && 'value' in childNode);
-        if (textNode) {
+          const textNode = node.children.find((childNode) => childNode.type === 'text' && 'value' in childNode);
+          if (textNode) {
+            
+            const sectionName = textNode.value.split('.')[0];
+            const sectionMDVFile = toVFile(textNode.value, resolve(relativePath, pageLayoutMDVFile.data.frontmatter['sectionRoot']));
+
+            const id = `${sectionName}-section`;
+            let navLabel = sectionMDVFile.data.frontmatter?.['navLabel'];
+
+            if (!navLabel) {
+              navLabel = sectionName.charAt(0).toUpperCase() + sectionName.slice(1).toLowerCase();
+            }
+
+            sectionOrderData.push({ id, navLabel });
+
+            const sectionAST = processor.parse(sectionMDVFile).children;
+
+            node.attributes = { ...node.attributes, id, navLabel }
+            node.children = sectionAST as (BlockContent | DefinitionContent)[] | PhrasingContent[];
+          }
+        } else if (node.name === 'load-ref') {
+          node.type = 'containerDirective';
+          node.name = 'container';
+
           
-          const sectionName = textNode.value.split('.')[0];
-          const sectionMDVFile = toVFile(textNode.value, resolve(relativePath, pageLayoutMDVFile.data.frontmatter['sectionRoot']));
-          const navLabel = sectionMDVFile.data.frontmatter?.['navLabel'];
+          const textNode = node.children.find((childNode) => childNode.type === 'text' && 'value' in childNode);
+          const id = textNode.value.split('.')[0];
+          if (textNode) {
+            
+            const mdVFile = toVFile(textNode.value, resolve(relativePath, pageLayoutMDVFile.data.frontmatter['sectionRoot']));
+            const sectionAST = processor.parse(mdVFile).children;
 
-          sectionOrderData.push({ id: sectionName, navLabel: navLabel });
-          const sectionAST = processor.parse(sectionMDVFile).children;
-
-          node.attributes = { ...node.attributes, id: `${sectionName}-section`, navLabel: navLabel }
-          node.children = sectionAST as (BlockContent | DefinitionContent)[] | PhrasingContent[];
+            node.attributes = { ...node.attributes, id }
+            node.children = sectionAST as (BlockContent | DefinitionContent)[] | PhrasingContent[];
+          }
         }
       }
     }
   });
 
   const processedMD = await parseMDToAST(processor.stringify(cloneTree), plugins) as CustomVFile;
-  processedMD.data.sectionOrderData = sectionOrderData;
+
+  processedMD.data = {
+    sectionOrderData,
+    frontmatter: pageLayoutMDVFile.data.frontmatter
+  }
+
   return processedMD;
 }
 
@@ -304,7 +239,8 @@ export async function markdownPreprocess(mdDirPath: string) {
     .filter(dirent => !dirent.isDirectory())
     .map(dirent => dirent.name);
 
-  const mdMap: Record<string, PAGE_MD_DATA> = {};
+  const mdMap: MARKDOWN_MAP = {};
+  const routeList: SITE_ROUTES = [];
 
   for (const page of pages) {
     const pageName = page.split('.')[0];
@@ -312,29 +248,51 @@ export async function markdownPreprocess(mdDirPath: string) {
     try {
       let plugins = [defaultDirectivePlugin()];
 
-      if (!pageName.includes("portfolio")) {
-        plugins.push(featuredProjectsDirective())
-      }
+      // if (pageName.includes("portfolio")) {
+      //   plugins.push(portfolioPageDirective())
+      // }
 
       const markdown = await parsePageMD(page, mdDirPath, plugins);
+      const frontmatter = markdown.data.frontmatter;
       const sectionData = markdown.data.sectionOrderData;
+
+      const isIndex = frontmatter['index'] ?? false;
+      const path = frontmatter['pathName'] ?? (isIndex ? '/' : `/${pageName}`);
 
       mdMap[pageName] = {
         markdown,
         sectionData
-      } as PAGE_MD_DATA;
+      } as LoaderData;
+
+      const metaData: PageMetaData = {
+        id: pageName,
+        index: isIndex,
+        pathName: path,
+        navLabel: frontmatter['navLabel'] ?? pageName.charAt(0).toUpperCase() + pageName.slice(1).toLowerCase(),
+        sectionOrder: frontmatter['sectionOrder']
+      }
+
+      routeList.push(metaData);
 
     } catch (e) {
       console.error(`Failed to read page markdown from file: ${mdDirPath}`)
     }
-  };
+  }
+
+  const sortedRouteList = [...routeList].sort((a, b) => {
+    return (
+      (+b.index - +a.index) ||
+      ((b.sectionOrder ?? 0) - (a.sectionOrder ?? 0))
+    )
+  });
 
   return {
-    name: 'markdown-preprocessing-alt',
+    name: 'markdown-preprocessing',
     config(): UserConfig | null | void {
       return {
         define: {
           __MARKDOWN_MAP__: mdMap,
+          __ROUTES__: sortedRouteList
         },
       };
     },

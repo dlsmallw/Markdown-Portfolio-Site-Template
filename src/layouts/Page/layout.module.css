@@ -12,13 +12,13 @@
 
   grid-template-areas: "left center right";
   transition: grid-template-columns 0.3s ease;
-
+/* 
   @media screen and (min-width: 1500px) {
     --left-grid-width: 1fr;
     --center-grid-width: 4fr;
     --right-grid-width: 1fr;
-  }
-
+  } */
+/* 
   @media screen and (max-width: 1200px) {
     --right-grid-width: minmax(0, 1fr);
 
@@ -33,7 +33,7 @@
     .contentContainer {
       --right-side-shadow: 0 0 0 transparent;
     }
-  }
+  } */
 }
 
 .page[data-is-mobile="true"] {

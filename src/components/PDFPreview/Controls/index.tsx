@@ -5,6 +5,7 @@ import { MediaComponent } from "@components";
 import styles from './component.module.css';
 
 import { ICON_ASSETS_PATH } from "@utils/Constants";
+import { useIsMobile } from "@utils/EventListeners";
 
 interface UpperControlBarProps extends HTMLAttributes<HTMLDivElement> {
     numPages: number | null;
@@ -15,6 +16,8 @@ interface UpperControlBarProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const UpperControlBar: React.FC<UpperControlBarProps> = ({ zoom, setZoom, numPages, currentPage, fileURL }) => {
+    const isMobile = useIsMobile();
+
     const handleZoomIn = () => {
         setZoom((prev: number) => Math.min(prev + 0.1, 3.0));
     };
@@ -28,10 +31,19 @@ const UpperControlBar: React.FC<UpperControlBarProps> = ({ zoom, setZoom, numPag
             <div className={`${styles.leftGrid}`} >
                 {numPages && (
                     <>
-                        <span className={styles.pageIndexText} >Page</span>
-                        <span className={styles.pageIndexText} >{currentPage}</span>
-                        <span className={styles.pageIndexText} >of</span>
-                        <span className={styles.pageIndexText} >{numPages}</span>
+                        {!isMobile ? (
+                            <>
+                                <span className={styles.pageIndexText} >Page</span>
+                                <span className={styles.pageIndexText} >{currentPage}</span>
+                                <span className={styles.pageIndexText} >of</span>
+                                <span className={styles.pageIndexText} >{numPages}</span>
+                            </>
+                        ) : (
+                            <span className={styles.pageIndexText} >{`${currentPage} / ${numPages}`}</span>
+                        )
+
+                        }
+                        
                     </>
                 )}
             </div>

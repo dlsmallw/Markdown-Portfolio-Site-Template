@@ -1,4 +1,4 @@
-import { useEffect, type HTMLAttributes } from "react";
+import { type HTMLAttributes } from "react";
 
 import styles from './component.module.css';
 import { useIsMobile } from "@utils/EventListeners";
@@ -10,10 +10,6 @@ interface PageSectionProps extends HTMLAttributes<HTMLDivElement> {
 
 const PageSection: React.FC<PageSectionProps> = ({ scrollRef, lastSection, ...props }) => {
     const isMobile = useIsMobile();
-
-    useEffect(() => {
-        console.log('rerender');
-    })
 
     return (
         <div 

@@ -41,6 +41,7 @@
 
 .pageIndexText {
     min-width: 1rem;
+    font-weight: 600;
 }
 
 .zoomControls {
@@ -67,17 +68,6 @@
 
     
 }
-
-/* .icon {
-    svg {
-        width: 2rem;
-        height: 2rem;
-
-        path {
-            stroke: #f8f9fa;
-        }
-    }
-} */
 
 .zoomButton:hover {
     cursor: pointer;

@@ -242,3 +242,29 @@ export function useIsMobile() {
 
     return isMobile;
 }
+
+export function useWindowSizeThreshold(threshold: number) {
+    const [isBelow, setIsBelow] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return window.innerWidth < threshold;
+        }
+
+        return false;
+    });
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+
+        const handleResize = () => {
+            setIsBelow(window.innerWidth < threshold);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        }
+    }, []);
+
+    return isBelow;
+}
