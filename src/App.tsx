@@ -15,7 +15,7 @@ import { RESUME_PATH } from '@utils/Constants';
 import type { SectionData, LoaderData, PageDataProps, AppDataContextType } from '@typing/DataLoading';
 
 import AppLayout from '@layouts/App';
-import SitePage, { ResumePage } from '@components/SitePage';
+import SitePage from '@components/SitePage';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -28,11 +28,6 @@ const RouterLoader = () => {
       element: <SitePage id={route.id} />
     }
   }) as RouteObject[];
-
-  childRoutes.push({
-    path: '/resume',
-    element: <ResumePage />,
-  });
 
   const router = useMemo(() => createBrowserRouter([
     {

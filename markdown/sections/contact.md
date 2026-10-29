@@ -13,6 +13,6 @@ I'm always interested in opportunities to build useful software, solve interesti
 ::email-button-preset{ href="mailto:john.doe@example.com" }
 ::github-button-preset{ href="https://github.com/johndoe" }
 ::linkedin-button-preset{ href="https://linkedin.com/in/johndoe" }
-::resume-download-button{ href="/src/static/assets/resume/example_resume.pdf" }
+::resume-preview-button{ href="/src/assets/resume/example_resume.pdf" }
 
 :::

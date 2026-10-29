@@ -96,7 +96,7 @@ const Navbar: React.FC<NavbarProps> = ({ sidebarContent, ...props }) => {
                         />
                     
                         <Nav className={`${styles.navbarInnerContainer} mx-auto `} >
-                            {__ROUTES__ && __ROUTES__.map((route, index) => {
+                            {__ROUTES__ && __ROUTES__.length > 1 && __ROUTES__.map((route, index) => {
                                 return <NavLink key={`page-nav-${index}`} to={route.pathName}>{route.navLabel}</NavLink>
                             })}
                         </Nav>

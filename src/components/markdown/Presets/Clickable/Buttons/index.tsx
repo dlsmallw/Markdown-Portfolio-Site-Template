@@ -26,10 +26,10 @@ const EmailButton: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...pro
 
 const ResumePreviewButton: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
     return (
-        <InternalButtonComponent {...props} >
+        <ExternalButtonComponent {...props} >
             <ResumeIcon />
             {props.children ?? "View Resume"}
-        </InternalButtonComponent>
+        </ExternalButtonComponent>
     )
 }
 

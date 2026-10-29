@@ -14,8 +14,8 @@ navLabel: Introduction
 ::email-link-preset{ href="mailto:john.doe@example.com" }
 ::linkedin-link-preset{ href="https://linkedin.com/in/johndoe" }
 ::github-link-preset{ href="https://github.com/johndoe" }
-::resume-download-link{ href="/src/static/assets/resume/example_resume.pdf" download="example_resume.pdf" }
-::resume-preview-link{ href="/resume" }
+<!-- ::resume-download-link{ href="/src/static/assets/resume/example_resume.pdf" download="example_resume.pdf" } -->
+::resume-preview-link{ href="/src/assets/resume/example_resume.pdf" }
 
 :::
 
