@@ -19,7 +19,7 @@ export const ResumePage: React.FC = () => {
     const { resumePDFFileURL } = useOutletContext<AppDataContextType>();
 
     return (
-        <PageContainer className={styles['resume']}>
+        <PageContainer>
             <ContentContainer scrollable={false} className={styles.resumeContainer}>
                 <PDFPreviewer fileURL={resumePDFFileURL} />
             </ContentContainer>

@@ -12,10 +12,11 @@
 }
 
 :global(#headshot-image-icon) {
-    width: clamp(140px, 20vw, 280px);
+    width: clamp(4rem, 5vw, 8rem);
+    height: auto;
     aspect-ratio: 1;
     object-fit: cover;
-    border-radius: 3%;
+    border-radius: 50%;
     border: 1px solid var(--border-color);
 }
 

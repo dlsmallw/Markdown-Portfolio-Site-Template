@@ -26,13 +26,71 @@
   border: 1px solid var(--border-color);
 }
 
+.projectGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
 .projectTitleCard {
   display: flex;
   flex-direction: column;
-  justify-content: left;
   align-content: center;
-  padding: auto 3rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+  padding: 2rem 2vw;
+  justify-content: center;
+  box-shadow: var(--shadow-lifted);
+
+  min-height: 130px;
   height: 100%;
+  min-width: 300px;
+  width: 20vw;
+  border-radius: 5px;
+}
+
+.projectTitleCard:hover {
+  cursor: pointer;
+  box-shadow: var(--shadow-lifted);
+}
+
+.projectTagContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  gap: 0.5rem;
+  width: fit-content;
+
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.projectTag,
+.separator {
+  width: fit-content;
+  font-weight: 700;
+  font-size: var(--text-xs);
+}
+
+.projectTitle {
+  width: fit-content;
+  font-weight: 700;
+  font-size: var(--text-xl);
+  margin: 0 0 10px 0;
+}
+
+.projectDescription {
+  width: fit-content;
+  text-align: left;
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+:global(#project-card-image-outer-container) {
+  display: flex;
+  height: 10%;
+  width: fit-content;
 }
 
 .projectTextCard {
@@ -40,20 +98,22 @@
   flex-direction: column;
 }
 
+.portfolioProjectBlock {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* 
 .portfolioProjectBlock[data-below-width="false"] {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  /* flex-direction: column; */
-  /* margin: 2%; */
   padding: 1rem;
   width: 100%;
-  /* overflow: hidden; */
   border-radius: 8px;
   border: 1px solid var(--border-color);
   background-color: var(--bg-surface);
   box-shadow: var(--shadow-lifted);
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  /* height: fit-content; */
 
   img, svg {
     object-fit: contain;
@@ -64,4 +124,4 @@
 .portfolioProjectBlock[data-below-width="true"] {
   display: flex;
   flex-direction: column;
-}
+} */
