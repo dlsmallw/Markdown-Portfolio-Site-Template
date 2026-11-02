@@ -13,7 +13,7 @@
 }
 
 [data-theme="dark"] .githubIcon {
-    g {
+    path {
         fill: currentColor;
     }
 }

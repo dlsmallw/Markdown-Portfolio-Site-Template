@@ -1,71 +1,65 @@
 import styles from  './component.module.css';
-import type { ImgHTMLAttributes } from 'react';
-import { MarkdownImage } from '../../Images';
-import type React from 'react';
+import { useEffect, useState } from 'react';
+import React from 'react';
+import type { IconBaseProps } from 'react-icons/lib';
 
-import { ICON_ASSETS_PATH } from '@utils/Constants';
-
-export const EmailSVG: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ ...props }) => {
-    return <MarkdownImage 
-                {...props}
-                className={`${styles.emailIcon}`} 
-                id="link" 
-                alt="Email"
-                tooltip="false"
-                src={`${ICON_ASSETS_PATH}/email-icon.svg`}
-            />
+interface IconProps extends IconBaseProps {
+    iconkey: string;
 }
 
-export const DownloadIcon: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ ...props }) => {
-    return <MarkdownImage 
-                {...props}
-                className={`${styles.downloadIcon}`} 
-                id="link" 
-                alt="Download"
-                tooltip="false"
-                src={`${ICON_ASSETS_PATH}/download-icon.svg`}
-            />
+export const CustomIcon: React.FC<IconProps> = ({ iconkey, ...props }) => {
+    const [importedComponent, setImportedComponent] = useState(null);
+
+    useEffect(() => {
+        const importComp = async () => {
+            if (!iconkey) return;
+
+            const modSubDir = iconkey.slice(0, 2).toLowerCase();
+            const module = await import(`/node_modules/react-icons/${modSubDir}`);
+            const LoadedComponent = module[iconkey];
+
+            if (!LoadedComponent) return;
+
+            setImportedComponent(<LoadedComponent {...props} size={props.size ?? 32} />)
+        }
+        
+        importComp();
+    }, []);
+
+    return (
+        <>
+            {importedComponent}
+        </>
+    );
 }
 
-export const ResumeIcon: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ ...props }) => {
-    return <MarkdownImage 
-                {...props}
-                className={`${styles.resumeIcon}`} 
-                id="link" 
-                alt="Resume"
-                tooltip="false"
-                src={`${ICON_ASSETS_PATH}/resume.svg`}
-            />
+export const EmailIcon: React.FC<IconBaseProps> = ({ ...props }) => {
+    return <CustomIcon {...props} iconkey='MdOutlineEmail' />
 }
 
-export const GitHubPlainIcon: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ ...props }) => {
-    return <MarkdownImage
-                {...props}
-                className={`${styles.githubIcon} ${props.className}`}
-                id="link"
-                alt="GitHub"
-                tooltip="false"
-                src={"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"}
-            /> 
+export const DownloadIcon: React.FC<IconBaseProps> = ({ ...props }) => {
+    return <CustomIcon {...props} iconkey='FiDownload' />
 }
 
-export const LinkedInIcon: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ ...props }) => {
-    return <MarkdownImage
-                {...props}
-                className={`${styles.linkedinIcon} ${props.className}`}
-                id="link"
-                alt="LinkedIn"
-                tooltip="false"
-                src={"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg"}
-            /> 
+export const ResumeIcon: React.FC<IconBaseProps> = ({ ...props }) => {
+    return <CustomIcon {...props} iconkey='GrDocumentText' />
+}
+
+export const GitHubIcon: React.FC<IconBaseProps> = ({ ...props }) => {
+    return <CustomIcon {...props} iconkey='ImGithub' />
+}
+
+export const LinkedInIcon: React.FC<IconBaseProps> = ({ ...props }) => {
+    return <CustomIcon {...props} iconkey='FaLinkedin' />
 }
 
 
 const IconComponentRegistry = {
-    ['email-icon']: EmailSVG,
+    ['react-icon']: CustomIcon,
+    ['email-icon']: EmailIcon,
     ['download-icon']: DownloadIcon,
     ['resume-icon']: ResumeIcon,
-    ['github-plain-icon']: GitHubPlainIcon,
+    ['github-plain-icon']: GitHubIcon,
     ['linkedin-icon']: LinkedInIcon,
 }
 

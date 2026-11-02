@@ -1,7 +1,3 @@
-.imageOuterContainer {
-    display: block;
-}
-
 .imageCell {
     display: flex;
     flex-direction: column;

@@ -8,17 +8,17 @@ import {
 } from '@components/markdown/Clickable/Buttons';
 
 import {
-    EmailSVG,
+    EmailIcon,
     DownloadIcon,
     ResumeIcon,
-    GitHubPlainIcon,
+    GitHubIcon,
     LinkedInIcon
 } from '../../Icons';
 
 const EmailButton: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
     return (
         <EmailButtonComponent {...props} >
-            <EmailSVG />
+            <EmailIcon />
             {props.children ?? props.href.split(":")[1]}
         </EmailButtonComponent>
     )
@@ -47,7 +47,7 @@ const GitHubButton: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...pr
 
     return (
         <ExternalButtonComponent {...props} >
-            <GitHubPlainIcon />
+            <GitHubIcon />
             {props.children ?? props.href.replace('https://', '') ?? alt}
         </ExternalButtonComponent>
     )
