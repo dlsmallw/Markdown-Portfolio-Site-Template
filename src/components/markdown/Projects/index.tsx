@@ -15,7 +15,7 @@ export interface ProjectTagContainerProps extends HTMLAttributes<HTMLDivElement>
 
 const ProjectTagContainer: React.FC<ProjectTagContainerProps> = ({ separator = ' ', ...props }) => {
     const childArr = React.Children.toArray(props.children).filter(
-        (item) => !(typeof item === 'string' && /^\s*$/.test(item))
+        (item) => !(typeof item === 'string' && /^\s*$/.test(item)) // filters out empty text
     );
 
     return (

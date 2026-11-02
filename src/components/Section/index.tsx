@@ -18,7 +18,10 @@ const PageSection: React.FC<PageSectionProps> = ({ scrollRef, lastSection, ...pr
             ref={scrollRef}
             data-is-mobile={isMobile} 
         >
-            <div className={`${styles.content}  ${lastSection ? 'last-page-section' : ''}`}>
+            <div 
+                className={`${styles.content}  ${lastSection ? 'last-page-section' : ''}`}
+                id={`${props.id ? `${props.id}-` : ''}content`}
+            >
                 {props.children}
             </div>
             {!lastSection && (

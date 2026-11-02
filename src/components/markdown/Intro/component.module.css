@@ -1,9 +1,37 @@
-:global(#headshot-container) {
+:global(#intro-section-content) {
+    display: flex;
+    flex-direction: unset !important;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    /* padding: var(--space-lg) var(--space-md); */
+}
+
+@media (max-width: 1024px) {
+    :global(#intro-section-content) {
+        flex-wrap: wrap;
+    }
+
+    .headshotBlock {
+        position: unset !important;
+        top: unset !important;
+        flex-direction: row !important;
+        gap: 1rem !important;
+    }
+}
+
+.headshotBlockContainer {
+    height: 100%;
+}
+
+.headshotBlock {
+    position: sticky;
+    top: var(--space-lg);
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: var(--space-lg) var(--space-md);
     gap: var(--space-sm);
 
     h5 {
@@ -11,16 +39,18 @@
     }
 }
 
-:global(#headshot-image-icon) {
-    width: clamp(4rem, 5vw, 8rem);
+.headshotImage {
+    /* width: clamp(4rem, 5vw, 8rem); */
+    width: 120px;
     height: auto;
     aspect-ratio: 1;
     object-fit: cover;
     border-radius: 50%;
     border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lifted);
 }
 
-:global(#intro-links-block) {
+.linksContainer {
     display: flex;
     flex-direction: column;
     justify-content: left;
@@ -30,5 +60,39 @@
     gap: 0.5rem;
     width: fit-content;
     align-self: center;
+    border-radius: 10px;
+    box-shadow: var(--shadow-lifted);
 }
 
+.introBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    gap: var(--space-sm);
+
+    p {
+        margin: 0 0 !important;
+    }
+}
+
+.greetingContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    margin-bottom: 0.5rem;
+}
+
+.greetingText,
+.introductionText {
+    font-size: clamp(2.5rem, 1.25rem + 2vw, 4rem);
+    font-weight: 800;
+    width: fit-content;
+    height: clamp(2.5rem, 1.25rem + 2vw, 4rem);
+}
+
+.personalDescriptionText {
+    font-size: var(--text-sm);
+    font-weight: 650;
+    width: fit-content;
+    margin: clamp(1.125rem, 1rem + 0.5vw, 1.375rem) 0 0 0;
+}

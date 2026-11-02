@@ -3,30 +3,3 @@
   box-shadow: unset !important;
   border: 1px solid transparent !important;
 }
-
-.home {
-  /* WIP */
-}
-
-.portfolio {
-  display: flex;
-  flex-direction: column;
-  padding-top: 2rem;
-}
-
-.resume {
-  /* WIP */
-}
-
-.resumeContainer {
-  padding: 0 !important;
-}
-
-:global(#projects) {
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  text-align: left;
-  margin: 2rem 0;
-}
-

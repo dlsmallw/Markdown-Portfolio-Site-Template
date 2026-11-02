@@ -2,24 +2,32 @@
 navLabel: Introduction
 ---
 
-::::container{ id="headshot-container" }
-::img{ src="/src/assets/default_headshot.jpg" alt="headshot" id="headshot" tooltip="false" }
+::::intro-block
 
-## John Doe
+:::greeting-container 
 
-##### Software Engineer | Full-Stack Developer | Problem Solver
+::greeting[Hi.]
+::introduction[I'm John.]
+::personal-description[Full Stack Developer and Software Engineer]
 
-:::container{ id="intro-links-block" className="sunken-block"}
+:::
+
+I'm a software engineer passionate about solving complex problems through thoughtful software design and development. My experience spans application development, automation, database systems, and modern web technologies.
+
+I enjoy taking projects from an initial idea through design, implementation, testing, and deployment. I value clean, maintainable code and building software that is both technically sound and useful to the people who rely on it.
+
+Outside of writing code, I enjoy learning new technologies, working on personal projects, and continuously improving my understanding of software engineering.
+::::
+
+::::headshot-block
+::headshot-image{ src="/src/assets/default_headshot.jpg" }
+
+:::links-container
 
 ::email-link-preset{ href="mailto:john.doe@example.com" }
 ::linkedin-link-preset{ href="https://linkedin.com/in/johndoe" }
 ::github-link-preset{ href="https://github.com/johndoe" }
-<!-- ::resume-download-link{ href="/src/static/assets/resume/example_resume.pdf" download="example_resume.pdf" } -->
 ::resume-preview-link{ href="/src/assets/resume/example_resume.pdf" }
 
 :::
-
 ::::
-
-Software engineer focused on building practical, reliable, and user-centered applications. Experienced in developing web applications, automation tools, and data-driven systems, with a strong interest in software architecture and emerging technologies.
-

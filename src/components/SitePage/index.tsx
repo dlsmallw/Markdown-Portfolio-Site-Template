@@ -6,7 +6,7 @@ import rehypeRaw from "rehype-raw";
 
 import type { AppDataContextType, PageDataProps } from '@typing/DataLoading';
 import { useAppState } from '@layouts/App';
-import { PageSection, PDFPreviewer } from '@components';
+import { PageSection } from '@components';
 import { LeftSideBar, ContentContainer } from '@layouts/Page';
 
 import PageContainer from '@layouts/Page';
@@ -14,18 +14,6 @@ import ComponentRegistry from '@components/markdown';
 import InpageNavbar from '@components/InpageNavigation';
 
 import styles from './component.module.css';
-
-export const ResumePage: React.FC = () => {
-    const { resumePDFFileURL } = useOutletContext<AppDataContextType>();
-
-    return (
-        <PageContainer>
-            <ContentContainer scrollable={false} className={styles.resumeContainer}>
-                <PDFPreviewer fileURL={resumePDFFileURL} />
-            </ContentContainer>
-        </PageContainer>
-    )
-}
 
 export const SitePage: React.FC<{ id?: string }> = ({ id }) => {
     const context = useOutletContext<AppDataContextType>();
