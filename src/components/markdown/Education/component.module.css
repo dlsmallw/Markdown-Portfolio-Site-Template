@@ -1,3 +1,7 @@
+:global(#education-section-content) {
+    width: fit-content;
+}
+
 :global(#education-block) {
     display: flex;
     flex-direction: column;

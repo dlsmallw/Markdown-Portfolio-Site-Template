@@ -2,7 +2,7 @@
 navLabel: Projects
 ---
 
-## Featured Projects
+::section-heading[Featured Projects]
 
 <!-- :::featured-block
 ::img{ src="https://opengraph.githubassets.com/1/github-samples/pets-workshop" alt="Pets Workshop" id="project" tooltip="false" }

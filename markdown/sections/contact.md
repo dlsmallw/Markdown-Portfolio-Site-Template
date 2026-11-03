@@ -1,8 +1,7 @@
 ---
 navLabel: Contact
 ---
-
-## Contact Me
+::section-heading[Contact Me]
 
 #### Let's Build Something
 

@@ -1,15 +1,20 @@
 :global(#intro-section-content) {
     display: flex;
     flex-direction: unset !important;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: 2rem;
-    /* padding: var(--space-lg) var(--space-md); */
+
 }
 
 @media (max-width: 1024px) {
     :global(#intro-section-content) {
         flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .introBlock {
+        width: 100%;
     }
 
     .headshotBlock {
@@ -22,6 +27,7 @@
 
 .headshotBlockContainer {
     height: 100%;
+    
 }
 
 .headshotBlock {
@@ -33,6 +39,7 @@
     justify-content: center;
     align-items: center;
     gap: var(--space-sm);
+    margin-top: var(--space-md);
 
     h5 {
         text-align: center;
@@ -62,6 +69,7 @@
     align-self: center;
     border-radius: 10px;
     box-shadow: var(--shadow-lifted);
+    width: max-content;
 }
 
 .introBlock {
@@ -69,6 +77,7 @@
     flex-direction: column;
     justify-content: left;
     gap: var(--space-sm);
+    max-width: 700px;
 
     p {
         margin: 0 0 !important;

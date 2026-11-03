@@ -1,6 +1,7 @@
 import type { Components } from "react-markdown";
+import { ComponentRegistry as SectionComponentRegistry } from "../Section";
 
-let ComponentRegistry: Components = {}
+let ComponentRegistry: Components = SectionComponentRegistry;
 
 const modules = (import.meta as ImportMeta & {
     glob: <T>(pattern: string, options: { eager: true }) => Record<string, T>

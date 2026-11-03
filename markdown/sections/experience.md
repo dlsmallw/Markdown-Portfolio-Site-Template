@@ -2,7 +2,7 @@
 navLabel: Experience
 ---
 
-## Work Experience
+::section-heading[Work Experience]
 
 :::::container{ id='company-block' }
 ### Example Technology Company

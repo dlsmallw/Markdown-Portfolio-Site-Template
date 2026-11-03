@@ -23,6 +23,7 @@
     "@react-pdf/renderer": "^4.9.0",
     "bootstrap": "^5.3.8",
     "dompurify": "^3.4.16",
+    "framer-motion": "^14.9.0",
     "gray-matter": "^4.0.3",
     "hastscript": "^9.0.1",
     "path-browserify": "^1.0.1",

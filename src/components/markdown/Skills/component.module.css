@@ -1,3 +1,21 @@
+@media (max-width: 768px) {
+    :global(#skill-category) {
+        margin: 0 0.5rem;
+    }
+}
+
+@media (max-width: 991px) {
+    :global(#skill-category) {
+        margin: 0 1.5rem;
+    }
+}
+
+@media (min-width: 991px) {
+    :global(#skill-category) {
+        margin: 0 4rem;
+    }
+}
+
 :global(#skill-category) {
   display: flex;
   flex-direction: column;
@@ -7,13 +25,13 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: clamp(0.8rem, 1.5vw, 1.5rem);
+    gap: clamp(2rem, 2vw, 4rem);
     font-size: var(--text-xl);
-    background-color: var(--bg-secondary);
+    background-color: var(--bg-surface);
     padding: 10px;
 }
 
-:global(#skill-image-outer-container) {
+:global(#skill-image-cell) {
     display: flex;
     align-content: center;
     justify-content: center;
@@ -21,7 +39,7 @@
     padding: 10px;
 }
 
-:global(#skill-image-outer-container):not(:has(svg)) {
+:global(#skill-image-cell):not(:has(svg)) {
     display: none;
 }
 

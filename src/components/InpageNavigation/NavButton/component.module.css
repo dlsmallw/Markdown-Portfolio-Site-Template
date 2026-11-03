@@ -11,5 +11,6 @@
   cursor: pointer;
   text-align: left;
   font-size: var(--text-lg);
+  font-weight: 600;
   padding: 0 5px;
 }

@@ -2,7 +2,7 @@
 navLabel: Skills
 ---
 
-## Technical Skills
+::section-heading[Technical Skills]
 
 ::::container{ id="skill-category" }
 

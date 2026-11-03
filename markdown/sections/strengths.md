@@ -2,8 +2,7 @@
 navLabel: Strengths
 ---
 
-## Strengths
-
+::section-heading[Strengths]
 
 :::container{ id="strength-block" }
 #### 🧩 Technical Problem Solving

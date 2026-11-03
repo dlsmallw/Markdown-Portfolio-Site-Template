@@ -1,3 +1,7 @@
+:global(#experience-section-content) {
+    width: fit-content;
+}
+
 :global(#company-block) {
   display: flex;
   flex-direction: column;

@@ -2,7 +2,7 @@
 navLabel: Education
 ---
 
-## Education
+::section-heading[Education]
 
 :::wrapping-container{ separator="|" id="school-details" }
 ::grouped[**Example University**]

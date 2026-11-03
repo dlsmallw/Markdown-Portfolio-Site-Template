@@ -1,3 +1,15 @@
+@media (max-width: 991px) {
+    .section {
+        padding-top: 3em;
+    }
+}
+
+@media (min-width: 991px) {
+    .section {
+        padding-top: 8em;
+    }
+}
+
 .section {
     display: flex;
     flex-direction: column;
@@ -10,10 +22,37 @@
     /* width: 50vw; */
 }
 
+.sectionHeaderContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+}
+
+.sectionHeader {
+    font-size: var(--text-3xl); 
+    font-weight: 800;
+    /* margin: 0; */
+}
+
+.sectionHeaderDivider {
+    width: 3rem;
+    height: 0.75rem;
+    background-color: var(--text-main);
+}
+
+.headerDivider {
+    display: flex;
+    justify-content: center;
+}
+
 .content {
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 100%;
     padding: 1rem 1rem 2rem 1rem;
     margin: auto;
     gap: var(--space-sm);
@@ -31,8 +70,4 @@
 .sectionBorder {
     /* width: 52vw; */
     border-bottom: 1px solid var(--border-color);
-}
-
-.dummyBottomSection {
-    display: block;
 }
