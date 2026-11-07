@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
@@ -9,8 +8,8 @@
       "@routes": ["./src/routes"],
       "@layouts/*": ["./src/layouts/*"],
       "@layouts": ["./src/layouts"],
-      "@typing/*": ["src/typing/*"],
-      "@typing": ["src/typing"],
+      "@typing/*": ["./src/typing/*"],
+      "@typing": ["./src/typing"],
       "@utils/*": ["./src/utils/*"],
       "@utils": ["./src/utils"]
     },
