@@ -19,3 +19,59 @@
     flex-direction: column;
     font-size: var(--text-base);
 }
+
+@media (max-width: 991px) {
+    .educationBlock {
+        min-width: 100%;
+    }
+}
+
+@media (min-width: 991px) {
+    .educationBlock {
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 1076px) {
+    :global(#education-section-content) {
+        min-width: 100%;
+    }
+}
+
+@media (min-width: 1076px) {
+    .educationBlock {
+        min-width: 700px;
+    }
+}
+
+.educationBlock {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+    font-size: var(--text-base);
+    padding: 1rem 1rem;
+    background: var(--bg-surface);
+    border-radius: 10px;
+    box-shadow: var(--shadow-lifted);
+}
+
+.schoolHeader {
+    font-size: var(--text-xl);
+}
+
+.eduBlockContent {
+    display: flex;
+    flex-direction: column;
+    padding: 0 0.5rem;
+    row-gap: 0.5rem;
+}
+
+.degreeProgramContainer,
+.degreeDetailsContainer {
+    line-height: unset !important;
+}
+
+.relevantCoursesContainer {
+    display: flex;
+    flex-direction: column;
+}

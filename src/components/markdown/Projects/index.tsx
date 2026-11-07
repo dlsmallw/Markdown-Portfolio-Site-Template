@@ -4,6 +4,7 @@ import { useIsMobile, useWindowSizeThreshold } from '@utils/EventListeners';
 import { inlineTryCatch } from '@utils/ErrorHandling';
 import React from 'react';
 import Tilt from 'react-parallax-tilt';
+import {TooltipWrapper, TooltipText } from '../TooltipWrapper';
 
 const DefaultProjectBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     return <div {...props} className={`${styles.homeProjectBlock} ${props.className}`} />
@@ -57,24 +58,34 @@ const ProjectTitleCard: React.FC<ProjectTitleCardProps> = ({ link, ...props }) =
     const isMobile = useIsMobile();
     
     return (
-        <Tilt
-            glareEnable={!isMobile ? true : false} 
-            glareMaxOpacity={!isMobile ? 0.15 : 0} 
-            scale={!isMobile ? 1.03 : 1}
-            // perspective={250}
-            tiltMaxAngleX={!isMobile ? -3 : 0}
-            tiltMaxAngleY={!isMobile ? -6 : 0}
-        >
-            <div 
-                {...props} 
-                className={`${styles.projectTitleCard} ${props.className ?? ''}`} 
-                onClick={() => {
-                    if (link) {
-                        window.open(link, '_blank');
-                    }
-                }}
-            ></div>
-        </Tilt>
+        <TooltipWrapper style={{ flexDirection: 'unset' }}>
+            <Tilt
+                glareEnable={!isMobile ? true : false} 
+                glareMaxOpacity={!isMobile ? 0.15 : 0} 
+                scale={!isMobile ? 1.03 : 1}
+                tiltMaxAngleX={!isMobile ? -3 : 0}
+                tiltMaxAngleY={!isMobile ? -6 : 0}
+                style={{ height: '100%' }}
+            >
+                <div 
+                    {...props} 
+                    className={`${styles.projectTitleCard} ${props.className ?? ''}`} 
+                    onClick={() => {
+                        if (link) {
+                            window.open(link, '_blank');
+                        }
+                    }}
+                >
+                    {props.children}
+                    <span className={styles.subText}>
+                        View Project
+                    </span>
+                </div>
+            </Tilt>
+            <TooltipText key='tooltip-text' className={styles.projectTitleCardTooltip}>
+                View Project
+            </TooltipText>
+        </TooltipWrapper>
     );
 }
 

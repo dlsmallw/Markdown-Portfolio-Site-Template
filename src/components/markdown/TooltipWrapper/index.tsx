@@ -2,7 +2,7 @@ import React, { type HTMLAttributes, useEffect, useRef, useState } from "react";
 
 import styles from './component.module.css';
 
-const TooltipWrapper: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
+export const TooltipWrapper: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [ttCoords, setTTCoords] = useState({ left: 0, top: 0 });
 
@@ -57,12 +57,15 @@ const TooltipWrapper: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) 
     }, []);
 
     return (
-        <div {...props} ref={containerRef} className={styles.tooltipWrapper}>
+        <div {...props} ref={containerRef} className={`${styles.tooltipWrapper} ${props.className ?? ''}`}>
             <div 
                 ref={contentRef}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onMouseMove={handleElemMouseMove as () => void}
+                style={{
+                    height: 'inherit',
+                }}
             >
                 {children}
             </div>
@@ -83,7 +86,7 @@ const TooltipWrapper: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) 
     )
 }
 
-const TooltipText: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
+export const TooltipText: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     return props.children;
 }
 

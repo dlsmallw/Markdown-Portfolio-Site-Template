@@ -1,12 +1,14 @@
 @media (max-width: 991px) {
     .section {
-        padding-top: 3em;
+        padding-top: 2em;
+        padding-bottom: 2em;
     }
 }
 
 @media (min-width: 991px) {
     .section {
-        padding-top: 8em;
+        padding-top: 10vh;
+        padding-bottom: 10vh;
     }
 }
 
@@ -15,11 +17,6 @@
     flex-direction: column;
     width: 100%;
     justify-content: center;
-    /* padding: 1rem 0 2rem 0;
-    gap: var(--space-sm);
-    text-align: left;
-    margin: auto; */
-    /* width: 50vw; */
 }
 
 .sectionHeaderContainer {
@@ -34,7 +31,6 @@
 .sectionHeader {
     font-size: var(--text-3xl); 
     font-weight: 800;
-    /* margin: 0; */
 }
 
 .sectionHeaderDivider {

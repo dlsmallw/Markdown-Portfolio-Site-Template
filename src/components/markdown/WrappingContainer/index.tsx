@@ -30,12 +30,12 @@ export const WrappingContainer: React.FC<WrappingContainerProps> = ({ separator,
 
     return (
         <div 
+            {...props}
             ref={containerRef} 
-            className={styles.wrappingContainer}
+            className={`${styles.wrappingContainer} ${props.className ?? ''}`}
             style={{
                 flexDirection: isWrapped ? 'column' : 'unset',
             }}
-            {...props}
         >
             {childArr.reduce<React.ReactNode[]>((acc, child, index) => {
                 if (React.isValidElement(child)) {

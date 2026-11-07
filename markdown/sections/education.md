@@ -4,26 +4,26 @@ navLabel: Education
 
 ::section-heading[Education]
 
-:::wrapping-container{ separator="|" id="school-details" }
+::::education-block
+
+:::school-header{ separator="|" }
 ::grouped[**Example University**]
 ::grouped[*Somewhere, USA*]
 :::
 
-::::container{ id="education-block" }
-
-:::wrapping-container{ separator="•" id="degree-details" }
+:::degree-program{ separator="•" }
 ::grouped[**Bachelors of Science**]
 ::grouped[**Major:** Software Engineering]
 ::grouped[**Minor:** Cyber Security]
 :::
 
-:::wrapping-container{ separator="•" id="degree-performance" }
+:::degree-details{ separator="•" }
 ::grouped[**GPA:** 4.0/4.0]
 ::grouped[**Honors:** Summa Cum Laude]
 ::grouped[**Graduated:** :date[01/01/2024]{ month="short" year="numeric" }]
 :::
 
-:::container{ id="relevant-courses-block" }
+:::relevant-courses
 ::grouped[**Relevant Coursework:**]
  - Data Structures & Algorithms
  - Software Engineering
