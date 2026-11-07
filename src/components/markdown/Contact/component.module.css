@@ -1,3 +1,7 @@
+:global(#contact-section-content) {
+  max-width: 1000px;
+}
+
 :global(#contact-links-block) {
   display: flex;
   flex-direction: column;

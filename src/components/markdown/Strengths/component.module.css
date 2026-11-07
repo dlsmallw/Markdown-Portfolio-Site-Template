@@ -1,5 +1,10 @@
 :global(#strength-block) {
     display: flex;
     flex-direction: column;
-    /* padding: 0 1rem; */
+    background: var(--bg-surface);
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: var(--shadow-lifted);
+    max-width: 1000px;
+    margin: auto;
 }
