@@ -1,10 +1,11 @@
-import { Children, useEffect, useLayoutEffect, useState, type HTMLAttributes } from 'react';
-import styles from './component.module.css';
+import React, { Children, useLayoutEffect, useState, type HTMLAttributes } from 'react';
+import Tilt from 'react-parallax-tilt';
+
 import { useIsMobile, useWindowSizeThreshold } from '@utils/EventListeners';
 import { inlineTryCatch } from '@utils/ErrorHandling';
-import React from 'react';
-import Tilt from 'react-parallax-tilt';
-import {TooltipWrapper, TooltipText } from '../TooltipWrapper';
+import { TooltipWrapper, TooltipText } from '../../TooltipWrapper';
+
+import styles from './component.module.css';
 
 const DefaultProjectBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     return <div {...props} className={`${styles.homeProjectBlock} ${props.className}`} />

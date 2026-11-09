@@ -1,4 +1,5 @@
 import type { HTMLAttributes } from 'react';
+
 import styles from './component.module.css';
 
 const IntroBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {

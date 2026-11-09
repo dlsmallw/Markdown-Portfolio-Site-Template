@@ -21,7 +21,7 @@
     .headshotBlock {
         position: unset !important;
         top: unset !important;
-        flex-direction: row !important;
+        /* flex-direction: row !important; */
         gap: 1rem !important;
     }
 }
@@ -48,7 +48,6 @@
 }
 
 .headshotImage {
-    /* width: clamp(4rem, 5vw, 8rem); */
     width: 120px;
     height: auto;
     aspect-ratio: 1;

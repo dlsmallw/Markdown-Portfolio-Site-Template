@@ -1,4 +1,4 @@
-.homeProjectBlock {
+/* .homeProjectBlock {
   display: flex;
   flex-direction: column;
   margin: 2%;
@@ -15,7 +15,7 @@
   p {
     margin: 1rem;
   }
-}
+} */
 
 :global(#project-image-icon) {
   width: 100%;

@@ -2,7 +2,7 @@
   max-width: 1000px;
 }
 
-:global(#contact-links-block) {
+.buttonsContainer {
   display: flex;
   flex-direction: column;
   gap: 2px;

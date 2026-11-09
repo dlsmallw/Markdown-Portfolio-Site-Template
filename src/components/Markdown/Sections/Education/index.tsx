@@ -1,7 +1,8 @@
-import { useEffect, type HTMLAttributes } from 'react';
+import React, { type HTMLAttributes } from 'react';
+
+import { WrappingContainer, type WrappingContainerProps } from '../../WrappingContainer';
+
 import styles from './component.module.css';
-import { WrappingContainer, type WrappingContainerProps } from '../WrappingContainer';
-import React from 'react';
 
 const EducationBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     const schoolHeader = React.Children.toArray(props.children).find((child) => (

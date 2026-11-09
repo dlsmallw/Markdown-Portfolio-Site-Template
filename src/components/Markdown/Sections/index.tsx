@@ -65,6 +65,20 @@ const ComponentRegistry = {
     ['section-border']: SectionBorder,
 } as Components;
 
+const modules = import.meta.glob<Components>("./*/index.tsx", {
+  import: "default",
+  eager: true,
+});
+
+for (const [fp, importRegistry] of Object.entries(modules)) {
+  console.log(`Loading component registry from ${fp}`);
+
+  // Exclude the root registry itself
+  if (fp === "./index.tsx") continue;
+
+  Object.assign(ComponentRegistry, importRegistry);
+}
+
 export { PageSection, SectionBorder };
 
 export default ComponentRegistry;

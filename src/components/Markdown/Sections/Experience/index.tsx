@@ -1,6 +1,8 @@
 import type { HTMLAttributes } from 'react';
+
+import { WrappingContainer } from '../../WrappingContainer';
+
 import styles from './component.module.css';
-import { WrappingContainer } from '../WrappingContainer';
 
 const CompanyBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     return <div {...props} className={`${styles.companyBlock} ${props.className ?? ''}`} />
