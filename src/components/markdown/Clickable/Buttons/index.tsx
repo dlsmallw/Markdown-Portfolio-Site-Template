@@ -2,7 +2,7 @@ import { type AnchorHTMLAttributes } from "react";
 import { useNavigate } from "react-router";
 
 import { inlineTryCatch } from "@utils/ErrorHandling";
-import { LinkComponent } from "..";
+import { LinkComponent } from "../Links";
 
 import styles from './component.module.css';
 

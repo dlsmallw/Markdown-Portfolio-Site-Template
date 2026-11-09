@@ -13,18 +13,19 @@ export const MarkdownImage: React.FC<ImageProps> = ({ alt, tooltip = false, ...p
     const imgRef = useRef<HTMLImageElement | SVGElement | null>(null);
     const src = props.src ? (props.src.trim() !== "" ? props.src : null) : null;
 
+    const MDImage = <MediaComponent 
+        className={`${styles.imageIcon} ${props.className}`} 
+        id={`${props.id ? `${props.id}-` : ''}image-icon`}
+        src={src}
+        alt={alt}
+        ref={imgRef}
+    />
+
     return (
         (tooltip ? (
-            <TooltipWrapper>
+            <TooltipWrapper className={styles.imageToolTip}>
                 <div className={styles.imageCell} id={`${props.id ? `${props.id}-` : ''}image-cell`}>
-                    <MediaComponent 
-                        className={`${styles.imageIcon} ${props.className}`} 
-                        id={`${props.id ? `${props.id}-` : ''}image-icon`}
-                        src={src}
-                        alt={alt}
-                        ref={imgRef}
-                    />
-                        
+                    {MDImage}
                 </div>
                 <TooltipText key='tooltip-text' className={styles.skillsTooltip}>
                     {alt}
@@ -32,14 +33,7 @@ export const MarkdownImage: React.FC<ImageProps> = ({ alt, tooltip = false, ...p
             </TooltipWrapper>
         ) : (
             <div className={styles.imageCell} id={`${props.id ? `${props.id}-` : ''}image-cell`}>
-                <MediaComponent 
-                    className={`${styles.imageIcon} ${props.className}`} 
-                    id={`${props.id ? `${props.id}-` : ''}image-icon`}
-                    src={src}
-                    alt={alt}
-                    ref={imgRef}
-                />
-                    
+                {MDImage}
             </div>
         ))
     )

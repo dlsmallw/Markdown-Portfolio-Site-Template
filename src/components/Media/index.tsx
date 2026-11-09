@@ -1,6 +1,5 @@
 import React, { 
     useCallback, 
-    useEffect, 
     type HTMLAttributes, 
     type ImgHTMLAttributes 
 } from 'react';

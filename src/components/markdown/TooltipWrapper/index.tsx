@@ -57,7 +57,11 @@ export const TooltipWrapper: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...pr
     }, []);
 
     return (
-        <div {...props} ref={containerRef} className={`${styles.tooltipWrapper} ${props.className ?? ''}`}>
+        <div 
+            {...props} 
+            ref={containerRef} 
+            className={`${styles.tooltipWrapper} ${props.className ?? ''}`}
+        >
             <div 
                 ref={contentRef}
                 onMouseEnter={() => setIsHovered(true)}

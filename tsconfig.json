@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "paths": {
+      "@assets/*": ["./src/assets/*"],
+      "@assets": ["./src/assets"],
       "@components/*": ["./src/components/*"],
       "@components": ["./src/components"],
-      "@routes/*": ["./src/routes/*"],
-      "@routes": ["./src/routes"],
       "@layouts/*": ["./src/layouts/*"],
       "@layouts": ["./src/layouts"],
       "@typing/*": ["./src/typing/*"],

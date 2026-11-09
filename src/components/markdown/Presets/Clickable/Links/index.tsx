@@ -5,7 +5,7 @@ import {
     ExternalLinkComponent,
     InternalLinkComponent,
     DownloadLinkComponent
-} from '@components/markdown/Clickable/Links';
+} from '@components/Markdown/Clickable/Links';
 
 import {
     EmailIcon,

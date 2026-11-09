@@ -35,6 +35,7 @@ export default defineConfig(({ mode }) => {
         '@layouts': fileURLToPath(new URL('./src/layouts', import.meta.url)),
         '@typing': fileURLToPath(new URL('./src/typing', import.meta.url)),
         '@utils': fileURLToPath(new URL('./src/utils', import.meta.url)),
+        '@assets': fileURLToPath(new URL('./src/assets', import.meta.url)),
       },
     },
   }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import LightModeIcon from '/public/assets/theme/light-mode.svg?react';
-import DarkModeIcon from '/public/assets/theme/dark-mode.svg?react';
+import LightModeIcon from '@assets/light-mode.svg?react';
+import DarkModeIcon from '@assets/dark-mode.svg?react';
 
 import styles from './component.module.css';
 import { useIsMobile } from "@utils/EventListeners";

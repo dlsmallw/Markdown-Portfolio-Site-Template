@@ -1,12 +1,14 @@
-import React, { useEffect, useRef, useState, type HTMLAttributes } from 'react';
+import React, { useEffect, useState, type HTMLAttributes } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { Navbar as BSNavbar, Container, Nav, Offcanvas, type NavLinkProps } from 'react-bootstrap';
 
 import { ThemeToggle } from '@components';
-import HamburgerIcon from '/public/assets/icons/hamburger-menu-icon.svg?react';
+import HamburgerIcon from '@assets/hamburger-menu-icon.svg?react';
+
+
+import { useIsMobile } from '@utils/EventListeners';
 
 import styles from './component.module.css';
-import { useIsMobile } from '@utils/EventListeners';
 
 interface NavigationLinkProps extends NavLinkProps {
     to: string;

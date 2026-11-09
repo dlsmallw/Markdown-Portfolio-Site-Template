@@ -51,7 +51,7 @@ export const WrappingContainer: React.FC<WrappingContainerProps> = ({ separator,
                 return acc;
             }, [])}
         </div>
-        )
+    )
 };
 
 const ComponentRegistry = {

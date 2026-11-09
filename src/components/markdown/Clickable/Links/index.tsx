@@ -2,9 +2,12 @@ import { type AnchorHTMLAttributes } from "react";
 import { useNavigate } from "react-router";
 
 import { inlineTryCatch } from "@utils/ErrorHandling";
-import { LinkComponent } from "..";
 
 import styles from './component.module.css';
+
+export const LinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
+    return <a {...props} />;
+}
 
 export const InternalLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
     return (
@@ -61,6 +64,7 @@ export const DownloadLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElem
 }
 
 export const LinkComponentRegistry = {
+    ['link']: LinkComponent,
     ['external-link']: ExternalLinkComponent,
     ['internal-link']: InternalLinkComponent,
     ['email-link']: EmailLinkComponent,

@@ -7,6 +7,10 @@
     position: relative;
 }
 
+.imageToolTip:has(.imageCell:empty) {
+    display: none !important;
+}
+
 .imageIcon {
     display: block;
 }

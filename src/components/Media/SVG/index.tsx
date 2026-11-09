@@ -13,7 +13,7 @@ const LocalSVG: React.FC<SVGComponentProps> = ({ ref, ...props }) => {
     const SVGImageURL = useMemo(() => {
         return React.lazy<React.ComponentType<SVGComponentProps>>(async () => {
             try {
-                const module = await import(/* @vite-ignore */ `${props.src}?react`);
+                const module = await import(`${props.src}?react`);
                 return {
                     default: module.default as React.ComponentType<SVGComponentProps>
                 };
@@ -34,14 +34,11 @@ const LocalSVG: React.FC<SVGComponentProps> = ({ ref, ...props }) => {
 }
 
 const SVGComponent = React.memo(function SVGComponentInner(props: SVGComponentProps) {
-    const isURL = () => {
-        return URL.canParse(props.src);
-    }
+    const isURL = () => URL.canParse(props.src);
 
     return (
         <>
             {isURL() ? (
-                // <RemoteSVG {...props} />  
                 <SVG 
                     {...(props as unknown as React.ComponentProps<typeof SVG>)}
                     innerRef={props.ref as React.RefObject<SVGElement>}
