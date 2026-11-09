@@ -20,7 +20,7 @@ Outside of writing code, I enjoy learning new technologies, working on personal 
 ::::
 
 ::::headshot-block
-::headshot-image{ src="/src/assets/default_headshot.jpg" }
+::headshot-image{ src="/assets/default_headshot.jpg" }
 
 :::links-container
 

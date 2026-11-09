@@ -4,7 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "gen:icons": "node scripts/generate-icon-registry.ts",
+    "predev": "npm run gen:icons",
     "dev": "vite",
+    "prebuild": "npm run gen:icons",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },

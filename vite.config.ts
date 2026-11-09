@@ -5,11 +5,11 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite'
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
-import { markdownPreprocess } from './plugins/MarkdownPreprocessing.ts';
+import { markdownPreprocess } from './plugins/md-preprocess.ts';
 
 export default defineConfig({
   plugins: [
-    markdownPreprocess(path.join(import.meta.dirname, '/markdown')),
+    markdownPreprocess(path.join(import.meta.dirname, './markdown')),
     react(),
     svgr(),
     nodePolyfills({
@@ -18,12 +18,18 @@ export default defineConfig({
       },
     }),
   ],
+  // optimizeDeps: {
+  //   include: [
+  //     'react-markdown', 
+  //     'remark-directive', 
+  //     'unist-util-visit'
+  //   ]
+  // },
   server: {
     open: true 
   },
   resolve: {
     alias: {
-      '@assets': fileURLToPath(new URL('./src/assets', import.meta.url)),
       '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
       '@routes': fileURLToPath(new URL('./src/routes', import.meta.url)),
       '@layouts': fileURLToPath(new URL('./src/layouts', import.meta.url)),

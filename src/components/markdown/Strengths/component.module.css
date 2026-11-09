@@ -1,4 +1,4 @@
-:global(#strength-block) {
+.strengthBlock {
     display: flex;
     flex-direction: column;
     background: var(--bg-surface);

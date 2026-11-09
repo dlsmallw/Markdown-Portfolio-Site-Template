@@ -2,8 +2,8 @@ import { type HTMLAttributes } from "react";
 
 import styles from './component.module.css';
 import { useIsMobile } from "@utils/EventListeners";
-import type { Components } from "node_modules/react-markdown/lib";
 import { motion } from "framer-motion";
+import type { Components } from "react-markdown";
 
 interface PageSectionProps extends HTMLAttributes<HTMLDivElement> {
     scrollRef: React.RefObject<HTMLDivElement | null>;
@@ -65,4 +65,6 @@ const ComponentRegistry = {
     ['section-border']: SectionBorder,
 } as Components;
 
-export { PageSection, SectionBorder, ComponentRegistry };
+export { PageSection, SectionBorder };
+
+export default ComponentRegistry;

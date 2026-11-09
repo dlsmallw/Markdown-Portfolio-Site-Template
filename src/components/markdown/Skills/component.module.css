@@ -1,22 +1,22 @@
 @media (max-width: 768px) {
-    :global(#skill-category) {
+    .skillCategory {
         margin: 0 0.5rem;
     }
 }
 
 @media (max-width: 991px) {
-    :global(#skill-category) {
+    .skillCategory {
         margin: 0 1.5rem;
     }
 }
 
 @media (min-width: 991px) {
-    :global(#skill-category) {
+    .skillCategory {
         margin: 0 4rem;
     }
 }
 
-:global(#skill-category) {
+.skillCategory {
   display: flex;
   flex-direction: column;
 }

@@ -292,7 +292,7 @@ export async function markdownPreprocess(mdDirPath: string) {
       return {
         define: {
           __MARKDOWN_MAP__: mdMap,
-          __ROUTES__: sortedRouteList
+          __ROUTES__: sortedRouteList,
         },
       };
     },

@@ -1,23 +1,20 @@
 import type { Components } from "react-markdown";
-import { ComponentRegistry as SectionComponentRegistry } from "../Section";
 
-let ComponentRegistry: Components = SectionComponentRegistry;
+const modules = import.meta.glob<Components>("./*/index.tsx", {
+  import: "default",
+  eager: true,
+});
 
-const modules = (import.meta as ImportMeta & {
-    glob: <T>(pattern: string, options: { eager: true }) => Record<string, T>
-}).glob<Components>('./*/index.tsx', { eager: true });
+const ComponentRegistry: Components = {};
 
-for (const fp in modules) {
-    if (fp === './index.tsx') continue;
-    
-    const module = await import(/* @vite-ignore */ fp);
-    if (!module) continue;
+for (const [fp, importRegistry] of Object.entries(modules)) {
+  console.log(`Loading component registry from ${fp}`);
 
-    const importRegistry = module.default as Components;
-    ComponentRegistry = {
-        ...ComponentRegistry,
-        ...importRegistry
-    }
-};
+  // Exclude the root registry itself
+  if (fp === "./index.tsx") continue;
+
+  Object.assign(ComponentRegistry, importRegistry);
+}
+
 
 export default ComponentRegistry;

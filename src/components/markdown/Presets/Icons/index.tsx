@@ -1,61 +1,46 @@
-import styles from  './component.module.css';
-import { useEffect, useState } from 'react';
 import React from 'react';
 import type { IconBaseProps } from 'react-icons/lib';
 
+import { iconRegistry } from '../../../../generated/iconRegistry';
+import { MdOutlineEmail } from 'react-icons/md';
+import { FiDownload } from 'react-icons/fi';
+import { GrDocumentText } from 'react-icons/gr';
+import { ImGithub } from 'react-icons/im';
+import { FaLinkedin } from 'react-icons/fa';
+
+const DEF_SIZE = 32;
+
 interface IconProps extends IconBaseProps {
-    iconkey: string;
+  iconkey: string;
 }
 
-export const CustomIcon: React.FC<IconProps> = ({ iconkey, ...props }) => {
-    const [importedComponent, setImportedComponent] = useState(null);
-
-    useEffect(() => {
-        const importComp = async () => {
-            if (!iconkey) return;
-
-            const modSubDir = iconkey.slice(0, 2).toLowerCase();
-            const module = await import(`/node_modules/react-icons/${modSubDir}`);
-            const LoadedComponent = module[iconkey];
-
-            if (!LoadedComponent) return;
-
-            setImportedComponent(<LoadedComponent {...props} size={props.size ?? 32} />)
-        }
-        
-        importComp();
-    }, []);
-
-    return (
-        <>
-            {importedComponent}
-        </>
-    );
-}
+export const DynamicReactIcon: React.FC<IconProps> = ({ iconkey, ...props }) => {
+  const IconComponent = iconRegistry[iconkey];
+  return IconComponent ? <IconComponent {...props} size={props.size ?? DEF_SIZE} /> : null;
+};
 
 export const EmailIcon: React.FC<IconBaseProps> = ({ ...props }) => {
-    return <CustomIcon {...props} iconkey='MdOutlineEmail' />
+    return <MdOutlineEmail {...props} size={props.size ?? DEF_SIZE} />
 }
 
 export const DownloadIcon: React.FC<IconBaseProps> = ({ ...props }) => {
-    return <CustomIcon {...props} iconkey='FiDownload' />
+    return <FiDownload {...props} size={props.size ?? DEF_SIZE} />
 }
 
 export const ResumeIcon: React.FC<IconBaseProps> = ({ ...props }) => {
-    return <CustomIcon {...props} iconkey='GrDocumentText' />
+    return <GrDocumentText {...props} size={props.size ?? DEF_SIZE} />
 }
 
 export const GitHubIcon: React.FC<IconBaseProps> = ({ ...props }) => {
-    return <CustomIcon {...props} iconkey='ImGithub' />
+    return <ImGithub {...props} size={props.size ?? DEF_SIZE} />
 }
 
 export const LinkedInIcon: React.FC<IconBaseProps> = ({ ...props }) => {
-    return <CustomIcon {...props} iconkey='FaLinkedin' />
+    return <FaLinkedin {...props} size={props.size ?? DEF_SIZE} />
 }
 
-
 const IconComponentRegistry = {
-    ['react-icon']: CustomIcon,
+    ['react-icon']: DynamicReactIcon,
     ['email-icon']: EmailIcon,
     ['download-icon']: DownloadIcon,
     ['resume-icon']: ResumeIcon,
