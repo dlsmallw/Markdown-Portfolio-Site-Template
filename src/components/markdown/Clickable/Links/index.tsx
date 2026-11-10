@@ -1,7 +1,5 @@
 import { type AnchorHTMLAttributes } from "react";
-import { useNavigate } from "react-router";
-
-import { inlineTryCatch } from "@utils/ErrorHandling";
+import { useNavigate, type To } from "react-router";
 
 import styles from './component.module.css';
 
@@ -10,15 +8,14 @@ export const LinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = 
 }
 
 export const InternalLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
+    const navigate = useNavigate();
+
     return (
         <div className={styles.linkContainer}>
             <LinkComponent 
                 {...props} 
                 className={`${styles.link} ${props.className}`} 
-                onClick={() => {
-                    const navigate = useNavigate();
-                    navigate(props.href);
-                }}
+                onClick={() => { if (props.href) navigate(props.href as To); } }
             />
         </div>
     )
@@ -54,7 +51,6 @@ export const EmailLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement
 }
 
 export const DownloadLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
-    if (!props.download) props.download = inlineTryCatch(() => props.href.split("/").pop(), "Resume.pdf")
 
     return (
         <div className={styles.linkContainer}>
@@ -62,13 +58,3 @@ export const DownloadLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElem
         </div>
     )
 }
-
-export const LinkComponentRegistry = {
-    ['link']: LinkComponent,
-    ['external-link']: ExternalLinkComponent,
-    ['internal-link']: InternalLinkComponent,
-    ['email-link']: EmailLinkComponent,
-    ['download-link']: DownloadLinkComponent,
-}
-
-export default LinkComponentRegistry;

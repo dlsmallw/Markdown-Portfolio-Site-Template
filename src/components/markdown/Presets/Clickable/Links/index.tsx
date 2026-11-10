@@ -3,7 +3,6 @@ import type { AnchorHTMLAttributes } from "react"
 import {
     EmailLinkComponent,
     ExternalLinkComponent,
-    InternalLinkComponent,
     DownloadLinkComponent
 } from '@components/Markdown/Clickable/Links';
 
@@ -19,7 +18,7 @@ const EmailLink: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props
     return (
         <EmailLinkComponent {...props} >
             <EmailIcon />
-            {props.children ?? props.href.split(":")[1]}
+            {props.children ?? props.href?.split(":")[1]}
         </EmailLinkComponent>
     )
 }
@@ -48,7 +47,7 @@ const GitHubLink: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...prop
     return (
         <ExternalLinkComponent {...props} >
             <GitHubIcon />
-            {props.children ?? props.href.replace('https://', '') ?? alt}
+            {props.children ?? props.href?.replace('https://', '') ?? alt}
         </ExternalLinkComponent>
     )
 }
@@ -59,7 +58,7 @@ const LinkedInLink: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...pr
     return (
         <ExternalLinkComponent {...props} >
             <LinkedInIcon />
-            {props.children ?? props.href.replace('https://', '') ?? alt}
+            {props.children ?? props.href?.replace('https://', '') ?? alt}
         </ExternalLinkComponent>
     )
 }

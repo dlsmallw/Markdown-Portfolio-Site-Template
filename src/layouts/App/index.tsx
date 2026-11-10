@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState, type HTMLAttributes } from 'react';
+import React, { createContext, useCallback, useContext, useMemo, useState, type HTMLAttributes } from 'react';
 
 import { Navbar } from '@components';
 
@@ -36,6 +36,7 @@ const AppLayout: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAppState = () => {
     return useContext(AppStateContext);
 }

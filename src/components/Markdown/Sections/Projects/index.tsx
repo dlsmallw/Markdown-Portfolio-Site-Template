@@ -1,15 +1,10 @@
-import React, { Children, useLayoutEffect, useState, type HTMLAttributes } from 'react';
+import React, { type HTMLAttributes } from 'react';
 import Tilt from 'react-parallax-tilt';
 
-import { useIsMobile, useWindowSizeThreshold } from '@utils/EventListeners';
-import { inlineTryCatch } from '@utils/ErrorHandling';
+import { useIsMobile } from '@utils/EventListeners';
 import { TooltipWrapper, TooltipText } from '../../TooltipWrapper';
 
 import styles from './component.module.css';
-
-const DefaultProjectBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
-    return <div {...props} className={`${styles.homeProjectBlock} ${props.className}`} />
-}
 
 export interface ProjectTagContainerProps extends HTMLAttributes<HTMLDivElement> {
     separator?: string;
@@ -47,8 +42,6 @@ const ProjectTitle: React.FC<HTMLAttributes<HTMLSpanElement>> = ({ ...props }) =
 
 const ProjectDescription: React.FC<HTMLAttributes<HTMLParagraphElement>> = ({ ...props }) => {
     return <p {...props} className={`${styles.projectDescription} ${props.className ?? ''}`} />;
-    
-
 }
 
 interface ProjectTitleCardProps extends HTMLAttributes<HTMLDivElement> {
@@ -90,40 +83,8 @@ const ProjectTitleCard: React.FC<ProjectTitleCardProps> = ({ link, ...props }) =
     );
 }
 
-const ProjectTextCard: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
-    return <div {...props} className={`${styles.projectTextCard} ${props.className ?? ''}`} />
-}
-
 const ProjectGrid: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     return <div {...props} className={`${styles.projectGrid} ${props.className ?? ''}`} />
-}
-
-const PortfolioBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
-    const [reversedChildren, setReversedChildren] = useState(props.children);
-
-    const isReversed = inlineTryCatch(() => parseFloat(props.id.split('-').at(-1)) % 2 === 0, false);
-    const isBelow = useWindowSizeThreshold(976);
-
-    useLayoutEffect(() => {
-        try {
-            if (isReversed) {
-                setReversedChildren(Children.toArray(props.children).reverse());
-            }
-        } catch (e) {
-
-        }
-        
-    }, [])
-
-    return (
-        <div 
-            {...props} 
-            className={`${styles.portfolioProjectBlock} ${props.className ?? ''}`} 
-            data-below-width={isBelow}
-        >
-            {isReversed && !isBelow ? (reversedChildren) : (props.children)}
-        </div>
-    )
 }
 
 const ComponentRegistry = {
@@ -133,9 +94,6 @@ const ComponentRegistry = {
     ['project-tags']: ProjectTagContainer,
     ['tag']: ProjectTag,
     ['project-title-card']: ProjectTitleCard,
-    ['project-text-card']: ProjectTextCard,
-    ['featured-block']: DefaultProjectBlock,
-    ['portfolio-block']: PortfolioBlock
 };
 
 export default ComponentRegistry;

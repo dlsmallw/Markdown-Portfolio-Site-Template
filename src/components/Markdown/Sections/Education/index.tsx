@@ -7,12 +7,12 @@ import styles from './component.module.css';
 const EducationBlock: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     const schoolHeader = React.Children.toArray(props.children).find((child) => (
         React.isValidElement(child) && 
-        child.key.includes('school-header')
+        child.key?.includes('school-header')
     ));
 
     const children = React.Children.toArray(props.children).filter((child) => (
         React.isValidElement(child) && 
-        !child.key.includes('school-header')
+        !child.key?.includes('school-header')
     ));
     
     return (

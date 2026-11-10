@@ -1,11 +1,9 @@
 import React, { useRef, type HTMLAttributes } from 'react';
 
-import styles from './layout.module.css';
-import { SidePanel } from '@components/SidePanel';
-
-import type { ScrollWrapperProps } from '@components/ScrollWrapper';
-import ScrollWrapper from '@components/ScrollWrapper';
 import { useIsMobile } from '@utils/EventListeners';
+import { SidePanel, ScrollWrapper, type ScrollWrapperProps } from '@components';
+
+import styles from './layout.module.css';
 
 interface ContentContainerProps extends ScrollWrapperProps {
     scrollable?: boolean;

@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import LightModeIcon from '@assets/light-mode.svg?react';
 import DarkModeIcon from '@assets/dark-mode.svg?react';
 
-import styles from './component.module.css';
 import { useIsMobile } from "@utils/EventListeners";
+
+import styles from './component.module.css';
 
 const ThemeToggle: React.FC = () => {
     const isMobile = useIsMobile();
@@ -41,6 +42,7 @@ const ThemeToggle: React.FC = () => {
 
     useEffect(() => {
         const savedTheme = localStorage.getItem('theme');
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setThemeState(savedTheme === 'light' ? 'light' : 'dark');
         document.documentElement.setAttribute('data-theme', savedTheme === 'light' ? 'light' : 'dark');
     }, []);

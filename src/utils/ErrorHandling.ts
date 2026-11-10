@@ -7,7 +7,7 @@
 export function inlineTryCatch<T, R>(fn: () => T, fallback: R): T | R {
     try {
         return fn();
-    } catch (error) {
+    } catch {
         return fallback;
     }
 }

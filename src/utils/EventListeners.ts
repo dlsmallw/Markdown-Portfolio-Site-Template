@@ -121,7 +121,7 @@ export function useScrollRestorationListener(
             beforeCallback();
         else 
             afterCallback();
-    }, [location.key, navigation.state]);
+    }, [location.key, navigation.state, afterCallback, beforeCallback]);
 }
 
 /**
@@ -174,7 +174,7 @@ export function usePageSpy(scrollContainerRef: React.RefObject<HTMLDivElement | 
             pageElements.forEach((el: Element) => observer.unobserve(el));
             observer.disconnect();
         };
-    }, [currentPage, numPages]);
+    }, [currentPage, numPages, scrollContainerRef]);
 
     return currentPage;
 }
@@ -185,7 +185,7 @@ export function usePageSpy(scrollContainerRef: React.RefObject<HTMLDivElement | 
  * @param fallback          The fallback value to default to if desired.
  * @returns                 The attributes current value.
  */
-export function documentAttrObserver(attrName: string, fallback: any = undefined) {
+export function useDocumentAttrObserver(attrName: string, fallback: string = null) {
     const [attrValue, setAttrValue] = useState(() => 
         document.documentElement.getAttribute(attrName) || fallback
     );
@@ -212,7 +212,7 @@ export function documentAttrObserver(attrName: string, fallback: any = undefined
         return () => {
             observer.disconnect();
         }
-    }, []);
+    }, [attrName, fallback]);
 
     return attrValue;
 }
@@ -264,7 +264,7 @@ export function useWindowSizeThreshold(threshold: number) {
         return () => {
             window.removeEventListener('resize', handleResize);
         }
-    }, []);
+    }, [threshold]);
 
     return isBelow;
 }

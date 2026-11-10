@@ -16,5 +16,4 @@ for (const [fp, importRegistry] of Object.entries(modules)) {
   Object.assign(ComponentRegistry, importRegistry);
 }
 
-
 export default ComponentRegistry;

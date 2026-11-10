@@ -5,13 +5,12 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from "rehype-raw";
 
 import type { AppDataContextType, PageDataProps } from '@typing/DataLoading';
-import { useAppState } from '@layouts/App';
-import { PageSection } from '@components';
-import { LeftSideBar, ContentContainer } from '@layouts/Page';
 
+import { useAppState } from '@layouts/App';
 import PageContainer from '@layouts/Page';
-import ComponentRegistry from '@components/markdown';
-import InpageNavbar from '@components/InpageNavigation';
+
+import { LeftSideBar, ContentContainer } from '@layouts/Page';
+import { PageSection, InpageNavbar, ComponentRegistry } from '@components';
 
 import styles from './component.module.css';
 
@@ -39,21 +38,17 @@ export const SitePage: React.FC<{ id?: string }> = ({ id }) => {
         targetSectionRef.current = current.id;
     };
 
-    const handleMaintainSection = () => {
-        const targetSection = targetSectionRef.current;
-        if (targetSection) {
-            const element = (pageData.sectionData.find((section) => section.id === targetSection)?.ref)?.current;
-            if (!element) return;
-
-            element.scrollIntoView({behavior: 'instant' as unknown as ScrollBehavior, block: 'start'});
-        }
-    }
-
-    const SideNavbar = ({ className }: { className?: string }) => {
-        return <InpageNavbar className={className} sectionState={pageProps.sectionState} sections={pageData.sectionData} targetSectionRef={targetSectionRef} handleScroll={handleScroll} />;
-    }
-
     useEffect(() => {
+        const handleMaintainSection = () => {
+            const targetSection = targetSectionRef.current;
+            if (targetSection) {
+                const element = (pageData.sectionData.find((section) => section.id === targetSection)?.ref)?.current;
+                if (!element) return;
+
+                element.scrollIntoView({behavior: 'instant' as unknown as ScrollBehavior, block: 'start'});
+            }
+        }
+
         window.addEventListener('resize', handleMaintainSection);
         
         return () => {
@@ -61,7 +56,7 @@ export const SitePage: React.FC<{ id?: string }> = ({ id }) => {
             pageProps.setSectionState(targetSectionRef.current);
             setSidebarContent(null);
         }
-    }, []);
+    }, [pageData.sectionData, pageProps, setSidebarContent]);
 
     useLayoutEffect(() => {
         if (pageProps.sectionState) {
@@ -69,16 +64,16 @@ export const SitePage: React.FC<{ id?: string }> = ({ id }) => {
         }
 
         if (pageProps && pageData && pageData.sectionData.length > 0) {
-            setSidebarContent(<SideNavbar className={styles.sideNavbar} />);
+            setSidebarContent(<InpageNavbar className={styles.sideNavbar} sectionState={pageProps.sectionState} sections={pageData.sectionData} targetSectionRef={targetSectionRef} handleScroll={handleScroll} />);
         } else {
             setSidebarContent(null);
         }
-    }, [])
+    }, [pageData, pageProps, setSidebarContent])
 
     return (
         <PageContainer>
             <LeftSideBar>
-                <SideNavbar />
+                <InpageNavbar sectionState={pageProps.sectionState} sections={pageData.sectionData} targetSectionRef={targetSectionRef} handleScroll={handleScroll} />
             </LeftSideBar>
             
             {pageData.markdown ? (

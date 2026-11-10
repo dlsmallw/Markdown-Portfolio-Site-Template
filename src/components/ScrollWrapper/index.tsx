@@ -19,7 +19,7 @@ const ScrollWrapper: React.FC<ScrollWrapperProps> = ({ scrollPos, setScrollPos, 
         return () => {
             setScrollPos(scrollStateRef.current);
         }
-    }, []);
+    }, [setScrollPos]);
 
     useLayoutEffect(() => {
         const container = containerRef.current;
@@ -29,7 +29,7 @@ const ScrollWrapper: React.FC<ScrollWrapperProps> = ({ scrollPos, setScrollPos, 
             top: scrollPos,
             behavior: 'instant',
         });
-    }, []);
+    }, [scrollPos]);
 
     return (
         <div {...props} ref={containerRef} onScroll={(e) => setCurrScrollPos(e.currentTarget.scrollTop)} />

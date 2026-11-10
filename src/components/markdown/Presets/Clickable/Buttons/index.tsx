@@ -3,7 +3,6 @@ import type { AnchorHTMLAttributes } from "react"
 import {
     EmailButtonComponent,
     ExternalButtonComponent,
-    InternalButtonComponent,
     DownloadButtonComponent
 } from '@components/Markdown/Clickable/Buttons';
 
@@ -19,7 +18,7 @@ const EmailButton: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...pro
     return (
         <EmailButtonComponent {...props} >
             <EmailIcon />
-            {props.children ?? props.href.split(":")[1]}
+            {props.children ?? props.href?.split(":")[1]}
         </EmailButtonComponent>
     )
 }
@@ -48,7 +47,7 @@ const GitHubButton: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...pr
     return (
         <ExternalButtonComponent {...props} >
             <GitHubIcon />
-            {props.children ?? props.href.replace('https://', '') ?? alt}
+            {props.children ?? props.href?.replace('https://', '') ?? alt}
         </ExternalButtonComponent>
     )
 }
@@ -59,7 +58,7 @@ const LinkedInButton: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...
     return (
         <ExternalButtonComponent {...props} >
             <LinkedInIcon />
-            {props.children ?? props.href.replace('https://', '') ?? alt}
+            {props.children ?? props.href?.replace('https://', '') ?? alt}
         </ExternalButtonComponent>
     )
 }

@@ -1,4 +1,4 @@
-import React, { type ImgHTMLAttributes, useMemo } from "react";
+import React, { type ImgHTMLAttributes, useEffect, useState } from "react";
 
 import { LoadingFallback, ErrorFallback } from "../";
 import SVG from 'react-inlinesvg';
@@ -10,39 +10,59 @@ interface SVGComponentProps extends ImgHTMLAttributes<HTMLImageElement> {
 }
 
 const LocalSVG: React.FC<SVGComponentProps> = ({ ref, ...props }) => {
-    const SVGImageURL = useMemo(() => {
-        return React.lazy<React.ComponentType<SVGComponentProps>>(async () => {
-            try {
-                const module = await import(`${props.src}?react`);
-                return {
-                    default: module.default as React.ComponentType<SVGComponentProps>
-                };
-            } catch (e) {
-                console.error(`Failed to load SVG Image: ${props.src}`, e);
-                return {
-                    default: () => <ErrorFallback {...props} />
-                };
-            }
-        });
+    const [loadedSVG, setLoadedSVG] = useState<{
+        src: string;
+        component: React.ComponentType<SVGComponentProps>;
+    } | null>(null);
+    const [failedSrc, setFailedSrc] = useState<string | null>(null);
+
+    useEffect(() => {
+        let cancelled = false;
+
+        import(`${props.src}?react`)
+            .then((module) => {
+                if (!cancelled) {
+                    setLoadedSVG({
+                        src: props.src,
+                        component: module.default as React.ComponentType<SVGComponentProps>
+                    });
+                    setFailedSrc(null);
+                }
+            })
+            .catch((error) => {
+                console.error(`Failed to load SVG Image: ${props.src}`, error);
+                if (!cancelled) setFailedSrc(props.src);
+            });
+
+        return () => {
+            cancelled = true;
+        };
     }, [props.src]);
 
+    const SVGImage = loadedSVG?.src === props.src ? loadedSVG.component : null;
+
+    if (failedSrc === props.src) return <ErrorFallback {...props} />;
+    if (!SVGImage) return <LoadingFallback {...props} />;
+
     return (
-        <React.Suspense fallback={<LoadingFallback {...props} />} >
-            <SVGImageURL {...props} ref={ref} />
-        </React.Suspense>
+        <SVGImage {...props} ref={ref} />
     )
 }
 
 const SVGComponent = React.memo(function SVGComponentInner(props: SVGComponentProps) {
-    const isURL = () => URL.canParse(props.src);
+    const { src } = props;
+    const isURL = () => URL.canParse(src);
 
     return (
         <>
             {isURL() ? (
                 <SVG 
                     {...(props as unknown as React.ComponentProps<typeof SVG>)}
-                    innerRef={props.ref as React.RefObject<SVGElement>}
-                    src={props.src}
+                    innerRef={(element) => {
+                        const ref = props.ref as React.MutableRefObject<SVGElement | null>;
+                        ref.current = element;
+                    }}
+                    src={src}
                 />  
             ) : (
                 <LocalSVG {...props} />

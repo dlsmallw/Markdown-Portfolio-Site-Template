@@ -11,14 +11,14 @@ interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
 
 export const MarkdownImage: React.FC<ImageProps> = ({ alt, tooltip = false, ...props }) => {
     const imgRef = useRef<HTMLImageElement | SVGElement | null>(null);
-    const src = props.src ? (props.src.trim() !== "" ? props.src : null) : null;
+    const src = props.src ? (props.src.trim() !== "" ? props.src : undefined) : undefined;
 
     const MDImage = <MediaComponent 
         className={`${styles.imageIcon} ${props.className}`} 
         id={`${props.id ? `${props.id}-` : ''}image-icon`}
         src={src}
         alt={alt}
-        ref={imgRef}
+        mediaRef={imgRef}
     />
 
     return (

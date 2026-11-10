@@ -10,7 +10,7 @@ interface PageSectionProps extends HTMLAttributes<HTMLDivElement> {
     lastSection: boolean;
 }
 
-const PageSection: React.FC<PageSectionProps> = ({ scrollRef, lastSection, ...props }) => {
+export const PageSection: React.FC<PageSectionProps> = ({ scrollRef, lastSection, ...props }) => {
     const isMobile = useIsMobile();
 
     return (
@@ -38,7 +38,7 @@ const PageSection: React.FC<PageSectionProps> = ({ scrollRef, lastSection, ...pr
     )
 }
 
-const SectionHeader: React.FC<HTMLAttributes<HTMLHeadingElement>> = ({ ...props }) => {
+export const SectionHeader: React.FC<HTMLAttributes<HTMLHeadingElement>> = ({ ...props }) => {
     return (
         <div className={styles.sectionHeaderContainer}>
             <div className={styles.headerDivider}>
@@ -53,7 +53,7 @@ const SectionHeader: React.FC<HTMLAttributes<HTMLHeadingElement>> = ({ ...props 
     )
 }
     
-const SectionBorder: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
+export const SectionBorder: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     return (
         <div {...props} className={styles.sectionBorder} />
     )
@@ -79,6 +79,6 @@ for (const [fp, importRegistry] of Object.entries(modules)) {
   Object.assign(ComponentRegistry, importRegistry);
 }
 
-export { PageSection, SectionBorder };
+
 
 export default ComponentRegistry;

@@ -1,5 +1,5 @@
 import { type AnchorHTMLAttributes } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, type To } from "react-router";
 
 import { inlineTryCatch } from "@utils/ErrorHandling";
 import { LinkComponent } from "../Links";
@@ -7,14 +7,12 @@ import { LinkComponent } from "../Links";
 import styles from './component.module.css';
 
 export const InternalButtonComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
+    const navigate = useNavigate();
     return (
         <LinkComponent 
             {...props} 
             className={`${styles.button} ${props.className}`} 
-            onClick={() => {
-                const navigate = useNavigate();
-                navigate(props.href);
-            }}
+            onClick={() => { if (props.href) navigate(props.href as To); }}
         />
     )
 }
@@ -44,14 +42,14 @@ export const EmailButtonComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorEleme
 }
 
 export const DownloadButtonComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
-    if (!props.download) props.download = inlineTryCatch(() => props.href.split("/").pop(), "Resume.pdf")
+    if (!props.download) props.download = inlineTryCatch(() => props.href?.split("/").pop(), "Resume.pdf")
 
     return (
         <LinkComponent {...props} className={`${styles.button} ${props.className}`} />
     )
 }
 
-const ProjectButtonComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
+export const ProjectButtonComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
     return (
         <div className={styles.projectButtonLinkContainer}>
             <LinkComponent 
@@ -66,11 +64,7 @@ const ProjectButtonComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> 
 }
 
 const ButtonComponentRegistry = {
-    ['external-button']: ExternalButtonComponent,
-    ['internal-button']: InternalButtonComponent,
-    ['email-button']: EmailButtonComponent,
-    ['download-button']: DownloadButtonComponent,
-    ['project-button']: ProjectButtonComponent,
+    
 }
 
 export default ButtonComponentRegistry;

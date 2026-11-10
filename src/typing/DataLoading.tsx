@@ -2,7 +2,7 @@ import { VFile, type DataMap } from "vfile";
 
 /* Custom Extended Types */
 export type Data = {
-  frontmatter?: Record<string, any>;
+  frontmatter?: Record<string, unknown>;
   sectionOrderData?: SectionData[]
 } & Partial<DataMap>;
 
@@ -27,14 +27,14 @@ export interface SectionData {
 
 export interface LoaderData {
   sectionData: SectionData[];
-  markdown: VFile;
+  markdown: VFile | null;
 }
 export interface PageDataProps {
   pageData: LoaderData;
   scrollPos: number;
   setScrollPos: React.Dispatch<React.SetStateAction<number>>;
-  sectionState?: string;
-  setSectionState?: React.Dispatch<React.SetStateAction<string>>;
+  sectionState: string | null;
+  setSectionState: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export interface AppDataContextType {

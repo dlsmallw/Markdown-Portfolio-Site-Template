@@ -45,19 +45,22 @@ function toVFile(filename: string, relativePath: string) {
  */
 function defaultDirectivePlugin() {
   return () => {
-    return (tree: Root, _file?: VFile) => {
-      visit(tree, (node, _index, _parent) => {
+    return (tree: Root) => {
+      visit(tree, (node) => {
 
         if (node.type === 'root') {
-          if (node.children.some((child) => 'name' in child && child.name === 'portfolio-block')) {
+          // if (node.children.some((child) => 'name' in child && child.name === 'portfolio-block')) {
             let integer = 1;
             node.children.forEach((child) => {
-              if ('name' in child && child.name === 'portfolio-block') {
+              if (
+                ('name' in child && child.name === 'portfolio-block') &&
+                (child.attributes && 'id' in child.attributes)
+              ) {
                 child.attributes.id = `portfolio-block-${integer}`;
                 integer += 1;
               }
             });
-          }
+          // }
         }
 
         if (
@@ -99,7 +102,7 @@ function defaultDirectivePlugin() {
           }
 
           if (node.name === 'themed-icon') {
-            const newAttr: Record<string, any> = {};
+            const newAttr: Record<string, string> = {};
             const themeSources: Record<string, string> = {}
 
             Object.keys(attr).forEach((key) => {
@@ -185,17 +188,20 @@ async function parsePageMD(
           node.name = 'section-container';
 
           const textNode = node.children.find((childNode) => childNode.type === 'text' && 'value' in childNode);
-          if (textNode) {
+          if (
+            textNode &&
+            typeof textNode.value === 'string' &&
+            typeof pageLayoutMDVFile.data.frontmatter['sectionRoot'] === 'string'
+          ) {
             
             const sectionName = textNode.value.split('.')[0];
             const sectionMDVFile = toVFile(textNode.value, resolve(relativePath, pageLayoutMDVFile.data.frontmatter['sectionRoot']));
 
             const id = `${sectionName}-section`;
-            let navLabel = sectionMDVFile.data.frontmatter?.['navLabel'];
-
-            if (!navLabel) {
-              navLabel = sectionName.charAt(0).toUpperCase() + sectionName.slice(1).toLowerCase();
-            }
+            const frontmatterNavLabel = sectionMDVFile.data.frontmatter?.['navLabel'];
+            const navLabel = typeof frontmatterNavLabel === 'string' && frontmatterNavLabel
+              ? frontmatterNavLabel
+              : sectionName.charAt(0).toUpperCase() + sectionName.slice(1).toLowerCase();
 
             sectionOrderData.push({ id, navLabel });
 
@@ -210,9 +216,13 @@ async function parsePageMD(
 
           
           const textNode = node.children.find((childNode) => childNode.type === 'text' && 'value' in childNode);
-          const id = textNode.value.split('.')[0];
-          if (textNode) {
-            
+          
+          if (
+            textNode &&
+            typeof textNode.value === 'string' &&
+            typeof pageLayoutMDVFile.data.frontmatter['sectionRoot'] === 'string'
+          ) {
+            const id = textNode.value.split('.')[0];
             const mdVFile = toVFile(textNode.value, resolve(relativePath, pageLayoutMDVFile.data.frontmatter['sectionRoot']));
             const sectionAST = processor.parse(mdVFile).children;
 
@@ -246,19 +256,24 @@ export async function markdownPreprocess(mdDirPath: string) {
     const pageName = page.split('.')[0];
 
     try {
-      let plugins = [defaultDirectivePlugin()];
-
-      // if (pageName.includes("portfolio")) {
-      //   plugins.push(portfolioPageDirective())
-      // }
+      const plugins = [defaultDirectivePlugin()];
 
       const markdown = await parsePageMD(page, mdDirPath, plugins);
       const frontmatter = markdown.data.frontmatter;
       const sectionData = markdown.data.sectionOrderData;
 
-      const isIndex = frontmatter['index'] ?? false;
-      const path = frontmatter['pathName'] ?? (isIndex ? '/' : `/${pageName}`);
+      let isIndex: boolean = false;
+      let path: string = `/${pageName}`;
+      let label: string = pageName.charAt(0).toUpperCase() + pageName.slice(1).toLowerCase();
+      let sectOrder: number = -1;
 
+      if (frontmatter) {
+        isIndex = frontmatter['index'] as boolean ?? false;
+        path = frontmatter['pathName'] as string ?? (isIndex ? '/' : `/${pageName}`);
+        label = frontmatter['navLabel'] as string ?? pageName.charAt(0).toUpperCase() + pageName.slice(1).toLowerCase();
+        sectOrder = frontmatter['sectionOrder'] as number;
+      }
+      
       mdMap[pageName] = {
         markdown,
         sectionData
@@ -268,13 +283,13 @@ export async function markdownPreprocess(mdDirPath: string) {
         id: pageName,
         index: isIndex,
         pathName: path,
-        navLabel: frontmatter['navLabel'] ?? pageName.charAt(0).toUpperCase() + pageName.slice(1).toLowerCase(),
-        sectionOrder: frontmatter['sectionOrder']
+        navLabel: label,
+        sectionOrder: sectOrder
       }
 
       routeList.push(metaData);
 
-    } catch (e) {
+    } catch {
       console.error(`Failed to read page markdown from file: ${mdDirPath}`)
     }
   }

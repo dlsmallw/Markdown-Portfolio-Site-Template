@@ -7,7 +7,6 @@ import React, {
 import SVGComponent from './SVG';
 import ImageComponent from './Image';
 
-
 export const LoadingFallback: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({ ...props }) => {
     return (
         <span 
@@ -32,25 +31,25 @@ export const ErrorFallback: React.FC<HTMLAttributes<HTMLImageElement>> = ({ ...p
 }
 
 interface MediaComponentProps extends ImgHTMLAttributes<HTMLImageElement> {
-    ref: React.RefObject<SVGElement | HTMLImageElement | null>;
+    mediaRef: React.RefObject<SVGElement | HTMLImageElement | null>;
     darkModeSrc?: string;
     lightModeSrc?: string;
 }
 
 // const MediaComponent = React.memo(function Image(props: MediaComponentProps) {
-const MediaComponent: React.FC<MediaComponentProps> = ({ ...props }) => {
+const MediaComponent: React.FC<MediaComponentProps> = ({ mediaRef, ...props }) => {
     const handleMouseEnter = useCallback(
         (e: React.MouseEvent<HTMLImageElement>) => props.onMouseEnter?.(e), 
-        [props.onMouseEnter]
+        [props]
     );
 
     const handleMouseLeave = useCallback(
         (e: React.MouseEvent<HTMLImageElement>) => props.onMouseLeave?.(e), 
-        [props.onMouseLeave]
+        [props]
     );
     const handleMouseMove = useCallback(
         (e: React.MouseEvent<HTMLImageElement>) => props.onMouseMove?.(e), 
-        [props.onMouseMove]
+        [props]
     );
 
     const isSVG = (url: string) => {
@@ -73,14 +72,15 @@ const MediaComponent: React.FC<MediaComponentProps> = ({ ...props }) => {
                         <ImageComponent 
                             {...props}
                             src={src}
-                            ref={props.ref as React.RefObject<HTMLImageElement>}
+                            ref={mediaRef as React.RefObject<HTMLImageElement>}
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}
                             onMouseMove={handleMouseMove} 
                         />
                     ) : (
-                        <SVGComponent {...props}
-                            ref={props.ref}
+                        <SVGComponent 
+                            {...props}
+                            ref={mediaRef}
                             src={src}
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}

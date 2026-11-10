@@ -38,10 +38,9 @@ const GroupedSpan: React.FC<HTMLAttributes<HTMLSpanElement>> = ({ ...props }) =>
 }
 
 const ComponentRegistry = {
-        ['grouped']: GroupedSpan,
-        ['date']: DateElement,
-        ['container']: DefaultContainer,
-    
+    ['grouped']: GroupedSpan,
+    ['date']: DateElement,
+    ['container']: DefaultContainer,
 }
 
 

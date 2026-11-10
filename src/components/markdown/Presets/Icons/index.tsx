@@ -1,5 +1,5 @@
 import React from 'react';
-import type { IconBaseProps } from 'react-icons/lib';
+import type { IconBaseProps, IconType } from 'react-icons/lib';
 
 import { iconRegistry } from '../../../../generated/iconRegistry';
 import { MdOutlineEmail } from 'react-icons/md';
@@ -15,7 +15,7 @@ interface IconProps extends IconBaseProps {
 }
 
 export const DynamicReactIcon: React.FC<IconProps> = ({ iconkey, ...props }) => {
-  const IconComponent = iconRegistry[iconkey];
+  const IconComponent = (iconRegistry as {[key: string]: IconType})[iconkey] as IconType | undefined;
   return IconComponent ? <IconComponent {...props} size={props.size ?? DEF_SIZE} /> : null;
 };
 

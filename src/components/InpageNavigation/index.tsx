@@ -15,11 +15,11 @@ interface InpageNavbarProps extends HTMLAttributes<HTMLDivElement> {
     sectionState: string;
     sections: SectionData[];
     targetSectionRef: React.RefObject<string | null>;
-    handleScroll: (sectionRef: React.RefObject<HTMLDivElement>) => void;
+    handleScroll: (sectionRef: React.RefObject<HTMLDivElement | null> | undefined) => void;
     onBtnPress?: (section: SectionData) => void;
 }
 
-const InpageNavbar: React.FC<InpageNavbarProps> = ({ sectionState, sections, targetSectionRef, handleScroll, onBtnPress, ...props }) => {
+const InpageNavbar: React.FC<InpageNavbarProps> = ({ sectionState, sections, targetSectionRef, handleScroll, ...props }) => {
     const activeSection = useScrollSpy(
         sectionState, 
         sections?.map((section) => {
@@ -30,7 +30,7 @@ const InpageNavbar: React.FC<InpageNavbarProps> = ({ sectionState, sections, tar
 
     useEffect(() => {
         targetSectionRef.current = activeSection;
-    }, [activeSection])
+    }, [activeSection, targetSectionRef])
 
     return (
         <InpageNavbarContainer {...props} >
