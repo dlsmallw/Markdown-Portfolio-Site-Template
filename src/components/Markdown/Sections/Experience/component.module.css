@@ -1,6 +1,6 @@
-:global(#experience-section-content) {
+/* :global(#experience-section-content) {
     width: fit-content;
-}
+} */
 
 .companyBlock {
   display: flex;
