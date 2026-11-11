@@ -12,7 +12,7 @@
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit",
     "lint": "eslint .",
-    "format": "prettier --write \"src/**/*.{ts,tsx,css}\""
+    "format": "prettier --write \"./**/*.{ts,tsx,css}\""
   },
   "lint-staged": {
     "*.{ts,tsx}": [

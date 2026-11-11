@@ -1,5 +1,5 @@
 import { StrictMode, useMemo } from 'react';
-import { appDataLoader, usePageStateContainer } from '@utils/AppLoader';
+import { appDataLoader, usePageStateContainer } from '@utils/data-loader';
 
 import { 
   createBrowserRouter, 
@@ -11,8 +11,7 @@ import {
   type RouteObject
 } from 'react-router';
 
-import { RESUME_PATH } from '@utils/Constants';
-import type { LoaderData, PageDataProps, AppDataContextType } from '@typing/DataLoading';
+import type { LoaderData, PageDataProps, AppDataContextType } from '@typing/data';
 
 import AppLayout from '@layouts/App';
 import { SitePage } from '@components';
@@ -52,7 +51,6 @@ const AppContent = () => {
   });
 
   const outletContext: AppDataContextType = {
-    resumePDFFileURL: RESUME_PATH,
     ...pagePropsMap
   }
 

@@ -1,9 +1,7 @@
 import React, { type ImgHTMLAttributes, useEffect, useState } from "react";
-
-import { LoadingFallback, ErrorFallback } from "../";
 import SVG from 'react-inlinesvg';
 
-import './component.module.css';
+import { LoadingFallback, ErrorFallback } from "../";
 
 interface SVGComponentProps extends ImgHTMLAttributes<HTMLImageElement> {
     ref: React.RefObject<HTMLDivElement | SVGElement | null>;

@@ -1,6 +1,6 @@
 import React, { type HTMLAttributes } from "react";
 
-import { inlineTryCatch } from "@utils/ErrorHandling";
+import { inlineTryCatch } from "@utils/error-handling";
 
 import './component.module.css';
 

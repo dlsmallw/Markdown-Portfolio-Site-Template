@@ -2,8 +2,6 @@ import React, { type ImgHTMLAttributes } from "react";
 
 import { LoadingFallback } from "..";
 
-import './component.module.css';
-
 interface ImageComponentProps extends ImgHTMLAttributes<HTMLImageElement> {
     ref: React.RefObject<HTMLImageElement | null>;
 }

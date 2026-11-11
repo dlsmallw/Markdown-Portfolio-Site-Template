@@ -20,14 +20,14 @@ Outside of writing code, I enjoy learning new technologies, working on personal 
 ::::
 
 ::::headshot-block
-::headshot-image{ src="/assets/default_headshot.jpg" }
+::headshot-image{ src="/default_headshot.jpg" }
 
 :::links-container
 
 ::email-link-preset{ href="mailto:john.doe@example.com" }
 ::linkedin-link-preset{ href="https://linkedin.com/in/johndoe" }
 ::github-link-preset{ href="https://github.com/johndoe" }
-::resume-preview-link{ href="/src/assets/resume/example_resume.pdf" }
+::resume-preview-link{ href="/resume/example_resume.pdf" }
 
 :::
 ::::

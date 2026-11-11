@@ -2,7 +2,7 @@ import React, { useState, type HTMLAttributes } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { Navbar as BSNavbar, Container, Nav, Offcanvas, type NavLinkProps } from 'react-bootstrap';
 
-import { useIsMobile } from '@utils/EventListeners';
+import { useIsMobile } from '@utils/event-listeners';
 
 import { ThemeToggle } from '@components';
 import HamburgerIcon from '@assets/hamburger-menu-icon.svg?react';
@@ -26,7 +26,7 @@ const NavLink: React.FC<NavigationLinkProps> = ({ to, ...props }) => {
     };
 
     return (
-        <Nav.Link className={`${styles.navLinkContainer} ${props.className}`} 
+        <Nav.Link className={`${styles.navLinkContainer} ${props.className ?? ''}`} 
             style={{
                 color: location.pathname === to ? 'var(--text-main)' : 'color-mix(in srgb, var(--text-main) 70%, transparent)',
                 opacity: location.pathname !== to && isHovered ? 0.7 : 1,
@@ -57,11 +57,7 @@ const ThemeToggleButton = () => {
     const isMobile = useIsMobile();
 
     return (
-        <Nav
-            style={{
-                margin: !isMobile ? '0 1rem' : 'unset',
-            }}
-        >
+        <Nav style={{ margin: !isMobile ? '0 1rem' : 'unset' }}>
             <ThemeToggle />
         </Nav>
     )
@@ -78,7 +74,7 @@ const Navbar: React.FC<NavbarProps> = ({ sidebarContent, ...props }) => {
 
     return (
         <div className={styles.container}>
-            <BSNavbar className={`${styles.navbarContainer} ${props.className}`} sticky="top">
+            <BSNavbar className={`${styles.navbarContainer} ${props.className ?? ''}`} sticky="top">
                 <Container className='justify-content-center'>
                     <BSNavbar.Collapse id="basic-navbar-nav">
 
@@ -94,6 +90,7 @@ const Navbar: React.FC<NavbarProps> = ({ sidebarContent, ...props }) => {
                         />
                     
                         <Nav className={`${styles.navbarInnerContainer} mx-auto `} >
+                            {/* Dynamically loads and populates nav route buttons based on the file structure from the markdown directory */}
                             {__ROUTES__ && __ROUTES__.length > 1 && __ROUTES__.map((route, index) => {
                                 return <NavLink key={`page-nav-${index}`} to={route.pathName}>{route.navLabel}</NavLink>
                             })}

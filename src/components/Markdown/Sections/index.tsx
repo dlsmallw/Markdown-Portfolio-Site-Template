@@ -1,7 +1,7 @@
 import { type HTMLAttributes } from "react";
 
 import styles from './component.module.css';
-import { useIsMobile } from "@utils/EventListeners";
+import { useIsMobile } from "@utils/event-listeners";
 import { motion } from "framer-motion";
 import type { Components } from "react-markdown";
 
@@ -17,7 +17,7 @@ export const PageSection: React.FC<PageSectionProps> = ({ scrollRef, lastSection
         
         <div 
             {...props} 
-            className={`${styles.section} ${props.className} page-section`} 
+            className={`${styles.section} ${props.className ?? ''} page-section`} 
             ref={scrollRef}
             data-is-mobile={isMobile} 
         >
@@ -49,7 +49,6 @@ export const SectionHeader: React.FC<HTMLAttributes<HTMLHeadingElement>> = ({ ..
             </div>
             
         </div>
-        
     )
 }
     
@@ -65,6 +64,8 @@ const ComponentRegistry = {
     ['section-border']: SectionBorder,
 } as Components;
 
+
+// Dynamically imports the section markdown components from the each subdirectory
 const modules = import.meta.glob<Components>("./*/index.tsx", {
   import: "default",
   eager: true,
@@ -78,7 +79,5 @@ for (const [fp, importRegistry] of Object.entries(modules)) {
 
   Object.assign(ComponentRegistry, importRegistry);
 }
-
-
 
 export default ComponentRegistry;

@@ -1,7 +1,7 @@
 import React, { type HTMLAttributes } from 'react';
 import Tilt from 'react-parallax-tilt';
 
-import { useIsMouseInput } from '@utils/EventListeners';
+import { useIsMouseInput } from '@utils/event-listeners';
 import { TooltipWrapper, TooltipText } from '../../TooltipWrapper';
 
 import styles from './component.module.css';
@@ -65,9 +65,7 @@ const ProjectTitleCard: React.FC<ProjectTitleCardProps> = ({ link, ...props }) =
                     {...props} 
                     className={`${styles.projectTitleCard} ${props.className ?? ''}`} 
                     onClick={() => {
-                        if (link) {
-                            window.open(link, '_blank');
-                        }
+                        if (link) window.open(link, '_blank');
                     }}
                 >
                     {props.children}

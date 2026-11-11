@@ -1,6 +1,6 @@
 import React, { useRef, type HTMLAttributes } from 'react';
 
-import { useIsMobile } from '@utils/EventListeners';
+import { useIsMobile } from '@utils/event-listeners';
 import { SidePanel, ScrollWrapper, type ScrollWrapperProps } from '@components';
 
 import styles from './layout.module.css';
@@ -13,13 +13,13 @@ export const ContentContainer: React.FC<ContentContainerProps> = ({ scrollable =
     return scrollable ? (
         <ScrollWrapper 
             {...props} 
-            className={`${props.className} ${styles.contentContainer} ${styles.centerGrid}`} 
+            className={`${props.className ?? ''} ${styles.contentContainer} ${styles.centerGrid}`} 
             id='content-container' 
         />
     ) : (
         <div 
             {...props} 
-            className={`${props.className} ${styles.contentContainer} ${styles.centerGrid}`} 
+            className={`${props.className ?? ''} ${styles.contentContainer} ${styles.centerGrid}`} 
             id='content-container' 
         />
     );
@@ -27,13 +27,13 @@ export const ContentContainer: React.FC<ContentContainerProps> = ({ scrollable =
 
 export const LeftSideBar: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     return (
-        <SidePanel {...props} className={`${props.className} ${styles.leftGrid}`} id='left-panel' />
+        <SidePanel {...props} className={`${props.className ?? ''} ${styles.leftGrid}`} id='left-panel' />
     );
 }
 
 export const RightSideBar: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
     return (
-        <SidePanel {...props} className={`${props.className} ${styles.rightGrid}`} id='right-panel' />
+        <SidePanel {...props} className={`${props.className ?? ''} ${styles.rightGrid}`} id='right-panel' />
     );
 }
 
@@ -45,7 +45,7 @@ const PageContainer: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) =
         <div 
             {...props} 
             ref={containerRef} 
-            className={`${styles.page} ${props.className}`} 
+            className={`${styles.page} ${props.className ?? ''}`} 
             data-is-mobile={isMobile}
         />
     );

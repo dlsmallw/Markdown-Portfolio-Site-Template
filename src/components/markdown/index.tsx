@@ -7,6 +7,7 @@ const modules = import.meta.glob<Components>("./*/index.tsx", {
 
 const ComponentRegistry: Components = {};
 
+// Dynamically imports all markdown components from each subdirectory
 for (const [fp, importRegistry] of Object.entries(modules)) {
   console.log(`Loading component registry from ${fp}`);
 

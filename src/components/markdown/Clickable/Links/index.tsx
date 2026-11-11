@@ -51,7 +51,6 @@ export const EmailLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement
 }
 
 export const DownloadLinkComponent: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ ...props }) => {
-
     return (
         <div className={styles.linkContainer}>
             <LinkComponent {...props} className={`${styles.link} ${props.className}`} />

@@ -11,7 +11,7 @@ export const LoadingFallback: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({
     return (
         <span 
             {...props} 
-            className={`${props.className} icon-loading`}
+            className={`${props.className ?? ''} icon-loading`}
             style={{
                 fontWeight: "bold",
                 display: 'flex',
@@ -27,7 +27,7 @@ export const LoadingFallback: React.FC<ImgHTMLAttributes<HTMLImageElement>> = ({
 }
 
 export const ErrorFallback: React.FC<HTMLAttributes<HTMLImageElement>> = ({ ...props }) => {
-    return <span {...props} className={`${props.className} icon-error`}>⚠️</span>
+    return <span {...props} className={`${props.className ?? ''} icon-error`}>⚠️</span>
 }
 
 interface MediaComponentProps extends ImgHTMLAttributes<HTMLImageElement> {

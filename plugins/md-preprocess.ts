@@ -24,8 +24,14 @@ import type {
   Root 
 } from 'mdast';
 
-import type{ Data, CustomVFile, LoaderData, MARKDOWN_MAP, SITE_ROUTES, SectionData, PageMetaData } from '@typing/DataLoading';
+import type{ Data, CustomVFile, LoaderData, MARKDOWN_MAP, SITE_ROUTES, SectionData, PageMetaData } from '@typing/data';
 
+/**
+ * Custom VFile conversion helper.
+ * @param filename        The file being used.
+ * @param relativePath    The relative path to the file.
+ * @returns               A custom VFile object containing file data.
+ */
 function toVFile(filename: string, relativePath: string) {
   const fp = resolve(relativePath, filename);
   const fileContents = fs.readFileSync(fp, 'utf-8');
@@ -244,6 +250,11 @@ async function parsePageMD(
   return processedMD;
 }
 
+/**
+ * Loads and preprocesses markdown content into a format that can be loaded as React Components using React Markdown.
+ * @param mdDirPath     The markdown file path.
+ * @returns             The processed markdown data. 
+ */
 export async function markdownPreprocess(mdDirPath: string) {
   const pages = fs.readdirSync(mdDirPath, { withFileTypes: true })
     .filter(dirent => !dirent.isDirectory())

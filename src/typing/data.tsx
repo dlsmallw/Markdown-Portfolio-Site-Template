@@ -38,11 +38,7 @@ export interface PageDataProps {
 }
 
 export interface AppDataContextType {
-  resumePDFFileURL: string;
   [key: string]: PageDataProps | string;
-  homeProps?: PageDataProps;
-  portfolioProps?: PageDataProps;
-  
 }
 
 /* Markdown Preprocessing Structures */

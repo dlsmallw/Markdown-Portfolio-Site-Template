@@ -1,6 +1,6 @@
 import React, { useEffect, useState, type HTMLAttributes } from "react";
 
-import { useIsWrapped } from "@utils/EventListeners";
+import { useIsWrapped } from "@utils/event-listeners";
 
 import styles from './component.module.css';
 

@@ -1,8 +1,8 @@
-import { useScrollSpy } from '@utils/EventListeners';
-import InpageNavButton from './NavButton';
-import InpageNavbarContainer from './NavContainer';
+import { useScrollSpy } from '@utils/event-listeners';
+import InpageNavButton from './Button';
+import InpageNavbarContainer from './Container';
 
-import type { SectionData } from "@typing/DataLoading";
+import type { SectionData } from "@typing/data";
 import { useEffect, type HTMLAttributes } from 'react';
 
 const OBSERVER_OPTIONS = { 

@@ -53,16 +53,19 @@ export const TooltipWrapper: React.FC<TooltipWrapperProps> = ({ shown, setShown,
     ));
 
     useEffect(() => {
+        // Handles tooltip show action events
         const handleShow = () => {
             setIsShown(true);
             if (setShown !== undefined) setShown(true);
         }
 
+        // Handles tooltip hide action events
         const handleHide = () => {
             setIsShown(false);
             if (setShown !== undefined) setShown(false);
         }
 
+        // Logic for handling scroll events
         const handleScroll = (e: PointerEvent) => {
             const inputType = e.pointerType;
 
@@ -88,6 +91,7 @@ export const TooltipWrapper: React.FC<TooltipWrapperProps> = ({ shown, setShown,
             }
         };
 
+        // Logic for handling movement of pointer events (predominately mouse movement)
         const handlePointerMove = (e: PointerEvent) => {
             const inputType = e.pointerType;
 
@@ -114,6 +118,7 @@ export const TooltipWrapper: React.FC<TooltipWrapperProps> = ({ shown, setShown,
             } 
         }
 
+        // Logic for handling touch/pen "click" events
         const handlePointerDown = (e: PointerEvent) => {
             const inputType = e.pointerType;
 
@@ -157,14 +162,10 @@ export const TooltipWrapper: React.FC<TooltipWrapperProps> = ({ shown, setShown,
             ref={containerRef} 
             className={`${styles.tooltipWrapper} ${props.className ?? ''}`}
         >
-            <div style={{
-                position: 'relative',
-            }}>
+            <div style={{ position: 'relative' }}>
                 <div 
                     ref={contentRef}
-                    style={{
-                        height: '100%',
-                    }}
+                    style={{ height: '100%' }}
                 >
                     {children}
                 </div>
@@ -182,9 +183,7 @@ export const TooltipWrapper: React.FC<TooltipWrapperProps> = ({ shown, setShown,
                 >
                     {tooltipText}
                 </span>
-                
             </div>
-            
         </div>
     )
 }

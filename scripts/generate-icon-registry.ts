@@ -4,10 +4,14 @@ import path from "node:path";
 const CONTENT_DIR = path.join(process.cwd(), "/markdown");
 const OUTPUT_FILE = path.join(process.cwd(), "/src/generated/iconRegistry.ts");
 
-console.log(CONTENT_DIR);
-
 const iconPattern = /iconkey\s*=\s*["']([A-Za-z0-9]+)["']/g;
 
+/**
+ * Recursively loads the markdown content as strings for use in parsing to locate instances
+ * where react icons are used.
+ * @param directory     The directory the markdown content is located.
+ * @returns             An array consisting of the markdown content in string format.
+ */
 function getMarkdownFiles(directory: string): string[] {
   return fs.readdirSync(directory, { withFileTypes: true })
     .flatMap((entry) => {

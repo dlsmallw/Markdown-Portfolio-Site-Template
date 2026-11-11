@@ -48,8 +48,6 @@
     filter: var(--icon-shadow-lifted);
 }
 
-
-
 :global(.image-icon) {
     --outline-color: color-mix(in srgb, var(--text-main) 10%, transparent);
 
@@ -68,6 +66,5 @@
 
 :global(.image-cell) {
     filter: var(--icon-shadow);
-    /* filter: var(--icon-glow) var(--icon-shadow); */
     transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
 }

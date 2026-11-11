@@ -4,9 +4,9 @@ import { useOutletContext } from 'react-router';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from "rehype-raw";
 
-import type { AppDataContextType, PageDataProps } from '@typing/DataLoading';
+import type { AppDataContextType, PageDataProps } from '@typing/data';
 
-import { useAppState } from '@layouts/App';
+import { useAppState } from '@layouts/App/StateProvider';
 import PageContainer from '@layouts/Page';
 
 import { LeftSideBar, ContentContainer } from '@layouts/Page';
@@ -92,7 +92,6 @@ export const SitePage: React.FC<{ id?: string }> = ({ id }) => {
                                             {...props} 
                                             key={`s-${sectionIndex}`}
                                             scrollRef={pageData.sectionData[sectionIndex]?.ref} 
-                                            className={`${props.className}`} 
                                             lastSection={isLastSection} 
                                         />
                                     )
