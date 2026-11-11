@@ -1,6 +1,6 @@
-/* :global(#experience-section-content) {
-    width: fit-content;
-} */
+:global(#experience-section-content) {
+  max-width: 1000px;
+}
 
 .companyBlock {
   display: flex;
