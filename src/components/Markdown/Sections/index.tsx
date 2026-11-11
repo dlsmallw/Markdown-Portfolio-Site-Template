@@ -22,10 +22,10 @@ export const PageSection: React.FC<PageSectionProps> = ({ scrollRef, lastSection
             data-is-mobile={isMobile} 
         >
             <motion.div
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                viewport={{ once: true, amount: 0.3 }}
+                initial={!isMobile ? { opacity: 0, y: 60 } : undefined}
+                whileInView={!isMobile ? { opacity: 1, y: 0 } : undefined}
+                transition={!isMobile ? { duration: 0.8, ease: "easeOut" } : undefined}
+                viewport={!isMobile ? { once: true, amount: 0.3 } : undefined}
             >
                 <div 
                     className={`${styles.content}  ${lastSection ? 'last-page-section' : ''}`}
