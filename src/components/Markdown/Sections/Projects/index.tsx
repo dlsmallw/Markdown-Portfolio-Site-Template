@@ -1,7 +1,7 @@
 import React, { type HTMLAttributes } from 'react';
 import Tilt from 'react-parallax-tilt';
 
-import { useIsMobile } from '@utils/EventListeners';
+import { useIsMouseInput } from '@utils/EventListeners';
 import { TooltipWrapper, TooltipText } from '../../TooltipWrapper';
 
 import styles from './component.module.css';
@@ -49,16 +49,16 @@ interface ProjectTitleCardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const ProjectTitleCard: React.FC<ProjectTitleCardProps> = ({ link, ...props }) => {
-    const isMobile = useIsMobile();
+    const isMouse = useIsMouseInput();
     
     return (
         <TooltipWrapper style={{ flexDirection: 'unset' }}>
             <Tilt
-                glareEnable={!isMobile ? true : false} 
-                glareMaxOpacity={!isMobile ? 0.15 : 0} 
-                scale={!isMobile ? 1.03 : 1}
-                tiltMaxAngleX={!isMobile ? -3 : 0}
-                tiltMaxAngleY={!isMobile ? -6 : 0}
+                glareEnable={isMouse ? true : false} 
+                glareMaxOpacity={isMouse ? 0.15 : 0} 
+                scale={isMouse ? 1.03 : 1}
+                tiltMaxAngleX={isMouse ? -3 : 0}
+                tiltMaxAngleY={isMouse ? -6 : 0}
                 style={{ height: '100%' }}
             >
                 <div 
@@ -76,9 +76,12 @@ const ProjectTitleCard: React.FC<ProjectTitleCardProps> = ({ link, ...props }) =
                     </span>
                 </div>
             </Tilt>
-            <TooltipText key='tooltip-text' className={styles.projectTitleCardTooltip}>
-                View Project
-            </TooltipText>
+            {isMouse && (
+                <TooltipText key='tooltip-text' className={styles.projectTitleCardTooltip}>
+                    View Project
+                </TooltipText>
+            )}
+            
         </TooltipWrapper>
     );
 }

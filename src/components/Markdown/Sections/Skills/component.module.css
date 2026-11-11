@@ -25,17 +25,17 @@
   flex-direction: column;
 }
 
-:global(#skill-grid) {
+.skillGrid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: clamp(2rem, 2vw, 4rem);
     font-size: var(--text-xl);
     background-color: var(--bg-surface);
-    padding: 10px;
+    padding: 1rem;
 }
 
-:global(#skill-image-cell) {
+.skillCard {
     display: flex;
     align-content: center;
     justify-content: center;
@@ -43,20 +43,31 @@
     padding: 10px;
 }
 
-/* :global(#skill-image-cell):not(:has(svg)) {
-    display: none;
-} */
+.skillCard[data-hovered="true"] :global(.image-cell) {
+    transform: translateY(-2px);
+    filter: var(--icon-shadow-lifted);
+}
 
-:global(#skill-image-icon) {
+
+
+:global(.image-icon) {
+    --outline-color: color-mix(in srgb, var(--text-main) 10%, transparent);
+
     width: clamp(70px, 8vw, 84px);
     height: clamp(70px, 8vw, 84px);
     aspect-ratio: 1;
     object-fit: fill;
-    filter: var(--icon-glow) var(--icon-shadow);
-    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
+    
+    filter: 
+        drop-shadow(1px 0 0 var(--outline-color))
+        drop-shadow(-1px 0 0 var(--outline-color))
+        drop-shadow(0 1px 0 var(--outline-color))
+        drop-shadow(0 -1px 0 var(--outline-color));
+    
 }
 
-:global(#skill-image-icon):hover {
-    transform: translateY(-2px);
-    filter: var(--icon-glow) var(--icon-shadow-lifted);
+:global(.image-cell) {
+    filter: var(--icon-shadow);
+    /* filter: var(--icon-glow) var(--icon-shadow); */
+    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
 }

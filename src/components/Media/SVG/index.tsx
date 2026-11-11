@@ -19,7 +19,7 @@ const LocalSVG: React.FC<SVGComponentProps> = ({ ref, ...props }) => {
     useEffect(() => {
         let cancelled = false;
 
-        import(`${props.src}?react`)
+        import(/* @vite-ignore */`${props.src}?react`)
             .then((module) => {
                 if (!cancelled) {
                     setLoadedSVG({
@@ -59,7 +59,7 @@ const SVGComponent = React.memo(function SVGComponentInner(props: SVGComponentPr
                 <SVG 
                     {...(props as unknown as React.ComponentProps<typeof SVG>)}
                     innerRef={(element) => {
-                        const ref = props.ref as React.MutableRefObject<SVGElement | null>;
+                        const ref = props.ref as React.RefObject<SVGElement | null>;
                         ref.current = element;
                     }}
                     src={src}

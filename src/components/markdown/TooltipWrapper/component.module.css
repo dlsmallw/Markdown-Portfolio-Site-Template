@@ -33,6 +33,10 @@
     z-index: 999;
 }
 
+.cursorToolTip:empty {
+    display: none;
+}
+
 .tooltipWrapper {
     display: flex;
     flex-direction: column;

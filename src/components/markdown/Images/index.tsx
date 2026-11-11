@@ -1,9 +1,19 @@
-import React, { type ImgHTMLAttributes, useRef } from "react";
+import React, { type HTMLAttributes, type ImgHTMLAttributes, useRef } from "react";
 
 import { MediaComponent } from "@components/Media";
 
 import styles from './component.module.css';
 import { TooltipText, TooltipWrapper } from "../TooltipWrapper";
+
+export const ImageWrapper: React.FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
+    return (
+        <div 
+            {...props} 
+            className={`${styles.imageCell} ${props.className ?? ''} image-cell`} 
+            id={`${props.id ? `${props.id}-` : ''}image-cell`} 
+        />
+    )
+}
 
 interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     tooltip?: boolean;
@@ -14,7 +24,7 @@ export const MarkdownImage: React.FC<ImageProps> = ({ alt, tooltip = false, ...p
     const src = props.src ? (props.src.trim() !== "" ? props.src : undefined) : undefined;
 
     const MDImage = <MediaComponent 
-        className={`${styles.imageIcon} ${props.className}`} 
+        className={`${styles.imageIcon} ${props.className} image-icon`} 
         id={`${props.id ? `${props.id}-` : ''}image-icon`}
         src={src}
         alt={alt}
@@ -24,17 +34,18 @@ export const MarkdownImage: React.FC<ImageProps> = ({ alt, tooltip = false, ...p
     return (
         (tooltip ? (
             <TooltipWrapper className={styles.imageToolTip}>
-                <div className={styles.imageCell} id={`${props.id ? `${props.id}-` : ''}image-cell`}>
+                <ImageWrapper id={props.id}>
                     {MDImage}
-                </div>
-                <TooltipText key='tooltip-text' className={styles.skillsTooltip}>
+                </ImageWrapper>
+
+                <TooltipText key='tooltip-text'>
                     {alt}
                 </TooltipText>
             </TooltipWrapper>
         ) : (
-            <div className={styles.imageCell} id={`${props.id ? `${props.id}-` : ''}image-cell`}>
+            <ImageWrapper id={props.id}>
                 {MDImage}
-            </div>
+            </ImageWrapper>
         ))
     )
 }

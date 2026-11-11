@@ -268,3 +268,30 @@ export function useWindowSizeThreshold(threshold: number) {
 
     return isBelow;
 }
+
+export function useIsMouseInput() {
+    const [isMouse, setIsMouse] = useState(false)
+
+    useEffect(() => {
+        const handlePointerEvent = (e: PointerEvent) => {
+            const type = e.pointerType;
+            if (type) {
+                if (type === 'mouse') {
+                    setIsMouse(true);
+                } else {
+                    setIsMouse(false);
+                }
+            }
+        } 
+
+        window.addEventListener('pointerdown', handlePointerEvent);
+        window.addEventListener('pointermove', handlePointerEvent);
+
+        return () => {
+        window.removeEventListener('pointerdown', handlePointerEvent);
+        window.removeEventListener('pointermove', handlePointerEvent);
+        };
+    }, [isMouse]);
+
+    return isMouse;
+}
