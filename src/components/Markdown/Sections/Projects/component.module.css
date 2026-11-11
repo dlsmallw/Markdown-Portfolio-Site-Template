@@ -51,6 +51,12 @@
   font-size: var(--text-xs);
 }
 
+.projectTag {
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--border-color);
+  border-radius: 2px;
+}
+
 .projectTitle {
   width: fit-content;
   font-weight: 700;
