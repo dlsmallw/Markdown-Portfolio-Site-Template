@@ -12,7 +12,7 @@ const iconPattern = /iconkey\s*=\s*["']([A-Za-z0-9]+)["']/g;
  * @param directory     The directory the markdown content is located.
  * @returns             An array consisting of the markdown content in string format.
  */
-function getMarkdownFiles(directory: string): string[] {
+function getMarkdownFiles(directory) {
   return fs.readdirSync(directory, { withFileTypes: true })
     .flatMap((entry) => {
       const fullPath = path.join(directory, entry.name);
@@ -25,7 +25,7 @@ function getMarkdownFiles(directory: string): string[] {
     });
 }
 
-const icons = new Set<string>();
+const icons = new Set();
 const mdFiles = getMarkdownFiles(CONTENT_DIR);
 
 for (const file of mdFiles) {
