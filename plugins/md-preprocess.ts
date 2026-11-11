@@ -17,14 +17,14 @@ import { unified } from 'unified';
 import { visit } from 'unist-util-visit'
 import { h } from 'hastscript'
 
-import type { 
-  BlockContent, 
-  DefinitionContent, 
-  PhrasingContent, 
-  Root 
+import type {
+  BlockContent,
+  DefinitionContent,
+  PhrasingContent,
+  Root
 } from 'mdast';
 
-import type{ Data, CustomVFile, LoaderData, MARKDOWN_MAP, SITE_ROUTES, SectionData, PageMetaData } from '@typing/data';
+import type { Data, CustomVFile, LoaderData, MARKDOWN_MAP, SITE_ROUTES, SectionData, PageMetaData } from '@typing/data';
 
 /**
  * Custom VFile conversion helper.
@@ -55,18 +55,16 @@ function defaultDirectivePlugin() {
       visit(tree, (node) => {
 
         if (node.type === 'root') {
-          // if (node.children.some((child) => 'name' in child && child.name === 'portfolio-block')) {
-            let integer = 1;
-            node.children.forEach((child) => {
-              if (
-                ('name' in child && child.name === 'portfolio-block') &&
-                (child.attributes && 'id' in child.attributes)
-              ) {
-                child.attributes.id = `portfolio-block-${integer}`;
-                integer += 1;
-              }
-            });
-          // }
+          let integer = 1;
+          node.children.forEach((child) => {
+            if (
+              ('name' in child && child.name === 'portfolio-block') &&
+              (child.attributes && 'id' in child.attributes)
+            ) {
+              child.attributes.id = `portfolio-block-${integer}`;
+              integer += 1;
+            }
+          });
         }
 
         if (
@@ -75,7 +73,7 @@ function defaultDirectivePlugin() {
           node.type === 'containerDirective'
         ) {
           const data = node.data || (node.data = {});
-          let attr = node.attributes || {};
+          const attr = node.attributes || {};
 
           if (node.name.toLowerCase().includes('link') || node.name.toLowerCase().includes('button')) {
             let defaultText = node.name.includes("email") ? node.attributes?.href?.split(":")[1] : "";
@@ -107,32 +105,6 @@ function defaultDirectivePlugin() {
             }
           }
 
-          if (node.name === 'themed-icon') {
-            const newAttr: Record<string, string> = {};
-            const themeSources: Record<string, string> = {}
-
-            Object.keys(attr).forEach((key) => {
-
-              const attrName = key.toLowerCase();
-              const attrVal = attr[key];
-
-              if (attrName.includes('theme') && attrName.includes('src')) {
-                if (!attrVal || attrVal.length < 1) return;
-
-                const theme = attrName.replaceAll('-', '')
-                  .replaceAll('theme', '')
-                  .replaceAll('src', '');
-
-                themeSources[theme] = attrVal;
-              } else {
-                newAttr[key] = attrVal;
-              }
-            });
-
-            newAttr['themesrcs'] = JSON.stringify(themeSources);
-            attr = newAttr;
-          }
-
           const hast = h(node.name, attr);
 
           data.hName = hast.tagName;
@@ -162,8 +134,8 @@ async function parseMDToAST(mdRaw: string, plugins: (() => (tree: Root, file?: V
 }
 
 async function parsePageMD(
-  filename: string, 
-  relativePath: string, 
+  filename: string,
+  relativePath: string,
   plugins: (() => (tree: Root, file?: VFile) => void)[] = [defaultDirectivePlugin()]
 ) {
   const processor = unified()
@@ -185,7 +157,7 @@ async function parsePageMD(
       node.type === 'containerDirective'
     ) {
       if (
-        ('name' in node) && 
+        ('name' in node) &&
         ('children' in node) &&
         (pageLayoutMDVFile.data.frontmatter?.['sectionRoot'])
       ) {
@@ -199,7 +171,7 @@ async function parsePageMD(
             typeof textNode.value === 'string' &&
             typeof pageLayoutMDVFile.data.frontmatter['sectionRoot'] === 'string'
           ) {
-            
+
             const sectionName = textNode.value.split('.')[0];
             const sectionMDVFile = toVFile(textNode.value, resolve(relativePath, pageLayoutMDVFile.data.frontmatter['sectionRoot']));
 
@@ -220,9 +192,9 @@ async function parsePageMD(
           node.type = 'containerDirective';
           node.name = 'container';
 
-          
+
           const textNode = node.children.find((childNode) => childNode.type === 'text' && 'value' in childNode);
-          
+
           if (
             textNode &&
             typeof textNode.value === 'string' &&
@@ -284,7 +256,7 @@ export async function markdownPreprocess(mdDirPath: string) {
         label = frontmatter['navLabel'] as string ?? pageName.charAt(0).toUpperCase() + pageName.slice(1).toLowerCase();
         sectOrder = frontmatter['sectionOrder'] as number;
       }
-      
+
       mdMap[pageName] = {
         markdown,
         sectionData

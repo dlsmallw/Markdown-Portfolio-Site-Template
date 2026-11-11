@@ -14,7 +14,7 @@ import { PageSection, InpageNavbar, ComponentRegistry } from '@components';
 
 import styles from './component.module.css';
 
-export const SitePage: React.FC<{ id?: string }> = ({ id }) => {
+export const SitePage: React.FC<{ id: string }> = ({ id }) => {
     const context = useOutletContext<AppDataContextType>();
 
     const pageProps = context[id] as PageDataProps;
@@ -64,7 +64,15 @@ export const SitePage: React.FC<{ id?: string }> = ({ id }) => {
         }
 
         if (pageProps && pageData && pageData.sectionData.length > 0) {
-            setSidebarContent(<InpageNavbar className={styles.sideNavbar} sectionState={pageProps.sectionState} sections={pageData.sectionData} targetSectionRef={targetSectionRef} handleScroll={handleScroll} />);
+            setSidebarContent(
+                <InpageNavbar 
+                    className={styles.sideNavbar} 
+                    sectionState={pageProps.sectionState} 
+                    sections={pageData.sectionData} 
+                    targetSectionRef={targetSectionRef} 
+                    handleScroll={handleScroll} 
+                />
+            );
         } else {
             setSidebarContent(null);
         }

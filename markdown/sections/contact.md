@@ -11,8 +11,8 @@ I'm always interested in opportunities to build useful software, solve interesti
 :::buttons-container
 
 ::email-button-preset{ href="mailto:john.doe@example.com" }
-::github-button-preset{ href="https://github.com/johndoe" }
-::linkedin-button-preset{ href="https://linkedin.com/in/johndoe" }
+::linkedin-button-preset{ href="https://linkedin.com/" }
+::github-button-preset{ href="https://github.com/" }
 ::resume-preview-button{ href="/resume/example_resume.pdf" }
 
 :::

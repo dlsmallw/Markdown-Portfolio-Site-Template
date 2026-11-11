@@ -21,7 +21,7 @@ const LocalSVG: React.FC<SVGComponentProps> = ({ ref, ...props }) => {
             .then((module) => {
                 if (!cancelled) {
                     setLoadedSVG({
-                        src: props.src,
+                        src: props.src ?? '',
                         component: module.default as React.ComponentType<SVGComponentProps>
                     });
                     setFailedSrc(null);
@@ -29,7 +29,7 @@ const LocalSVG: React.FC<SVGComponentProps> = ({ ref, ...props }) => {
             })
             .catch((error) => {
                 console.error(`Failed to load SVG Image: ${props.src}`, error);
-                if (!cancelled) setFailedSrc(props.src);
+                if (!cancelled) setFailedSrc(props.src ?? null);
             });
 
         return () => {
@@ -37,7 +37,7 @@ const LocalSVG: React.FC<SVGComponentProps> = ({ ref, ...props }) => {
         };
     }, [props.src]);
 
-    const SVGImage = loadedSVG?.src === props.src ? loadedSVG.component : null;
+    const SVGImage = loadedSVG ? (loadedSVG.src === props.src ? loadedSVG.component : null) : null;
 
     if (failedSrc === props.src) return <ErrorFallback {...props} />;
     if (!SVGImage) return <LoadingFallback {...props} />;
@@ -49,11 +49,10 @@ const LocalSVG: React.FC<SVGComponentProps> = ({ ref, ...props }) => {
 
 const SVGComponent = React.memo(function SVGComponentInner(props: SVGComponentProps) {
     const { src } = props;
-    const isURL = () => URL.canParse(src);
 
     return (
         <>
-            {isURL() ? (
+            {src && URL.canParse(src) ? (
                 <SVG 
                     {...(props as unknown as React.ComponentProps<typeof SVG>)}
                     innerRef={(element) => {

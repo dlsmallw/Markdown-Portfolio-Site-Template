@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import type { Components } from "react-markdown";
 
 interface PageSectionProps extends HTMLAttributes<HTMLDivElement> {
-    scrollRef: React.RefObject<HTMLDivElement | null>;
+    scrollRef?: React.RefObject<HTMLDivElement | null>;
     lastSection: boolean;
 }
 

@@ -53,7 +53,7 @@ export async function appDataLoader() {
  */
 export function usePageStateContainer({ sectionData, markdown }: LoaderData): PageDataProps {
   const [scrollPos, setScrollPos] = useState<number>(0);
-  const [sectionState, setSectionState] = useState<string | null>(null)
+  const [sectionState, setSectionState] = useState<string | null>(sectionData[0].id ?? null);
   const pageData = { sectionData, markdown };
 
   return { scrollPos, setScrollPos, sectionState, setSectionState, pageData };

@@ -1,8 +1,8 @@
 import { type HTMLAttributes, useState, useRef, useEffect, useLayoutEffect } from "react";
 
 export interface ScrollWrapperProps extends HTMLAttributes<HTMLDivElement> {
-    scrollPos?: number;
-    setScrollPos?: React.Dispatch<React.SetStateAction<number>>;
+    scrollPos: number;
+    setScrollPos: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const ScrollWrapper: React.FC<ScrollWrapperProps> = ({ scrollPos, setScrollPos, ...props }) => {
@@ -17,7 +17,8 @@ const ScrollWrapper: React.FC<ScrollWrapperProps> = ({ scrollPos, setScrollPos, 
 
     useEffect(() => {
         return () => {
-            setScrollPos(scrollStateRef.current);
+            if (scrollStateRef.current) 
+                setScrollPos(scrollStateRef.current);
         }
     }, [setScrollPos]);
 

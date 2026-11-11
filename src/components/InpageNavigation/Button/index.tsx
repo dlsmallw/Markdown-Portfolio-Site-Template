@@ -18,13 +18,14 @@ const InpageNavButton: React.FC<InpageNavButtonProps> = ({ isActive, ...props })
             }} 
         >
             <button 
-                className={styles.inpageNavButton}
+                {...props} 
+                className={`${styles.inpageNavButton} ${props.className ?? ''}`}
                 onMouseEnter={() => setIsHovered(true)} 
                 onMouseLeave={() => setIsHovered(false)} 
                 style={{
                     transform: isActive ? 'translateX(-4px)' : 'none',
                 }}
-                {...props} 
+                
             />
         </div>
         

@@ -77,7 +77,7 @@ export function useIsWrapped() {
  * @param options           Options that mutate the algorithms logic for determining the current section.
  * @returns                 The current active section the user is at.
  */
-export function useScrollSpy(sectionState: string | null, sectionIDs: string[], options?: IntersectionObserverInit): string | null { 
+export function useScrollSpy(sectionIDs: string[], sectionState?: string, options?: IntersectionObserverInit): string | null { 
     const [activeSection, setActiveSection] = useState<string | null>(sectionState || sectionIDs[0] || null);
     const visibleSections = useRef<Record<string, boolean>>({});
 

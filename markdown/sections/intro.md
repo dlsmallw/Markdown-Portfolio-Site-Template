@@ -25,8 +25,8 @@ Outside of writing code, I enjoy learning new technologies, working on personal 
 :::links-container
 
 ::email-link-preset{ href="mailto:john.doe@example.com" }
-::linkedin-link-preset{ href="https://linkedin.com/in/johndoe" }
-::github-link-preset{ href="https://github.com/johndoe" }
+::linkedin-link-preset{ href="https://linkedin.com/" }
+::github-link-preset{ href="https://github.com/" }
 ::resume-preview-link{ href="/resume/example_resume.pdf" }
 
 :::

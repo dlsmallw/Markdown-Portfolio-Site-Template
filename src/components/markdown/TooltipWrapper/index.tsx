@@ -44,12 +44,12 @@ export const TooltipWrapper: React.FC<TooltipWrapperProps> = ({ shown, setShown,
 
     const tooltipText = React.Children.toArray(props.children).find((child) => (
         React.isValidElement(child) && 
-        child.key.includes('tooltip-text')
+        child.key?.includes('tooltip-text')
     ));
 
     const children = React.Children.toArray(props.children).filter((child) => (
         React.isValidElement(child) && 
-        !child.key.includes('tooltip-text')
+        !child.key?.includes('tooltip-text')
     ));
 
     useEffect(() => {
@@ -66,15 +66,16 @@ export const TooltipWrapper: React.FC<TooltipWrapperProps> = ({ shown, setShown,
         }
 
         // Logic for handling scroll events
-        const handleScroll = (e: PointerEvent) => {
-            const inputType = e.pointerType;
+        const handleScroll = (e: Event) => {
+            const pointerEvent = e as PointerEvent;
+            const inputType = pointerEvent.pointerType;
 
             const element = contentRef.current;
             if (!element) return;
 
             const rect = element.getBoundingClientRect();
-            const x = e.clientX;
-            const y = e.clientY;
+            const x = pointerEvent.clientX;
+            const y = pointerEvent.clientY;
 
             const stillHovering = 
                 x >= rect.left &&

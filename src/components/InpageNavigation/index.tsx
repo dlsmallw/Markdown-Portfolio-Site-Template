@@ -12,19 +12,18 @@ const OBSERVER_OPTIONS = {
 };
 
 interface InpageNavbarProps extends HTMLAttributes<HTMLDivElement> {
-    sectionState: string;
+    sectionState: string | null;
     sections: SectionData[];
     targetSectionRef: React.RefObject<string | null>;
-    handleScroll: (sectionRef: React.RefObject<HTMLDivElement | null> | undefined) => void;
-    onBtnPress?: (section: SectionData) => void;
+    handleScroll: (sectionRef: React.RefObject<HTMLDivElement | null>) => void;
 }
 
 const InpageNavbar: React.FC<InpageNavbarProps> = ({ sectionState, sections, targetSectionRef, handleScroll, ...props }) => {
     const activeSection = useScrollSpy(
-        sectionState, 
         sections?.map((section) => {
             return section.id;
         }), 
+        sectionState ?? undefined, 
         OBSERVER_OPTIONS
     );
 
@@ -46,7 +45,7 @@ const InpageNavbar: React.FC<InpageNavbarProps> = ({ sectionState, sections, tar
                             key={`${section.id}-nav-btn`}
                             isActive={isActive}  
                             onClick={() => {
-                                handleScroll(section.ref);
+                                if (section.ref) handleScroll(section.ref);
                             }}
                         >
                             {section.navLabel}
